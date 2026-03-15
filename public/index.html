@@ -1308,8 +1308,11 @@ section#projects { width: 100%; padding: 80px 0; position: relative; }
 .projects-frame.freeze { transition: none !important; }
 
 .portfolio-dots { display: none; }
+.next-btn-text { display: none; }
 
 @media (max-width: 1024px) {
+  .next-btn-arrow { display: none; }
+  .next-btn-text { display: inline; }
   .projects-container { padding: 0 15px; }
   .projects-intro { margin-bottom: 20px; }
   section#projects { padding: 60px 0 40px; }
@@ -1356,15 +1359,43 @@ section#projects { width: 100%; padding: 80px 0; position: relative; }
   .left-info p { font-size: 0.9rem; line-height: 1.5; }
   .view-btn { align-self: flex-start; margin-bottom: 0; }
 
-  /* Hide button on mobile, use swipe + dots instead */
-  .next-btn { display: none; }
+  /* Subtle next bar on mobile */
+  .next-btn {
+    position: absolute;
+    top: calc(80px + 520px + 12px);
+    left: 50%;
+    transform: translateX(-50%);
+    right: auto; bottom: auto;
+    width: 140px; height: 40px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    z-index: 15;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: rgba(34, 211, 238, 0.08);
+    border: 1px solid rgba(34, 211, 238, 0.25);
+    color: var(--brand);
+    backdrop-filter: blur(10px);
+    box-shadow: none;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+  }
+  .next-btn:hover {
+    transform: translateX(-50%) scale(1.02);
+    background: rgba(34, 211, 238, 0.15);
+    border-color: rgba(34, 211, 238, 0.4);
+  }
 
   .portfolio-dots {
     display: flex;
     justify-content: center;
     gap: 10px;
     position: absolute;
-    top: calc(80px + 520px + 15px);
+    top: calc(80px + 520px + 62px);
     left: 0; right: 0;
     z-index: 15;
   }
@@ -1401,7 +1432,8 @@ section#projects { width: 100%; padding: 80px 0; position: relative; }
   .left-info p { font-size: 0.85rem; }
   .subtitle { font-size: 0.9rem; }
   .view-btn { padding: 10px 24px; font-size: 0.9rem; }
-  .portfolio-dots { top: calc(70px + 460px + 12px); }
+  .next-btn { top: calc(70px + 460px + 10px); width: 120px; height: 36px; font-size: 0.7rem; }
+  .portfolio-dots { top: calc(70px + 460px + 55px); }
 }
 
 .preview-overlay { position: fixed; inset: 0; background: rgba(2, 20, 24, 0.55); backdrop-filter: blur(14px); display: flex; justify-content: center; align-items: center; z-index: 9999; opacity: 0; pointer-events: none; transition: opacity 0.4s ease; }
@@ -1501,7 +1533,7 @@ section#projects { width: 100%; padding: 80px 0; position: relative; }
           <div class="right-preview"><div class="preview-box"><img src="assets/Portfolio/TravelCollection/Screenshot 2026-03-14 at 00.41.11.png" loading="lazy" alt="TravelCollection Preview"></div></div>
         </div>
       </div>
-      <button class="next-btn">➜</button>
+      <button class="next-btn"><span class="next-btn-arrow">➜</span><span class="next-btn-text">Next ↓</span></button>
       <div class="portfolio-dots" id="portfolioDots"></div>
     </div>
     
