@@ -56,7 +56,16 @@ app.post('/api/chat', async (req, res) => {
 });
 
 // Serve static files from public/
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public'), { extensions: ['html'] }));
+
+// Redirect .html URLs to clean URLs for SEO (301 permanent redirect)
+app.use((req, res, next) => {
+  if (req.path.endsWith('.html')) {
+    const clean = req.path === '/index.html' ? '/' : req.path.slice(0, -5);
+    return res.redirect(301, clean);
+  }
+  next();
+});
 
 app.listen(PORT, () => {
   console.log(`Tavira Digital running on port ${PORT}`);
