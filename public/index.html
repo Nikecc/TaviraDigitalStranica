@@ -546,7 +546,9 @@
 
     /* INTRO */
     #intro {
-      position: fixed; inset: 0; background: #000; z-index: 9999;
+      position: fixed; inset: 0;
+      background: linear-gradient(135deg, #093440 0%, #020617 40%, #020617 100%);
+      z-index: 9999;
       display: flex; align-items: center; justify-content: center;
       overflow: hidden;
     }
@@ -562,10 +564,10 @@
       opacity: 0; transform: scale(0.95);
       transition: opacity 0.6s ease, transform 0.6s ease;
     }
-    .brand-loader.visible { opacity: 1; transform: scale(1); }
+    .brand-loader.visible { opacity: 1; transform: scale(1); transition: opacity 1s ease, transform 1s ease; }
     .brand-loader.scatter {
-      opacity: 0; transform: scale(1.15);
-      transition: opacity 0.7s ease, transform 0.7s cubic-bezier(.4,0,.2,1);
+      opacity: 0; transform: scale(1.1);
+      transition: opacity 1.2s ease, transform 1.2s cubic-bezier(.4,0,.2,1);
     }
   </style>
 </head>
@@ -2636,10 +2638,10 @@ document.addEventListener("DOMContentLoaded", () => {
     particles.push({
       x: Math.random() * W,
       y: Math.random() * H,
-      r: Math.random() * 1.8 + 0.4,
-      vx: (Math.random() - 0.5) * 0.3,
-      vy: (Math.random() - 0.5) * 0.3,
-      alpha: Math.random() * 0.4 + 0.1,
+      r: Math.random() * 1.6 + 0.3,
+      vx: (Math.random() - 0.5) * 0.15,
+      vy: (Math.random() - 0.5) * 0.15,
+      alpha: Math.random() * 0.35 + 0.08,
       scatterVx: 0,
       scatterVy: 0,
       scatterAlpha: 1
@@ -2651,7 +2653,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const dx = p.x - W / 2;
     const dy = p.y - H / 2;
     const dist = Math.sqrt(dx * dx + dy * dy) || 1;
-    const speed = 8 + Math.random() * 12;
+    const speed = 4 + Math.random() * 6;
     p.scatterVx = (dx / dist) * speed;
     p.scatterVy = (dy / dist) * speed;
   });
@@ -2665,12 +2667,12 @@ document.addEventListener("DOMContentLoaded", () => {
       if (scattering) {
         p.x += p.scatterVx;
         p.y += p.scatterVy;
-        p.scatterAlpha *= 0.96;
+        p.scatterAlpha *= 0.98;
         ctx.globalAlpha = p.alpha * p.scatterAlpha;
       } else {
         // Idle floating with subtle sine drift
-        p.x += p.vx + Math.sin(elapsed * 0.001 + p.y * 0.01) * 0.15;
-        p.y += p.vy + Math.cos(elapsed * 0.001 + p.x * 0.01) * 0.15;
+        p.x += p.vx + Math.sin(elapsed * 0.0006 + p.y * 0.008) * 0.1;
+        p.y += p.vy + Math.cos(elapsed * 0.0006 + p.x * 0.008) * 0.1;
         // Wrap around edges
         if (p.x < -10) p.x = W + 10;
         if (p.x > W + 10) p.x = -10;
@@ -2680,13 +2682,13 @@ document.addEventListener("DOMContentLoaded", () => {
       }
       ctx.beginPath();
       ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-      ctx.fillStyle = "#fff";
+      ctx.fillStyle = "rgba(34, 211, 238, 0.8)";
       ctx.fill();
     });
 
     // Draw subtle connecting lines between nearby particles
     if (!scattering) {
-      ctx.strokeStyle = "rgba(255,255,255,0.03)";
+      ctx.strokeStyle = "rgba(34, 211, 238, 0.04)";
       ctx.lineWidth = 0.5;
       for (let i = 0; i < particles.length; i++) {
         for (let j = i + 1; j < particles.length; j++) {
@@ -2708,22 +2710,22 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   draw();
 
-  // Timeline: show text at 300ms, scatter at 2000ms, remove at 2800ms
-  setTimeout(() => brandLoader.classList.add("visible"), 300);
+  // Timeline: show text at 500ms, scatter at 3000ms, remove at 4500ms
+  setTimeout(() => brandLoader.classList.add("visible"), 500);
 
   function triggerScatter() {
     scattering = true;
     brandLoader.classList.add("scatter");
-    intro.style.transition = "opacity 0.7s ease 0.3s";
+    intro.style.transition = "opacity 1s ease 0.5s";
     intro.style.opacity = "0";
     setTimeout(() => {
       cancelAnimationFrame(animId);
       intro.remove();
-    }, 1000);
+    }, 1500);
   }
 
-  window.addEventListener("load", () => { setTimeout(triggerScatter, 2000); });
-  setTimeout(triggerScatter, 4000); // failsafe
+  window.addEventListener("load", () => { setTimeout(triggerScatter, 3000); });
+  setTimeout(triggerScatter, 5000); // failsafe
 })();
 </script>
 
