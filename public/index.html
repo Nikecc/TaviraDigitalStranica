@@ -1307,6 +1307,8 @@ section#projects { width: 100%; padding: 80px 0; position: relative; }
 .swipe-out { animation: flyOutRight 0.7s ease forwards; z-index: 10; pointer-events: none; position: absolute !important; }
 .projects-frame.freeze { transition: none !important; }
 
+.portfolio-dots { display: none; }
+
 @media (max-width: 1024px) {
   .projects-container { padding: 0 15px; }
   .projects-intro { margin-bottom: 20px; }
@@ -1354,20 +1356,32 @@ section#projects { width: 100%; padding: 80px 0; position: relative; }
   .left-info p { font-size: 0.9rem; line-height: 1.5; }
   .view-btn { align-self: flex-start; margin-bottom: 0; }
 
-  /* Arrow button at bottom of active card */
-  .next-btn {
-    position: absolute;
-    top: calc(80px + 520px - 55px);
-    left: 50%;
-    transform: translateX(-50%) rotate(90deg);
-    right: auto; bottom: auto;
-    width: 50px; height: 50px; font-size: 1.2rem;
-    z-index: 15;
+  /* Hide button on mobile, use swipe + dots instead */
+  .next-btn { display: none; }
+
+  .portfolio-dots {
     display: flex;
-    align-items: center;
     justify-content: center;
+    gap: 10px;
+    position: absolute;
+    top: calc(80px + 520px + 15px);
+    left: 0; right: 0;
+    z-index: 15;
   }
-  .next-btn:hover { transform: translateX(-50%) rotate(90deg) scale(1.1); }
+  .portfolio-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: rgba(34, 211, 238, 0.2);
+    border: 1px solid rgba(34, 211, 238, 0.4);
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  .portfolio-dot.active {
+    background: var(--brand);
+    box-shadow: 0 0 8px rgba(34, 211, 238, 0.5);
+    width: 28px;
+    border-radius: 5px;
+  }
 
   section#projects .process-cta { margin-top: 40px !important; padding-bottom: 10px !important; }
 
@@ -1387,7 +1401,7 @@ section#projects { width: 100%; padding: 80px 0; position: relative; }
   .left-info p { font-size: 0.85rem; }
   .subtitle { font-size: 0.9rem; }
   .view-btn { padding: 10px 24px; font-size: 0.9rem; }
-  .next-btn { top: calc(70px + 460px - 50px); }
+  .portfolio-dots { top: calc(70px + 460px + 12px); }
 }
 
 .preview-overlay { position: fixed; inset: 0; background: rgba(2, 20, 24, 0.55); backdrop-filter: blur(14px); display: flex; justify-content: center; align-items: center; z-index: 9999; opacity: 0; pointer-events: none; transition: opacity 0.4s ease; }
@@ -1488,6 +1502,7 @@ section#projects { width: 100%; padding: 80px 0; position: relative; }
         </div>
       </div>
       <button class="next-btn">➜</button>
+      <div class="portfolio-dots" id="portfolioDots"></div>
     </div>
     
     <div class="process-cta" style="margin-top: 60px; padding-bottom: 20px;">
@@ -1594,11 +1609,25 @@ document.addEventListener("DOMContentLoaded", () => {
     frames[(current + 2) % frames.length].classList.add("behind");
   }
 
-  nextBtn.addEventListener("click", () => {
+  // Generate dots
+  const dotsContainer = document.getElementById("portfolioDots");
+  frames.forEach((_, i) => {
+    const dot = document.createElement("div");
+    dot.className = "portfolio-dot" + (i === 0 ? " active" : "");
+    dot.addEventListener("click", () => goToSlide(i));
+    dotsContainer.appendChild(dot);
+  });
+
+  function updateDots() {
+    dotsContainer.querySelectorAll(".portfolio-dot").forEach((d, i) => {
+      d.classList.toggle("active", i === current);
+    });
+  }
+
+  function goNext() {
     const active = frames[current];
     const nextFrame = frames[(current + 1) % frames.length];
     frames.forEach(f => f.classList.add("freeze"));
-    // Remove clip-path on next frame before animation so it's fully visible immediately
     nextFrame.style.clipPath = 'none';
     nextFrame.style.pointerEvents = 'auto';
     active.classList.add("swipe-out");
@@ -1608,9 +1637,30 @@ document.addEventListener("DOMContentLoaded", () => {
       nextFrame.style.pointerEvents = '';
       current = (current + 1) % frames.length;
       updateFrames();
+      updateDots();
       frames.forEach(f => f.classList.remove("freeze"));
     }, { once: true });
-  });
+  }
+
+  function goToSlide(idx) {
+    if (idx === current) return;
+    current = idx;
+    updateFrames();
+    updateDots();
+  }
+
+  nextBtn.addEventListener("click", goNext);
+
+  // Swipe support for mobile
+  let touchStartY = 0;
+  const sliderEl = document.querySelector(".slider-container");
+  sliderEl.addEventListener("touchstart", (e) => {
+    touchStartY = e.touches[0].clientY;
+  }, { passive: true });
+  sliderEl.addEventListener("touchend", (e) => {
+    const diff = touchStartY - e.changedTouches[0].clientY;
+    if (diff > 50) goNext(); // swipe up = next
+  }, { passive: true });
 
   updateFrames();
 
