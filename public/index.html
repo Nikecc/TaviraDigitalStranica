@@ -1309,6 +1309,7 @@ section#projects { width: 100%; padding: 80px 0; position: relative; }
 
 .portfolio-dots { display: none; }
 .next-btn-text { display: none; }
+.mobile-next-arrow { display: none; }
 
 @media (max-width: 1024px) {
   .next-btn-arrow { display: none; }
@@ -1359,59 +1360,33 @@ section#projects { width: 100%; padding: 80px 0; position: relative; }
   .left-info p { font-size: 0.9rem; line-height: 1.5; }
   .view-btn { align-self: flex-start; margin-bottom: 0; }
 
-  /* Subtle next bar on mobile */
-  .next-btn {
+  /* Hide default next button and dots on mobile */
+  .next-btn { display: none; }
+  .portfolio-dots { display: none; }
+
+  /* Next arrow inside active card - bottom right */
+  .projects-frame .mobile-next-arrow { display: flex; }
+  .mobile-next-arrow {
     position: absolute;
-    top: calc(80px + 520px + 12px);
-    left: 50%;
-    transform: translateX(-50%);
-    right: auto; bottom: auto;
-    width: 140px; height: 40px;
-    border-radius: 20px;
-    font-size: 0.75rem;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    z-index: 15;
-    display: flex;
+    bottom: 20px;
+    right: 20px;
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    background: rgba(34, 211, 238, 0.1);
+    border: 1px solid rgba(34, 211, 238, 0.3);
+    color: var(--brand);
+    font-size: 1.1rem;
+    cursor: pointer;
+    z-index: 10;
     align-items: center;
     justify-content: center;
-    gap: 8px;
-    background: rgba(34, 211, 238, 0.08);
-    border: 1px solid rgba(34, 211, 238, 0.25);
-    color: var(--brand);
-    backdrop-filter: blur(10px);
-    box-shadow: none;
-    font-family: 'Inter', sans-serif;
-    font-weight: 600;
-  }
-  .next-btn:hover {
-    transform: translateX(-50%) scale(1.02);
-    background: rgba(34, 211, 238, 0.15);
-    border-color: rgba(34, 211, 238, 0.4);
-  }
-
-  .portfolio-dots {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    position: absolute;
-    top: calc(80px + 520px + 62px);
-    left: 0; right: 0;
-    z-index: 15;
-  }
-  .portfolio-dot {
-    width: 10px; height: 10px;
-    border-radius: 50%;
-    background: rgba(34, 211, 238, 0.2);
-    border: 1px solid rgba(34, 211, 238, 0.4);
-    cursor: pointer;
+    backdrop-filter: blur(8px);
     transition: all 0.3s ease;
   }
-  .portfolio-dot.active {
-    background: var(--brand);
-    box-shadow: 0 0 8px rgba(34, 211, 238, 0.5);
-    width: 28px;
-    border-radius: 5px;
+  .mobile-next-arrow:hover, .mobile-next-arrow:active {
+    background: rgba(34, 211, 238, 0.2);
+    border-color: rgba(34, 211, 238, 0.5);
+    transform: scale(1.08);
   }
 
   section#projects .process-cta { margin-top: 40px !important; padding-bottom: 10px !important; }
@@ -1432,8 +1407,7 @@ section#projects { width: 100%; padding: 80px 0; position: relative; }
   .left-info p { font-size: 0.85rem; }
   .subtitle { font-size: 0.9rem; }
   .view-btn { padding: 10px 24px; font-size: 0.9rem; }
-  .next-btn { top: calc(70px + 460px + 10px); width: 120px; height: 36px; font-size: 0.7rem; }
-  .portfolio-dots { top: calc(70px + 460px + 55px); }
+  .mobile-next-arrow { bottom: 14px; right: 14px; width: 40px; height: 40px; font-size: 1rem; }
 }
 
 .preview-overlay { position: fixed; inset: 0; background: rgba(2, 20, 24, 0.55); backdrop-filter: blur(14px); display: flex; justify-content: center; align-items: center; z-index: 9999; opacity: 0; pointer-events: none; transition: opacity 0.4s ease; }
@@ -1477,6 +1451,7 @@ section#projects { width: 100%; padding: 80px 0; position: relative; }
           </div>
           <div class="right-preview"><div class="preview-box"><img src="assets/Portfolio/VillaNeoma/Screenshot 2026-03-12 at 19.41.23.png" loading="lazy" alt="Villa Neoma Preview"></div></div>
         </div>
+        <button class="mobile-next-arrow">↓</button>
       </div>
       <div class="projects-frame next">
         <div class="projects-wrapper">
@@ -1488,6 +1463,7 @@ section#projects { width: 100%; padding: 80px 0; position: relative; }
           </div>
           <div class="right-preview"><div class="preview-box"><img src="assets/Portfolio/EukaliptusCollage2.png" loading="lazy" alt="Preview"></div></div>
         </div>
+        <button class="mobile-next-arrow">↓</button>
       </div>
       <div class="projects-frame behind">
         <div class="projects-wrapper">
@@ -1499,6 +1475,7 @@ section#projects { width: 100%; padding: 80px 0; position: relative; }
           </div>
           <div class="right-preview"><div class="preview-box"><img src="assets/Portfolio/Forme1.png" loading="lazy" alt="Preview"></div></div>
         </div>
+        <button class="mobile-next-arrow">↓</button>
       </div>
       <div class="projects-frame">
         <div class="projects-wrapper">
@@ -1510,6 +1487,7 @@ section#projects { width: 100%; padding: 80px 0; position: relative; }
           </div>
           <div class="right-preview"><div class="preview-box"><img src="assets/Portfolio/AutomehanicarMalesevic/Screenshot 2026-03-14 at 11.41.05.png" loading="lazy" alt="Malešević Auto Servis Preview"></div></div>
         </div>
+        <button class="mobile-next-arrow">↓</button>
       </div>
       <div class="projects-frame">
         <div class="projects-wrapper">
@@ -1521,6 +1499,7 @@ section#projects { width: 100%; padding: 80px 0; position: relative; }
           </div>
           <div class="right-preview"><div class="preview-box"><img src="assets/Portfolio/MalesBarbershop/Screenshot 2026-03-14 at 00.08.21.png" loading="lazy" alt="Male's Barbershop Preview"></div></div>
         </div>
+        <button class="mobile-next-arrow">↓</button>
       </div>
       <div class="projects-frame">
         <div class="projects-wrapper">
@@ -1532,6 +1511,7 @@ section#projects { width: 100%; padding: 80px 0; position: relative; }
           </div>
           <div class="right-preview"><div class="preview-box"><img src="assets/Portfolio/TravelCollection/Screenshot 2026-03-14 at 00.41.11.png" loading="lazy" alt="TravelCollection Preview"></div></div>
         </div>
+        <button class="mobile-next-arrow">↓</button>
       </div>
       <button class="next-btn"><span class="next-btn-arrow">➜</span><span class="next-btn-text">Next ↓</span></button>
       <div class="portfolio-dots" id="portfolioDots"></div>
@@ -1682,6 +1662,11 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   nextBtn.addEventListener("click", goNext);
+
+  // Mobile next arrows inside cards
+  document.querySelectorAll(".mobile-next-arrow").forEach(btn => {
+    btn.addEventListener("click", (e) => { e.stopPropagation(); goNext(); });
+  });
 
   // Swipe support for mobile
   let touchStartY = 0;
