@@ -1330,6 +1330,8 @@ section#projects { width: 100%; padding: 80px 0; position: relative; }
     position: absolute;
     width: calc(100% - 20px);
     top: 0;
+    height: 520px;
+    overflow: hidden;
     transition: all 0.8s cubic-bezier(.4,0,.2,1);
     opacity: 0;
     pointer-events: none;
@@ -1375,7 +1377,7 @@ section#projects { width: 100%; padding: 80px 0; position: relative; }
 @media (max-width: 480px) {
   .projects-title { font-size: clamp(24px, 7vw, 36px); }
   .slider-container { min-height: 560px; }
-  .projects-frame { padding: 18px 14px; border-radius: 20px; }
+  .projects-frame { padding: 18px 14px; border-radius: 20px; height: 460px; }
   .projects-frame.behind { clip-path: inset(0 0 calc(100% - 35px) 0 round 20px); }
   .projects-frame.next { transform: translateY(35px) scale(0.97); clip-path: inset(0 0 calc(100% - 35px) 0 round 20px); }
   .projects-frame.active { transform: translateY(70px) scale(1); }
@@ -1592,10 +1594,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
   nextBtn.addEventListener("click", () => {
     const active = frames[current];
+    const nextFrame = frames[(current + 1) % frames.length];
     frames.forEach(f => f.classList.add("freeze"));
+    // Remove clip-path on next frame before animation so it's fully visible immediately
+    nextFrame.style.clipPath = 'none';
+    nextFrame.style.pointerEvents = 'auto';
     active.classList.add("swipe-out");
     active.addEventListener("animationend", () => {
       active.classList.remove("swipe-out");
+      nextFrame.style.clipPath = '';
+      nextFrame.style.pointerEvents = '';
       current = (current + 1) % frames.length;
       updateFrames();
       frames.forEach(f => f.classList.remove("freeze"));
