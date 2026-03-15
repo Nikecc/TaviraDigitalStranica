@@ -738,9 +738,17 @@
   <div class="samsung-container">
     <div class="samsung-left fade-up">
       <div class="css-phone">
-        <video autoplay muted loop playsinline class="perf-video">
+        <video autoplay muted loop playsinline preload="auto" class="perf-video" id="galaxyVideo">
           <source src="assets/video/GalaxyHeroes.mp4" type="video/mp4">
         </video>
+        <script>
+        (function(){
+          var v = document.getElementById('galaxyVideo');
+          v.addEventListener('suspend', function(){ v.play(); });
+          v.addEventListener('stalled', function(){ v.load(); v.play(); });
+          setInterval(function(){ if(v.paused && v.readyState >= 2) v.play(); }, 2000);
+        })();
+        </script>
       </div>
     </div>
     <div class="samsung-right fade-up">
