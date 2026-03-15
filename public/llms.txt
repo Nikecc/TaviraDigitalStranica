@@ -4,16 +4,16 @@
 
 ## Usluge
 
-- [Web Design & UX](https://tavira.digital/services.html): Premium UI dizajn, UX arhitektura, responzivne i SEO-optimizirane web stranice
-- [Web Development](https://tavira.digital/services.html): Custom front-end i back-end rješenja, performance optimizacija, API integracije
-- [Digital Marketing](https://tavira.digital/services.html): Google Ads, Meta kampanje, SEO, funnel optimizacija, A/B testiranje, analitika
-- [Brand Identity](https://tavira.digital/services.html): Brand strategija, vizualni identitet, logo dizajn, brand guidelines
-- [Social Media Marketing](https://tavira.digital/services.html): Strategija sadržaja, vizualni identitet za društvene mreže, kontinuirani rast
-- [App & Game Development](https://tavira.digital/satelites.html): Unity/Unreal development, backend API, UI animacije
+- [Web Design & UX](https://taviradigital.com/services.html): Premium UI dizajn, UX arhitektura, responzivne i SEO-optimizirane web stranice
+- [Web Development](https://taviradigital.com/services.html): Custom front-end i back-end rješenja, performance optimizacija, API integracije
+- [Digital Marketing](https://taviradigital.com/services.html): Google Ads, Meta kampanje, SEO, funnel optimizacija, A/B testiranje, analitika
+- [Brand Identity](https://taviradigital.com/services.html): Brand strategija, vizualni identitet, logo dizajn, brand guidelines
+- [Social Media Marketing](https://taviradigital.com/services.html): Strategija sadržaja, vizualni identitet za društvene mreže, kontinuirani rast
+- [App & Game Development](https://taviradigital.com/satelites.html): Unity/Unreal development, backend API, UI animacije
 
 ## Kontakt
 
-- Web: https://tavira.digital
+- Web: https://taviradigital.com
 - Email: info@taviradigital.com
 - Telefon: +385 91 389 7456
 - Instagram: https://www.instagram.com/taviradigital
@@ -26,17 +26,17 @@ Tavira Digital kombinira vrhunski dizajn s data-driven marketingom. Svaki projek
 
 ## Blog — Stručni članci
 
-- [Kako odabrati digitalnu agenciju u 2026](https://tavira.digital/blog/kako-odabrati-digitalnu-agenciju.html): Kompletni vodič za odabir prave digitalne agencije
-- [Koliko košta izrada web stranice u Hrvatskoj](https://tavira.digital/blog/koliko-kosta-izrada-web-stranice.html): Detaljan pregled cijena i faktora
-- [5 grešaka koje tvrtke rade s digitalnim marketingom](https://tavira.digital/blog/greske-digitalni-marketing.html): Najčešće zamke i kako ih izbjeći
-- [Zašto vam treba SEO optimizacija](https://tavira.digital/blog/zasto-treba-seo-optimizacija.html): Sve o SEO-u — tehnički, on-page i off-page
-- [Branding za male tvrtke](https://tavira.digital/blog/branding-za-male-tvrtke.html): Zašto je vizualni identitet bitan za svaki biznis
-- [Google Ads vs Meta Ads](https://tavira.digital/blog/google-ads-vs-meta-ads.html): Usporedba platformi i kada koristiti koju
+- [Kako odabrati digitalnu agenciju u 2026](https://taviradigital.com/blog/kako-odabrati-digitalnu-agenciju.html): Kompletni vodič za odabir prave digitalne agencije
+- [Koliko košta izrada web stranice u Hrvatskoj](https://taviradigital.com/blog/koliko-kosta-izrada-web-stranice.html): Detaljan pregled cijena i faktora
+- [5 grešaka koje tvrtke rade s digitalnim marketingom](https://taviradigital.com/blog/greske-digitalni-marketing.html): Najčešće zamke i kako ih izbjeći
+- [Zašto vam treba SEO optimizacija](https://taviradigital.com/blog/zasto-treba-seo-optimizacija.html): Sve o SEO-u — tehnički, on-page i off-page
+- [Branding za male tvrtke](https://taviradigital.com/blog/branding-za-male-tvrtke.html): Zašto je vizualni identitet bitan za svaki biznis
+- [Google Ads vs Meta Ads](https://taviradigital.com/blog/google-ads-vs-meta-ads.html): Usporedba platformi i kada koristiti koju
 
 ## Stranice
 
-- [Početna](https://tavira.digital/)
-- [Usluge](https://tavira.digital/services.html)
-- [Sve usluge](https://tavira.digital/satelites.html)
-- [Blog](https://tavira.digital/blog.html)
-- [Kontakt](https://tavira.digital/kontakt.html)
+- [Početna](https://taviradigital.com/)
+- [Usluge](https://taviradigital.com/services.html)
+- [Sve usluge](https://taviradigital.com/satelites.html)
+- [Blog](https://taviradigital.com/blog.html)
+- [Kontakt](https://taviradigital.com/kontakt.html)

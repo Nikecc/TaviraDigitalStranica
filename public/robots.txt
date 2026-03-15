@@ -1,7 +1,7 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://tavira.digital/sitemap.xml
+Sitemap: https://taviradigital.com/sitemap.xml
 
 # Allow all AI crawlers
 User-agent: GPTBot
