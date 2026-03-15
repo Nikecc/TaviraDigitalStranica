@@ -545,22 +545,35 @@
     .lang-btn:hover { color: #fff; }
 
     /* INTRO */
-    #intro { position: fixed; inset: 0; background: #000; display: flex; align-items: center; justify-content: center; z-index: 9999; transition: opacity 0.8s ease;}
-    .brand-loader { font-size: clamp(2rem, 5vw, 5rem); font-weight: 600; letter-spacing: 0.15em; color: #fff; display: flex; flex-wrap: wrap; justify-content: center; }
-    .brand-loader span { opacity: 0; transform: translateY(10px); animation: letterIn 1.4s ease forwards; }
-    @keyframes letterIn { to { opacity: 1; transform: translateY(0); } }
-    .brand-loader span:nth-child(1) { animation-delay: 0s; } .brand-loader span:nth-child(2) { animation-delay: 0.08s; } .brand-loader span:nth-child(3) { animation-delay: 0.16s; } .brand-loader span:nth-child(4) { animation-delay: 0.24s; } .brand-loader span:nth-child(5) { animation-delay: 0.32s; } .brand-loader span:nth-child(6) { animation-delay: 0.40s; } .brand-loader span:nth-child(7) { animation-delay: 0.48s; } .brand-loader span:nth-child(8) { animation-delay: 0.56s; } .brand-loader span:nth-child(9) { animation-delay: 0.64s; } .brand-loader span:nth-child(10){ animation-delay: 0.72s; } .brand-loader span:nth-child(11){ animation-delay: 0.80s; } .brand-loader span:nth-child(12){ animation-delay: 0.88s; } .brand-loader span:nth-child(13){ animation-delay: 0.96s; } .brand-loader span:nth-child(14){ animation-delay: 1.04s; }
-    #intro.fade-out { opacity: 0; transition: opacity 0.8s ease; pointer-events: none; }
+    #intro {
+      position: fixed; inset: 0; background: #000; z-index: 9999;
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+    }
+    #intro canvas {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+    }
+    .brand-loader {
+      position: relative; z-index: 2;
+      font-family: 'Montserrat', sans-serif;
+      font-size: clamp(1.8rem, 5vw, 4.5rem); font-weight: 800;
+      letter-spacing: 0.18em; color: #fff; text-transform: uppercase;
+      display: flex; flex-wrap: wrap; justify-content: center;
+      opacity: 0; transform: scale(0.95);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .brand-loader.visible { opacity: 1; transform: scale(1); }
+    .brand-loader.scatter {
+      opacity: 0; transform: scale(1.15);
+      transition: opacity 0.7s ease, transform 0.7s cubic-bezier(.4,0,.2,1);
+    }
   </style>
 </head>
 
 <body>
 <div id="intro">
-  <div class="brand-loader">
-    <span>T</span><span>a</span><span>v</span><span>i</span><span>r</span><span>a</span>
-    <span>&nbsp;</span>
-    <span>D</span><span>i</span><span>g</span><span>i</span><span>t</span><span>a</span><span>l</span>
-  </div>
+  <canvas id="introCanvas"></canvas>
+  <div class="brand-loader" id="brandLoader">Tavira Digital</div>
 </div>
 
 <a href="index.html#hero" class="site-logo">
@@ -2596,15 +2609,122 @@ document.addEventListener("DOMContentLoaded", () => {
 </script>
 
 <script>
+(function() {
   const intro = document.getElementById("intro");
+  const canvas = document.getElementById("introCanvas");
+  const brandLoader = document.getElementById("brandLoader");
+
   if (sessionStorage.getItem('intro_shown')) {
     intro.remove();
-  } else {
-    sessionStorage.setItem('intro_shown', '1');
-    const forceExit = () => { intro.style.opacity = "0"; setTimeout(() => intro.remove(), 600); };
-    window.addEventListener("load", () => { setTimeout(forceExit, 1200); });
-    setTimeout(forceExit, 3000);
+    return;
   }
+  sessionStorage.setItem('intro_shown', '1');
+
+  const ctx = canvas.getContext("2d");
+  let W, H, particles = [], scattering = false, startTime = Date.now();
+
+  function resize() {
+    W = canvas.width = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+  }
+  resize();
+  window.addEventListener("resize", resize);
+
+  // Create particles
+  const COUNT = Math.min(200, Math.floor(W * H / 5000));
+  for (let i = 0; i < COUNT; i++) {
+    particles.push({
+      x: Math.random() * W,
+      y: Math.random() * H,
+      r: Math.random() * 1.8 + 0.4,
+      vx: (Math.random() - 0.5) * 0.3,
+      vy: (Math.random() - 0.5) * 0.3,
+      alpha: Math.random() * 0.4 + 0.1,
+      scatterVx: 0,
+      scatterVy: 0,
+      scatterAlpha: 1
+    });
+  }
+
+  // Assign scatter velocities (burst outward from center)
+  particles.forEach(p => {
+    const dx = p.x - W / 2;
+    const dy = p.y - H / 2;
+    const dist = Math.sqrt(dx * dx + dy * dy) || 1;
+    const speed = 8 + Math.random() * 12;
+    p.scatterVx = (dx / dist) * speed;
+    p.scatterVy = (dy / dist) * speed;
+  });
+
+  let animId;
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+    const elapsed = Date.now() - startTime;
+
+    particles.forEach(p => {
+      if (scattering) {
+        p.x += p.scatterVx;
+        p.y += p.scatterVy;
+        p.scatterAlpha *= 0.96;
+        ctx.globalAlpha = p.alpha * p.scatterAlpha;
+      } else {
+        // Idle floating with subtle sine drift
+        p.x += p.vx + Math.sin(elapsed * 0.001 + p.y * 0.01) * 0.15;
+        p.y += p.vy + Math.cos(elapsed * 0.001 + p.x * 0.01) * 0.15;
+        // Wrap around edges
+        if (p.x < -10) p.x = W + 10;
+        if (p.x > W + 10) p.x = -10;
+        if (p.y < -10) p.y = H + 10;
+        if (p.y > H + 10) p.y = -10;
+        ctx.globalAlpha = p.alpha;
+      }
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = "#fff";
+      ctx.fill();
+    });
+
+    // Draw subtle connecting lines between nearby particles
+    if (!scattering) {
+      ctx.strokeStyle = "rgba(255,255,255,0.03)";
+      ctx.lineWidth = 0.5;
+      for (let i = 0; i < particles.length; i++) {
+        for (let j = i + 1; j < particles.length; j++) {
+          const dx = particles[i].x - particles[j].x;
+          const dy = particles[i].y - particles[j].y;
+          const dist = dx * dx + dy * dy;
+          if (dist < 8000) {
+            ctx.globalAlpha = (1 - dist / 8000) * 0.08;
+            ctx.beginPath();
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(particles[j].x, particles[j].y);
+            ctx.stroke();
+          }
+        }
+      }
+    }
+
+    animId = requestAnimationFrame(draw);
+  }
+  draw();
+
+  // Timeline: show text at 300ms, scatter at 2000ms, remove at 2800ms
+  setTimeout(() => brandLoader.classList.add("visible"), 300);
+
+  function triggerScatter() {
+    scattering = true;
+    brandLoader.classList.add("scatter");
+    intro.style.transition = "opacity 0.7s ease 0.3s";
+    intro.style.opacity = "0";
+    setTimeout(() => {
+      cancelAnimationFrame(animId);
+      intro.remove();
+    }, 1000);
+  }
+
+  window.addEventListener("load", () => { setTimeout(triggerScatter, 2000); });
+  setTimeout(triggerScatter, 4000); // failsafe
+})();
 </script>
 
 </main>
