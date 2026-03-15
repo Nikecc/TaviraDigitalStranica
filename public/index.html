@@ -1354,19 +1354,20 @@ section#projects { width: 100%; padding: 80px 0; position: relative; }
   .left-info p { font-size: 0.9rem; line-height: 1.5; }
   .view-btn { align-self: flex-start; margin-bottom: 0; }
 
-  /* Arrow button below slider, pointing down */
+  /* Arrow button at bottom of active card */
   .next-btn {
-    position: relative;
-    top: auto; right: auto; bottom: auto; left: auto;
-    transform: rotate(90deg);
+    position: absolute;
+    top: calc(80px + 520px - 55px);
+    left: 50%;
+    transform: translateX(-50%) rotate(90deg);
+    right: auto; bottom: auto;
     width: 50px; height: 50px; font-size: 1.2rem;
     z-index: 15;
-    margin: 30px auto 0;
     display: flex;
     align-items: center;
     justify-content: center;
   }
-  .next-btn:hover { transform: rotate(90deg) scale(1.1); }
+  .next-btn:hover { transform: translateX(-50%) rotate(90deg) scale(1.1); }
 
   section#projects .process-cta { margin-top: 40px !important; padding-bottom: 10px !important; }
 
@@ -1386,6 +1387,7 @@ section#projects { width: 100%; padding: 80px 0; position: relative; }
   .left-info p { font-size: 0.85rem; }
   .subtitle { font-size: 0.9rem; }
   .view-btn { padding: 10px 24px; font-size: 0.9rem; }
+  .next-btn { top: calc(70px + 460px - 50px); }
 }
 
 .preview-overlay { position: fixed; inset: 0; background: rgba(2, 20, 24, 0.55); backdrop-filter: blur(14px); display: flex; justify-content: center; align-items: center; z-index: 9999; opacity: 0; pointer-events: none; transition: opacity 0.4s ease; }
