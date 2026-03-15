@@ -1,0 +1,42 @@
+# Tavira Digital
+
+> Tavira Digital je premium digitalna agencija specijalizirana za web dizajn, web development, digitalni marketing, SEO optimizaciju, branding i social media marketing. Radimo s klijentima globalno na 4 jezika: hrvatski, engleski, njemački i španjolski.
+
+## Usluge
+
+- [Web Design & UX](https://tavira.digital/services.html): Premium UI dizajn, UX arhitektura, responzivne i SEO-optimizirane web stranice
+- [Web Development](https://tavira.digital/services.html): Custom front-end i back-end rješenja, performance optimizacija, API integracije
+- [Digital Marketing](https://tavira.digital/services.html): Google Ads, Meta kampanje, SEO, funnel optimizacija, A/B testiranje, analitika
+- [Brand Identity](https://tavira.digital/services.html): Brand strategija, vizualni identitet, logo dizajn, brand guidelines
+- [Social Media Marketing](https://tavira.digital/services.html): Strategija sadržaja, vizualni identitet za društvene mreže, kontinuirani rast
+- [App & Game Development](https://tavira.digital/satelites.html): Unity/Unreal development, backend API, UI animacije
+
+## Kontakt
+
+- Web: https://tavira.digital
+- Email: info@taviradigital.com
+- Telefon: +385 91 389 7456
+- Instagram: https://www.instagram.com/taviradigital
+- LinkedIn: https://www.linkedin.com/company/taviradigital
+- Facebook: https://www.facebook.com/taviradigital
+
+## Zašto Tavira Digital?
+
+Tavira Digital kombinira vrhunski dizajn s data-driven marketingom. Svaki projekt je strateški osmišljen za konverzije, SEO performanse i dugoročni rast. Pružamo premium digitalne usluge po konkurentnim cijenama. Dostupni smo na hrvatskom, engleskom, njemačkom i španjolskom jeziku.
+
+## Blog — Stručni članci
+
+- [Kako odabrati digitalnu agenciju u 2026](https://tavira.digital/blog/kako-odabrati-digitalnu-agenciju.html): Kompletni vodič za odabir prave digitalne agencije
+- [Koliko košta izrada web stranice u Hrvatskoj](https://tavira.digital/blog/koliko-kosta-izrada-web-stranice.html): Detaljan pregled cijena i faktora
+- [5 grešaka koje tvrtke rade s digitalnim marketingom](https://tavira.digital/blog/greske-digitalni-marketing.html): Najčešće zamke i kako ih izbjeći
+- [Zašto vam treba SEO optimizacija](https://tavira.digital/blog/zasto-treba-seo-optimizacija.html): Sve o SEO-u — tehnički, on-page i off-page
+- [Branding za male tvrtke](https://tavira.digital/blog/branding-za-male-tvrtke.html): Zašto je vizualni identitet bitan za svaki biznis
+- [Google Ads vs Meta Ads](https://tavira.digital/blog/google-ads-vs-meta-ads.html): Usporedba platformi i kada koristiti koju
+
+## Stranice
+
+- [Početna](https://tavira.digital/)
+- [Usluge](https://tavira.digital/services.html)
+- [Sve usluge](https://tavira.digital/satelites.html)
+- [Blog](https://tavira.digital/blog.html)
+- [Kontakt](https://tavira.digital/kontakt.html)

@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+<meta charset="UTF-8">
+<title>Samsung × Tavira Digital — Galaxy Heroes Game | Case Study</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Tavira Digital je za Samsung razvila Galaxy Heroes — fully custom arcade igru koja se igrala u 30+ trgovina diljem regije." />
+<meta name="robots" content="index, follow" />
+<link rel="canonical" href="https://tavira.digital/samsung.html" />
+<link rel="alternate" hreflang="hr" href="https://tavira.digital/samsung.html" />
+<link rel="alternate" hreflang="en" href="https://tavira.digital/samsung.html" />
+<link rel="alternate" hreflang="de" href="https://tavira.digital/samsung.html" />
+<link rel="alternate" hreflang="es" href="https://tavira.digital/samsung.html" />
+<link rel="alternate" hreflang="x-default" href="https://tavira.digital/samsung.html" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Samsung × Tavira Digital — Galaxy Heroes Game" />
+<meta property="og:description" content="Custom arcade igra razvijena za Samsung Q4 in-store promociju Galaxy S25 serije." />
+<meta property="og:url" content="https://tavira.digital/samsung.html" />
+<meta property="og:site_name" content="Tavira Digital" />
+<meta property="og:image" content="https://tavira.digital/assets/SamsungSlike/Screenshot 2026-03-14 at 13.11.28.png" />
+<link rel="icon" type="image/png" href="assets/Logo/TD.png" />
+<link rel="apple-touch-icon" href="assets/Logo/TD.png" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --brand: #22D3EE;
+  --brand-2: #06B6D4;
+  --text: #ECFEFF;
+  --muted: #94A3B8;
+  --bg: #020617;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Inter', sans-serif;
+  color: var(--text);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  background: #020617;
+  background-image:
+    radial-gradient(ellipse at 20% 0%, rgba(20,40,160,0.18) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 20%, rgba(34,211,238,0.07) 0%, transparent 45%),
+    radial-gradient(ellipse at 50% 50%, rgba(10,15,40,0.9) 0%, transparent 80%),
+    radial-gradient(ellipse at 30% 80%, rgba(20,40,160,0.1) 0%, transparent 50%),
+    radial-gradient(ellipse at 90% 90%, rgba(34,211,238,0.05) 0%, transparent 40%);
+  background-attachment: fixed;
+}
+img { max-width: 100%; display: block; }
+a { text-decoration: none; color: inherit; }
+
+/* ===== LOGO ===== */
+.site-logo { position: fixed; top: 28px; left: clamp(20px,5vw,48px); z-index: 1001; }
+.site-logo img { height: 110px; width: auto; display: block; transition: opacity 0.3s; }
+.site-logo:hover img { opacity: 0.8; }
+@media(max-width:1024px){body.menu-open .site-logo{opacity:0;pointer-events:none;}}
+
+/* ===== MENU ===== */
+.floating-menu-btn{position:fixed;top:36px;right:clamp(20px,5vw,48px);z-index:1001;display:flex;align-items:center;gap:18px;background:none;border:none;padding:0;color:white;cursor:pointer;font-family:'Inter';font-weight:700;font-size:clamp(20px,3vw,35px);letter-spacing:.12em;text-transform:uppercase;transition:transform .35s,opacity .25s;}
+.floating-menu-btn:hover{transform:translateY(-2px);opacity:.9;}
+.menu-lines{width:34px;height:3px;background:white;position:relative;}
+.menu-lines::before,.menu-lines::after{content:"";position:absolute;left:0;width:34px;height:3px;background:white;}
+.menu-lines::before{top:-11px;}.menu-lines::after{top:11px;}
+.menu-overlay{position:fixed;inset:0;background:rgba(2,6,23,.55);backdrop-filter:blur(6px);opacity:0;pointer-events:none;transition:opacity .35s;z-index:999;}
+.menu-overlay.active{opacity:1;pointer-events:auto;}
+.side-menu{position:fixed;top:0;right:0;height:100vh;width:min(90%,420px);z-index:1000;background:linear-gradient(180deg,rgba(15,23,42,.95),rgba(2,6,23,.95));backdrop-filter:blur(18px);border-left:1px solid rgba(34,211,238,.35);transform:translateX(100%);transition:transform .4s cubic-bezier(.4,0,.2,1);padding:40px 30px;display:flex;flex-direction:column;}
+.side-menu.active{transform:translateX(0);}
+.close-menu{background:none;border:none;color:var(--muted);font-size:26px;cursor:pointer;margin-bottom:50px;align-self:flex-start;}
+.side-nav{display:flex;flex-direction:column;gap:22px;}
+.side-nav a,.side-nav .nav-dropdown-toggle{font-family:'Inter';font-weight:900;font-size:clamp(22px,3vw,32px);text-transform:uppercase;letter-spacing:-.035em;color:white;opacity:.95;transition:transform .35s,color .35s;cursor:pointer;background:none;border:none;padding:0;display:flex;align-items:center;gap:10px;}
+.side-nav a:hover,.side-nav .nav-dropdown-toggle:hover{transform:translateX(10px);color:var(--brand);}
+.nav-dropdown-toggle svg{width:14px;height:14px;fill:currentColor;transition:transform .3s;}
+.nav-dropdown-toggle.open svg{transform:rotate(180deg);}
+.nav-dropdown{max-height:0;overflow:hidden;transition:max-height .4s ease;padding-left:20px;}
+.nav-dropdown.open{max-height:200px;}
+.nav-dropdown a{font-size:clamp(15px,2vw,20px)!important;font-weight:700!important;opacity:.7;padding:4px 0;display:flex;align-items:center;gap:8px;}
+.nav-dropdown a::before{content:'›';color:var(--brand);font-size:1.2em;}
+.nav-dropdown a:hover{opacity:1;}
+.lang-switcher{display:flex;gap:20px;margin-top:auto;padding-top:40px;border-top:1px solid rgba(255,255,255,.1);}
+.lang-btn{background:none;border:none;color:var(--muted);font-size:1.2rem;font-weight:700;cursor:pointer;transition:color .3s;font-family:'Inter';}
+.lang-btn.active{color:var(--brand);}.lang-btn:hover{color:#fff;}
+
+/* ===== HERO ===== */
+.sam-hero {
+  min-height: 100vh;
+  display: flex; align-items: center;
+  padding: 120px 6% 80px;
+  position: relative;
+  overflow: hidden;
+}
+.sam-hero-inner {
+  display: flex; align-items: center; gap: clamp(40px,6vw,100px);
+  max-width: 1400px; margin: 0 auto; width: 100%;
+}
+.sam-hero-left { flex: 1.3; position: relative; z-index: 2; }
+.sam-hero-right {
+  flex: 0.7; position: relative; z-index: 2;
+  display: flex; justify-content: center;
+}
+.sam-hero-right img {
+  max-width: 280px; width: 100%;
+  border-radius: 24px;
+  border: 1px solid rgba(79,109,255,0.2);
+  box-shadow: 0 30px 80px rgba(20,40,160,0.3), 0 0 120px rgba(20,40,160,0.1);
+  animation: samHeroFloat 6s ease-in-out infinite;
+}
+@keyframes samHeroFloat {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-14px); }
+}
+.sam-hero-glow {
+  position: absolute; width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(20,40,160,0.25) 0%, transparent 70%);
+  top: 50%; left: 50%; transform: translate(-50%,-50%);
+  pointer-events: none; z-index: 0;
+}
+.sam-partner-badge {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 8px 22px; border-radius: 30px;
+  background: rgba(20,40,160,0.12); border: 1px solid rgba(79,109,255,0.25);
+  font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+  color: #6d8fff; margin-bottom: 24px;
+}
+.sam-hero-left h1 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: clamp(3.5rem, 7vw, 6.5rem);
+  font-weight: 900; line-height: 0.92; text-transform: uppercase;
+  margin-bottom: 24px;
+}
+.sam-hero-left h1 .line1 { color: #fff; display: block; }
+.sam-hero-left h1 .line2 {
+  display: block;
+  background: linear-gradient(135deg, #1428A0, #4f6dff, #22D3EE);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.sam-hero-sub {
+  font-size: clamp(1rem,1.8vw,1.15rem);
+  color: var(--muted); line-height: 1.7; max-width: 540px; margin-bottom: 44px;
+}
+.sam-hero-stats { display: flex; gap: 40px; flex-wrap: wrap; }
+.sam-stat-num {
+  font-family: 'Montserrat'; font-size: clamp(2rem,3.5vw,2.8rem); font-weight: 900;
+  background: linear-gradient(135deg, #22D3EE, #4f6dff);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  line-height: 1.1;
+}
+.sam-stat-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-top: 4px; font-weight: 600; }
+
+/* ===== SPLIT SECTIONS (zigzag) ===== */
+.sam-split {
+  display: flex; align-items: center; gap: clamp(40px, 6vw, 100px);
+  padding: 100px 6%; max-width: 1400px; margin: 0 auto;
+}
+.sam-split.reverse { flex-direction: row-reverse; }
+.sam-split-img {
+  flex: 0.7; min-width: 0; max-width: 300px;
+}
+.sam-split-img img {
+  border-radius: 24px;
+  border: 1px solid rgba(79,109,255,0.15);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.4), 0 0 40px rgba(20,40,160,0.1);
+  transition: transform 0.5s ease, box-shadow 0.5s ease;
+  width: 100%;
+}
+.sam-split-img img:hover {
+  transform: translateY(-8px) scale(1.01);
+  box-shadow: 0 30px 80px rgba(20,40,160,0.3), 0 0 60px rgba(20,40,160,0.15);
+}
+.sam-split-text { flex: 1.2; min-width: 0; }
+.sam-eyebrow {
+  font-size: 12px; letter-spacing: 2.5px; text-transform: uppercase;
+  color: #6d8fff; font-weight: 700; margin-bottom: 14px;
+}
+.sam-split-text h2 {
+  font-family: 'Montserrat'; font-size: clamp(1.8rem, 3.5vw, 3rem);
+  font-weight: 900; text-transform: uppercase; line-height: 1.1; margin-bottom: 22px;
+}
+.sam-split-text h2 span { color: var(--brand); }
+.sam-split-text p {
+  font-size: 1.05rem; color: var(--muted); line-height: 1.75; margin-bottom: 16px;
+}
+.sam-split-text p strong { color: #fff; }
+.sam-split-text ul {
+  list-style: none; padding: 0; margin: 16px 0 0;
+}
+.sam-split-text ul li {
+  padding: 7px 0; font-size: 1rem; color: var(--muted); display: flex; align-items: flex-start; gap: 10px;
+}
+.sam-split-text ul li::before {
+  content: '\2713'; color: var(--brand); font-weight: 700; flex-shrink: 0; margin-top: 1px;
+}
+
+/* ===== BIG NUMBER STRIP ===== */
+.sam-numbers {
+  display: flex; justify-content: center; gap: clamp(30px,6vw,80px); flex-wrap: wrap;
+  padding: 80px 6%; max-width: 1200px; margin: 0 auto;
+}
+.sam-num-item { text-align: center; }
+.sam-num-val {
+  font-family: 'Montserrat'; font-size: clamp(3rem,6vw,5rem); font-weight: 900;
+  background: linear-gradient(135deg, #1428A0, #4f6dff, #22D3EE);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  line-height: 1;
+}
+.sam-num-label { font-size: 13px; color: var(--muted); text-transform: uppercase; letter-spacing: 1.5px; font-weight: 600; margin-top: 8px; }
+
+/* ===== GALLERY STRIP ===== */
+.sam-gallery-strip {
+  display: flex; gap: 16px; overflow-x: auto; padding: 60px 6% 80px;
+  scrollbar-width: none; scroll-snap-type: x mandatory;
+}
+.sam-gallery-strip::-webkit-scrollbar { display: none; }
+.sam-gallery-strip-item {
+  flex-shrink: 0; width: 180px;
+  border-radius: 22px; overflow: hidden;
+  border: 1px solid rgba(79,109,255,0.12);
+  transition: transform 0.4s, box-shadow 0.4s, border-color 0.4s;
+  cursor: pointer; scroll-snap-align: start;
+}
+.sam-gallery-strip-item:hover {
+  transform: translateY(-8px) scale(1.03);
+  box-shadow: 0 20px 50px rgba(20,40,160,0.3);
+  border-color: rgba(79,109,255,0.4);
+}
+.sam-gallery-strip-item img { width: 100%; height: auto; display: block; }
+
+/* ===== PULL QUOTE ===== */
+.sam-quote {
+  max-width: 900px; margin: 0 auto; padding: 80px 6%; text-align: center;
+}
+.sam-quote blockquote {
+  font-family: 'Montserrat'; font-size: clamp(1.4rem,3vw,2.2rem);
+  font-weight: 800; line-height: 1.4; color: #fff; font-style: italic;
+  position: relative; padding: 0 20px;
+}
+.sam-quote blockquote::before {
+  content: '\201C'; position: absolute; top: -30px; left: -10px;
+  font-size: 6rem; color: rgba(79,109,255,0.15); font-style: normal; line-height: 1;
+}
+.sam-quote cite {
+  display: block; margin-top: 20px; font-size: 14px; font-style: normal;
+  color: var(--muted); letter-spacing: 1px;
+}
+
+/* ===== CTA ===== */
+.sam-cta {
+  padding: 80px 6% 120px; text-align: center;
+}
+.sam-cta-box {
+  max-width: 800px; margin: 0 auto; padding: 60px 50px;
+  border-radius: 30px;
+  background: linear-gradient(145deg, rgba(20,40,160,0.1), rgba(2,6,23,0.7));
+  border: 1px solid rgba(20,40,160,0.25);
+  box-shadow: 0 30px 80px rgba(0,0,0,0.4), 0 0 80px rgba(20,40,160,0.08);
+}
+.sam-cta-box h2 {
+  font-family: 'Montserrat'; font-size: clamp(1.8rem,4vw,2.8rem);
+  font-weight: 900; text-transform: uppercase; margin-bottom: 16px;
+}
+.sam-cta-box p { color: var(--muted); font-size: 1.1rem; margin-bottom: 32px; line-height: 1.6; }
+.sam-cta-btn {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 18px 44px; font-size: 15px; font-weight: 700;
+  font-family: 'Inter'; color: #020617;
+  background: linear-gradient(135deg, #22D3EE, #06B6D4, #0891B2);
+  border: none; border-radius: 16px; cursor: pointer;
+  transition: transform .25s, box-shadow .25s;
+}
+.sam-cta-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 30px rgba(34,211,238,.4), 0 0 60px rgba(34,211,238,.15);
+}
+
+/* ===== LIGHTBOX ===== */
+.sam-lightbox {
+  position: fixed; inset: 0; z-index: 5000;
+  background: rgba(2,6,23,.92); backdrop-filter: blur(12px);
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; pointer-events: none; transition: opacity .35s;
+}
+.sam-lightbox.active { opacity: 1; pointer-events: auto; }
+.sam-lightbox img { max-height: 90vh; max-width: 90vw; border-radius: 16px; box-shadow: 0 20px 60px rgba(0,0,0,.6); }
+.sam-lightbox-close {
+  position: absolute; top: 24px; right: 24px;
+  width: 44px; height: 44px; border-radius: 50%; border: 1px solid rgba(255,255,255,.2);
+  background: rgba(15,23,42,.8); color: #fff; font-size: 20px;
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+}
+
+/* ===== FOOTER ===== */
+.sam-footer {
+  padding: 40px 6%; text-align: center;
+  border-top: 1px solid rgba(255,255,255,.05);
+}
+.sam-footer p { font-size: 13px; color: var(--muted); }
+.sam-footer a { color: var(--brand); }
+
+/* ===== FADE ===== */
+.fade-up { opacity: 0; transform: translateY(40px); transition: opacity .7s ease, transform .7s ease; }
+.fade-up.visible { opacity: 1; transform: translateY(0); }
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:1024px){
+  .sam-split { flex-direction: column !important; gap: 40px; padding: 70px 6%; }
+  .sam-split-img { max-width: 260px; margin: 0 auto; }
+}
+@media(max-width:768px){
+  .sam-hero { padding: 120px 5% 60px; }
+  .sam-hero-inner { flex-direction: column; text-align: center; }
+  .sam-hero-stats { justify-content: center; gap: 28px; }
+  .sam-hero-sub { margin-left: auto; margin-right: auto; }
+  .sam-hero-right img { max-width: 220px; }
+  .sam-cta-box { padding: 40px 24px; }
+  .sam-gallery-strip-item { width: 150px; }
+}
+@media(max-width:480px){
+  .sam-hero-left h1 { font-size: 2.6rem; }
+  .sam-hero-right img { max-width: 180px; }
+  .floating-menu-btn { font-size: 20px; right: 20px; top: 20px; }
+  .sam-gallery-strip-item { width: 130px; }
+}
+</style>
+</head>
+<body>
+
+<!-- LOGO -->
+<a href="index.html#hero" class="site-logo"><img src="assets/Logo/WhiteLogo.png" alt="Tavira Digital"></a>
+
+<!-- MENU -->
+<button class="floating-menu-btn" id="menuBtn"><span class="menu-lines"></span><span data-i18n="menu_btn">IZBORNIK</span></button>
+<div class="menu-overlay" id="menuOverlay"></div>
+<aside class="side-menu" id="sideMenu">
+  <button class="close-menu" id="closeMenu">&#10005;</button>
+  <nav class="side-nav">
+    <a href="index.html" data-i18n="menu_home">Početna</a>
+    <a href="services.html" data-i18n="menu_services">Usluge</a>
+    <button class="nav-dropdown-toggle" id="projDropToggle"><span data-i18n="menu_work">Projekti</span><svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg></button>
+    <div class="nav-dropdown" id="projDropdown">
+      <a href="samsung.html" data-i18n="menu_proj_samsung">Samsung Galaxy Heroes</a>
+    </div>
+    <a href="blog.html" data-i18n="menu_blog">Blog</a>
+    <a href="kontakt.html" data-i18n="menu_contact">Kontakt</a>
+  </nav>
+  <div class="lang-switcher">
+    <button onclick="setLang('en')" class="lang-btn" id="btn-en">EN</button>
+    <button onclick="setLang('hr')" class="lang-btn active" id="btn-hr">HR</button>
+    <button onclick="setLang('de')" class="lang-btn" id="btn-de">DE</button>
+    <button onclick="setLang('es')" class="lang-btn" id="btn-es">ES</button>
+  </div>
+</aside>
+
+<!-- ===== HERO ===== -->
+<section class="sam-hero">
+  <div class="sam-hero-inner">
+    <div class="sam-hero-left fade-up">
+      <div class="sam-partner-badge">&#9733; <span data-i18n="sam_badge">SAMSUNG OFFICIAL PARTNER</span></div>
+      <h1>
+        <span class="line1" data-i18n="sam_hero1">GALAXY</span>
+        <span class="line2" data-i18n="sam_hero2">HEROES</span>
+      </h1>
+      <p class="sam-hero-sub" data-i18n="sam_hero_sub">Potpuno prilagođena arcade igra razvijena za Samsung Q4 in-store promociju Galaxy S25 serije. Igrana u 30+ trgovina diljem regije.</p>
+      <div class="sam-hero-stats">
+        <div><div class="sam-stat-num">30+</div><div class="sam-stat-label" data-i18n="sam_stat1">Trgovina</div></div>
+        <div><div class="sam-stat-num">8</div><div class="sam-stat-label" data-i18n="sam_stat2">Valova</div></div>
+        <div><div class="sam-stat-num">4</div><div class="sam-stat-label" data-i18n="sam_stat3">Jezika</div></div>
+        <div><div class="sam-stat-num">5</div><div class="sam-stat-label" data-i18n="sam_stat4">Razina oružja</div></div>
+      </div>
+    </div>
+    <div class="sam-hero-right fade-up">
+      <div class="sam-hero-glow"></div>
+      <img src="assets/SamsungSlike/Screenshot 2026-03-14 at 13.11.28.png" alt="Galaxy Heroes Gameplay">
+    </div>
+  </div>
+</section>
+
+<!-- ===== SPLIT 1: About — img RIGHT ===== -->
+<section class="sam-split fade-up">
+  <div class="sam-split-text">
+    <p class="sam-eyebrow" data-i18n="sam_s1_eye">CASE STUDY</p>
+    <h2 data-i18n="sam_s1_title">Custom <span>arcade igra</span> za najveći tech brend na svijetu</h2>
+    <p data-i18n="sam_s1_p1">Samsung nam je povjerio izradu potpuno prilagođene arcade igre za njihovu Q4 in-store promociju <strong>Galaxy S25 serije</strong>. Zadatak je bio jasan: stvoriti vizualno spektakularnu, tehnički besprijekornu igru koja će privući kupce u trgovinama i demonstrirati snagu najnovijeg Samsung uređaja.</p>
+    <p data-i18n="sam_s1_p2">Rezultat je <strong>Galaxy Heroes</strong> — slojevita space shooter igrica s modernim pixelated grafičkim stilom, naprednim mehanikama i punom brand integracijom. Razvijena u HTML5 za <strong>Galaxy S25 Ultra</strong> i <strong>43" vertikalne touch ekrane</strong>.</p>
+  </div>
+  <div class="sam-split-img">
+    <img src="assets/SamsungSlike/Screenshot 2026-03-14 at 13.10.25.png" alt="Galaxy Heroes Wave 2 gameplay" loading="lazy">
+  </div>
+</section>
+
+<!-- ===== SPLIT 2: Enemies — img LEFT ===== -->
+<section class="sam-split reverse fade-up">
+  <div class="sam-split-text">
+    <p class="sam-eyebrow" data-i18n="sam_s2_eye">NEPRIJATELJI</p>
+    <h2 data-i18n="sam_s2_title">Različiti tipovi neprijatelja s <span>random attack patternima</span></h2>
+    <p data-i18n="sam_s2_p1">Igra sadrži <strong>3-4 različita tipa regularnih neprijatelja</strong>, svaki s jedinstvenim HP-om, napadima i obrascima kretanja. Spawnaju se u formacijama ovisno o valu i lete na pozicije s animacijama.</p>
+    <p data-i18n="sam_s2_p2"><strong>2 tipa fly-in neprijatelja</strong> napadaju s rubova ekrana različitim brzinama. A <strong>Boss neprijatelj</strong> pojavljuje se u kasnijim valovima — teže ga je uništiti, ima više attack patterna i kreće se iza spawnanog vala.</p>
+  </div>
+  <div class="sam-split-img">
+    <img src="assets/SamsungSlike/Screenshot 2026-03-14 at 13.11.28.png" alt="Galaxy Heroes Wave 6 with Boss" loading="lazy">
+  </div>
+</section>
+
+
+<!-- ===== SPLIT 3: Power-ups — img RIGHT ===== -->
+<section class="sam-split fade-up">
+  <div class="sam-split-text">
+    <p class="sam-eyebrow" data-i18n="sam_s3_eye">POWER-UP SUSTAV</p>
+    <h2 data-i18n="sam_s3_title">Strateška dubina s <span>5 power-upova</span></h2>
+    <p data-i18n="sam_s3_p1">Igrači sakupljaju power-upove koji se čuvaju u UI-ju i koriste strateškim trenutkom. Svaki power-up <strong>pauzira igru i prikazuje objašnjenje</strong> efekta prije aktivacije.</p>
+    <ul>
+      <li data-i18n="sam_pu1">Uništi sve neprijatelje na ekranu</li>
+      <li data-i18n="sam_pu2">Uspori vrijeme bez usporavanja igrača</li>
+      <li data-i18n="sam_pu3">Udvostruči štetu na 10 sekundi</li>
+      <li data-i18n="sam_pu4">Popravi brod i izgubljene bodove</li>
+      <li data-i18n="sam_pu5">Aktiviraj štit na 10 sekundi</li>
+    </ul>
+  </div>
+  <div class="sam-split-img">
+    <img src="assets/SamsungSlike/Screenshot 2026-03-14 at 13.11.04.png" alt="Galaxy Heroes Power-up" loading="lazy">
+  </div>
+</section>
+
+<!-- ===== SPLIT 4: Weapons — img LEFT ===== -->
+<section class="sam-split reverse fade-up">
+  <div class="sam-split-text">
+    <p class="sam-eyebrow" data-i18n="sam_s4_eye">ORUŽJE</p>
+    <h2 data-i18n="sam_s4_title"><span>5 razina</span> napredovanja oružja</h2>
+    <p data-i18n="sam_s4_p1">Weapon power-upovi odmah nadograđuju oružje igrača. Sprite broda se vizualno mijenja s efektom <strong>"Galaxy AI is upgraded"</strong> pri svakom napredovanju.</p>
+    <ul>
+      <li data-i18n="sam_w1">Razina 1 — 1 hitac iz centra</li>
+      <li data-i18n="sam_w2">Razina 2 — 2 hica s lijeve i desne strane</li>
+      <li data-i18n="sam_w3">Razina 3 — 3 hica s lijeve, desne i centra</li>
+      <li data-i18n="sam_w4">Razina 4 — 2 pojačana hica</li>
+      <li data-i18n="sam_w5">Razina 5 — 3 pojačana lasera</li>
+    </ul>
+  </div>
+  <div class="sam-split-img">
+    <img src="assets/SamsungSlike/Screenshot 2026-03-14 at 13.11.51.png" alt="Galaxy Heroes Weapon Upgrade" loading="lazy">
+  </div>
+</section>
+
+<!-- ===== SPLIT 5: Boss — img RIGHT ===== -->
+<section class="sam-split fade-up">
+  <div class="sam-split-text">
+    <p class="sam-eyebrow" data-i18n="sam_s5_eye">BOSS FIGHT</p>
+    <h2 data-i18n="sam_s5_title">Epski boss s <span>više attack patterna</span></h2>
+    <p data-i18n="sam_s5_p1">Boss neprijatelj ulazi u <strong>6. valu</strong> i ostaje do kraja igre. Ima <strong>više različitih attack patterna</strong>, health bar i kreće se iza regularnog vala. Kad se posljednji val uništi, ostaje samo boss — finalni showdown.</p>
+    <p data-i18n="sam_s5_p2">Boss ima jedinstvene dijaloge koji provociraju igrača — "Muahahaha! Tvoj Galaxy S26 mi ne može ništa!" — dodajući humora i personalnosti igri.</p>
+  </div>
+  <div class="sam-split-img">
+    <img src="assets/SamsungSlike/Screenshot 2026-03-14 at 13.12.23.png" alt="Galaxy Heroes Boss Battle" loading="lazy">
+  </div>
+</section>
+
+<!-- ===== SPLIT 6: Leaderboard — img LEFT ===== -->
+<section class="sam-split reverse fade-up">
+  <div class="sam-split-text">
+    <p class="sam-eyebrow" data-i18n="sam_s6_eye">LEADERBOARD & SCORING</p>
+    <h2 data-i18n="sam_s6_title">Online ljestvica u <span>realnom vremenu</span></h2>
+    <p data-i18n="sam_s6_p1">Detaljan scoring sustav: bodovi za uništene neprijatelje, bonus power-upove, penali za primljenu štetu i smrti. Svaka preostala milisekunda se dodaje na ukupni rezultat.</p>
+    <p data-i18n="sam_s6_p2">Na kraju igre prikazuje se <strong>kompletna statistika</strong> — damage dealt, enemies destroyed, bonus points, time bonus, damage taken i deaths. Integrirana <strong>online ljestvica</strong> rangira igrače diljem svih 30+ trgovina u regiji.</p>
+  </div>
+  <div class="sam-split-img">
+    <img src="assets/SamsungSlike/Screenshot 2026-03-14 at 13.12.41.png" alt="Galaxy Heroes Leaderboard" loading="lazy">
+  </div>
+</section>
+
+<!-- ===== QUOTE ===== -->
+<div class="sam-quote fade-up">
+  <blockquote data-i18n="sam_quote">"Galaxy Heroes igra je bila apsolutni hit u našim trgovinama. Kupci su se natjecali za top pozicije na ljestvici, a prosječno vrijeme zadržavanja u Samsung zoni se utrostručilo."</blockquote>
+  <cite>— Samsung Adriatic, Q4 2025</cite>
+</div>
+
+<!-- ===== SPLIT 7: Samsung Promo — img RIGHT ===== -->
+<section class="sam-split fade-up">
+  <div class="sam-split-text">
+    <p class="sam-eyebrow" data-i18n="sam_s7_eye">BRAND INTEGRACIJA</p>
+    <h2 data-i18n="sam_s7_title">Samsung <span>promo popupi</span> tijekom gameplayja</h2>
+    <p data-i18n="sam_s7_p1">Tijekom igre pojavljuju se <strong>integrirani Samsung promotional popupi</strong> koji prikazuju feature-e Galaxy S26 serije — "Ultimate Visual Experience", kamera mogućnosti i više. Svaki popup pauzira igru i prikazuje informaciju s gumbom za nastavak.</p>
+    <p data-i18n="sam_s7_p2">Brod igrača nosi <strong>Galaxy S25 branding na krilima</strong>, a cijeli vizualni identitet igre je usklađen sa Samsung brand guidelines. Potpuna integracija brenda bez ometanja gameplayja.</p>
+  </div>
+  <div class="sam-split-img">
+    <img src="assets/SamsungSlike/Screenshot 2026-03-14 at 13.12.54.png" alt="Galaxy Heroes Samsung Promo Popup" loading="lazy">
+  </div>
+</section>
+
+<!-- ===== GALLERY STRIP ===== -->
+<section class="fade-up" style="padding-top:40px;">
+  <div style="text-align:center; padding: 0 6% 10px;">
+    <p class="sam-eyebrow" data-i18n="sam_gal_eye">GAMEPLAY GALERIJA</p>
+  </div>
+  <div class="sam-gallery-strip" id="samGalleryStrip">
+    <div class="sam-gallery-strip-item" data-img="assets/SamsungSlike/Screenshot 2026-03-14 at 13.10.25.png"><img src="assets/SamsungSlike/Screenshot 2026-03-14 at 13.10.25.png" alt="Wave 2" loading="lazy"></div>
+    <div class="sam-gallery-strip-item" data-img="assets/SamsungSlike/Screenshot 2026-03-14 at 13.10.55.png"><img src="assets/SamsungSlike/Screenshot 2026-03-14 at 13.10.55.png" alt="Wave 3" loading="lazy"></div>
+    <div class="sam-gallery-strip-item" data-img="assets/SamsungSlike/Screenshot 2026-03-14 at 13.11.04.png"><img src="assets/SamsungSlike/Screenshot 2026-03-14 at 13.11.04.png" alt="Power-up" loading="lazy"></div>
+    <div class="sam-gallery-strip-item" data-img="assets/SamsungSlike/Screenshot 2026-03-14 at 13.11.28.png"><img src="assets/SamsungSlike/Screenshot 2026-03-14 at 13.11.28.png" alt="Wave 6" loading="lazy"></div>
+    <div class="sam-gallery-strip-item" data-img="assets/SamsungSlike/Screenshot 2026-03-14 at 13.11.51.png"><img src="assets/SamsungSlike/Screenshot 2026-03-14 at 13.11.51.png" alt="Weapon upgrade" loading="lazy"></div>
+    <div class="sam-gallery-strip-item" data-img="assets/SamsungSlike/Screenshot 2026-03-14 at 13.12.03.png"><img src="assets/SamsungSlike/Screenshot 2026-03-14 at 13.12.03.png" alt="Wave 8" loading="lazy"></div>
+    <div class="sam-gallery-strip-item" data-img="assets/SamsungSlike/Screenshot 2026-03-14 at 13.12.12.png"><img src="assets/SamsungSlike/Screenshot 2026-03-14 at 13.12.12.png" alt="Boss dialogue" loading="lazy"></div>
+    <div class="sam-gallery-strip-item" data-img="assets/SamsungSlike/Screenshot 2026-03-14 at 13.12.23.png"><img src="assets/SamsungSlike/Screenshot 2026-03-14 at 13.12.23.png" alt="Boss fight" loading="lazy"></div>
+    <div class="sam-gallery-strip-item" data-img="assets/SamsungSlike/Screenshot 2026-03-14 at 13.12.41.png"><img src="assets/SamsungSlike/Screenshot 2026-03-14 at 13.12.41.png" alt="Results" loading="lazy"></div>
+    <div class="sam-gallery-strip-item" data-img="assets/SamsungSlike/Screenshot 2026-03-14 at 13.12.54.png"><img src="assets/SamsungSlike/Screenshot 2026-03-14 at 13.12.54.png" alt="Samsung promo" loading="lazy"></div>
+  </div>
+</section>
+
+<!-- ===== CTA ===== -->
+<section class="sam-cta fade-up">
+  <div class="sam-cta-box">
+    <h2 data-i18n="sam_cta_title">Imate sličan projekt?</h2>
+    <p data-i18n="sam_cta_desc">Razvijamo custom igre, interaktivna iskustva i in-store promocije za brendove. Razgovarajmo o vašem projektu.</p>
+    <a href="kontakt.html" class="sam-cta-btn"><span data-i18n="sam_cta_btn">POKRENITE PROJEKT</span> &#8250;</a>
+  </div>
+</section>
+
+<!-- LIGHTBOX -->
+<div class="sam-lightbox" id="samLightbox">
+  <button class="sam-lightbox-close" id="samLightboxClose">&#10005;</button>
+  <img id="samLightboxImg" src="" alt="">
+</div>
+
+<!-- FOOTER -->
+<footer class="sam-footer">
+  <p>&copy; 2026 <a href="index.html">Tavira Digital</a>. All rights reserved.</p>
+</footer>
+
+<!-- ===== SCRIPTS ===== -->
+<script>
+// Menu
+const menuBtn=document.getElementById("menuBtn"),sideMenu=document.getElementById("sideMenu"),closeMenu=document.getElementById("closeMenu"),overlay=document.getElementById("menuOverlay");
+function toggleMenu(){const o=sideMenu.classList.contains("active");sideMenu.classList.toggle("active",!o);overlay.classList.toggle("active",!o);document.body.classList.toggle("menu-open",!o)}
+function closeMenuFn(){sideMenu.classList.remove("active");overlay.classList.remove("active");document.body.classList.remove("menu-open")}
+menuBtn.addEventListener("click",toggleMenu);closeMenu.addEventListener("click",closeMenuFn);overlay.addEventListener("click",closeMenuFn);
+document.getElementById("projDropToggle").addEventListener("click",function(){this.classList.toggle("open");document.getElementById("projDropdown").classList.toggle("open")});
+
+// Lightbox
+const lightbox=document.getElementById("samLightbox"),lbImg=document.getElementById("samLightboxImg");
+document.querySelectorAll(".sam-gallery-strip-item").forEach(el=>{el.addEventListener("click",()=>{lbImg.src=el.dataset.img;lightbox.classList.add("active");document.body.style.overflow="hidden"})});
+document.getElementById("samLightboxClose").addEventListener("click",()=>{lightbox.classList.remove("active");document.body.style.overflow=""});
+lightbox.addEventListener("click",e=>{if(e.target===lightbox){lightbox.classList.remove("active");document.body.style.overflow=""}});
+
+// Fade
+const fadeEls=document.querySelectorAll('.fade-up');
+const fadeObs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');fadeObs.unobserve(e.target)}})},{threshold:0.12});
+fadeEls.forEach(el=>fadeObs.observe(el));
+</script>
+
+<!-- ===== TRANSLATIONS ===== -->
+<script>
+const translations = {
+  en: {
+    menu_home:"Home",menu_services:"Services",menu_work:"Projects",menu_blog:"Blog",menu_contact:"Contact",menu_btn:"MENU",menu_proj_samsung:"Samsung Galaxy Heroes",
+    sam_badge:"SAMSUNG OFFICIAL PARTNER",sam_hero1:"GALAXY",sam_hero2:"HEROES",
+    sam_hero_sub:"A fully custom arcade game developed for Samsung's Q4 in-store promotion of the Galaxy S25 series. Played in 30+ stores across the region.",
+    sam_stat1:"Stores",sam_stat2:"Waves",sam_stat3:"Languages",sam_stat4:"Weapon levels",
+    sam_s1_eye:"CASE STUDY",sam_s1_title:"Custom <span>arcade game</span> for the world's biggest tech brand",
+    sam_s1_p1:"Samsung entrusted us with creating a fully custom arcade game for their Q4 in-store promotion of the <strong>Galaxy S25 series</strong>. The brief was clear: create a visually spectacular, technically flawless game that would attract customers in stores and demonstrate the power of Samsung's latest device.",
+    sam_s1_p2:"The result is <strong>Galaxy Heroes</strong> — a layered space shooter with modern pixelated graphics, advanced mechanics, and full brand integration. Built in HTML5 for <strong>Galaxy S25 Ultra</strong> and <strong>43\" vertical touch screens</strong>.",
+    sam_s2_eye:"ENEMIES",sam_s2_title:"Multiple enemy types with <span>random attack patterns</span>",
+    sam_s2_p1:"The game features <strong>3-4 different types of regular enemies</strong>, each with unique HP, attacks, and movement patterns. They spawn in formations depending on the wave and fly into position with animations.",
+    sam_s2_p2:"<strong>2 types of fly-in enemies</strong> attack from screen edges at different speeds. And the <strong>Boss enemy</strong> appears in later waves — harder to destroy, with multiple attack patterns, moving behind the spawned wave.",
+    sam_s3_eye:"POWER-UP SYSTEM",sam_s3_title:"Strategic depth with <span>5 power-ups</span>",
+    sam_s3_p1:"Players collect power-ups stored in the UI and use them at strategic moments. Each power-up <strong>pauses the game and shows an explanation</strong> of the effect before activation.",
+    sam_pu1:"Destroy all enemies on screen",sam_pu2:"Slow time without slowing the player",sam_pu3:"Double damage for 10 seconds",sam_pu4:"Repair ship and recover lost points",sam_pu5:"Activate shield for 10 seconds",
+    sam_s4_eye:"WEAPONS",sam_s4_title:"<span>5 levels</span> of weapon progression",
+    sam_s4_p1:"Weapon power-ups immediately upgrade the player's weapon. The ship sprite visually changes with a <strong>\"Galaxy AI is upgraded\"</strong> effect on each advancement.",
+    sam_w1:"Level 1 — 1 shot from center",sam_w2:"Level 2 — 2 shots from left and right",sam_w3:"Level 3 — 3 shots from left, right and center",sam_w4:"Level 4 — 2 powered shots",sam_w5:"Level 5 — 3 powered lasers",
+    sam_s5_eye:"BOSS FIGHT",sam_s5_title:"Epic boss with <span>multiple attack patterns</span>",
+    sam_s5_p1:"The Boss enemy enters at <strong>wave 6</strong> and stays until the end. It has <strong>multiple different attack patterns</strong>, a health bar, and moves behind the regular wave. When the last wave is destroyed, only the boss remains — the final showdown.",
+    sam_s5_p2:"The boss has unique dialogues that provoke the player — \"Muahahaha! Your Galaxy S26 can't do anything to me!\" — adding humor and personality to the game.",
+    sam_s6_eye:"LEADERBOARD & SCORING",sam_s6_title:"Real-time <span>online leaderboard</span>",
+    sam_s6_p1:"Detailed scoring system: points for destroyed enemies, bonus power-ups, penalties for damage taken and deaths. Every remaining millisecond is added to the total score.",
+    sam_s6_p2:"At the end, <strong>complete stats</strong> are shown — damage dealt, enemies destroyed, bonus points, time bonus, damage taken and deaths. The integrated <strong>online leaderboard</strong> ranks players across all 30+ stores in the region.",
+    sam_quote:"\"The Galaxy Heroes game was an absolute hit in our stores. Customers competed for top leaderboard positions, and the average time spent in the Samsung zone tripled.\"",
+    sam_s7_eye:"BRAND INTEGRATION",sam_s7_title:"Samsung <span>promo popups</span> during gameplay",
+    sam_s7_p1:"During gameplay, <strong>integrated Samsung promotional popups</strong> appear showcasing Galaxy S26 series features — \"Ultimate Visual Experience\", camera capabilities, and more. Each popup pauses the game and displays the information with a continue button.",
+    sam_s7_p2:"The player's ship features <strong>Galaxy S25 branding on its wings</strong>, and the entire visual identity of the game is aligned with Samsung brand guidelines. Complete brand integration without disrupting gameplay.",
+    sam_n1:"Waves",sam_n2:"Per wave max",sam_n3:"Min timer",sam_n4:"Respawns",
+    sam_gal_eye:"GAMEPLAY GALLERY",
+    sam_cta_title:"Have a similar project?",sam_cta_desc:"We develop custom games, interactive experiences, and in-store promotions for brands. Let's discuss your project.",sam_cta_btn:"START A PROJECT"
+  },
+  hr: {
+    menu_home:"Početna",menu_services:"Usluge",menu_work:"Projekti",menu_blog:"Blog",menu_contact:"Kontakt",menu_btn:"IZBORNIK",menu_proj_samsung:"Samsung Galaxy Heroes",
+    sam_badge:"SAMSUNG SLUŽBENI PARTNER",sam_hero1:"GALAXY",sam_hero2:"HEROES",
+    sam_hero_sub:"Potpuno prilagođena arcade igra razvijena za Samsung Q4 in-store promociju Galaxy S25 serije. Igrana u 30+ trgovina diljem regije.",
+    sam_stat1:"Trgovina",sam_stat2:"Valova",sam_stat3:"Jezika",sam_stat4:"Razina oružja",
+    sam_s1_eye:"CASE STUDY",sam_s1_title:"Custom <span>arcade igra</span> za najveći tech brend na svijetu",
+    sam_s1_p1:"Samsung nam je povjerio izradu potpuno prilagođene arcade igre za njihovu Q4 in-store promociju <strong>Galaxy S25 serije</strong>. Zadatak je bio jasan: stvoriti vizualno spektakularnu, tehnički besprijekornu igru koja će privući kupce u trgovinama i demonstrirati snagu najnovijeg Samsung uređaja.",
+    sam_s1_p2:"Rezultat je <strong>Galaxy Heroes</strong> — slojevita space shooter igrica s modernim pixelated grafičkim stilom, naprednim mehanikama i punom brand integracijom. Razvijena u HTML5 za <strong>Galaxy S25 Ultra</strong> i <strong>43\" vertikalne touch ekrane</strong>.",
+    sam_s2_eye:"NEPRIJATELJI",sam_s2_title:"Različiti tipovi neprijatelja s <span>random attack patternima</span>",
+    sam_s2_p1:"Igra sadrži <strong>3-4 različita tipa regularnih neprijatelja</strong>, svaki s jedinstvenim HP-om, napadima i obrascima kretanja. Spawnaju se u formacijama ovisno o valu i lete na pozicije s animacijama.",
+    sam_s2_p2:"<strong>2 tipa fly-in neprijatelja</strong> napadaju s rubova ekrana različitim brzinama. A <strong>Boss neprijatelj</strong> pojavljuje se u kasnijim valovima — teže ga je uništiti, ima više attack patterna i kreće se iza spawnanog vala.",
+    sam_s3_eye:"POWER-UP SUSTAV",sam_s3_title:"Strateška dubina s <span>5 power-upova</span>",
+    sam_s3_p1:"Igrači sakupljaju power-upove koji se čuvaju u UI-ju i koriste strateškim trenutkom. Svaki power-up <strong>pauzira igru i prikazuje objašnjenje</strong> efekta prije aktivacije.",
+    sam_pu1:"Uništi sve neprijatelje na ekranu",sam_pu2:"Uspori vrijeme bez usporavanja igrača",sam_pu3:"Udvostruči štetu na 10 sekundi",sam_pu4:"Popravi brod i izgubljene bodove",sam_pu5:"Aktiviraj štit na 10 sekundi",
+    sam_s4_eye:"ORUŽJE",sam_s4_title:"<span>5 razina</span> napredovanja oružja",
+    sam_s4_p1:"Weapon power-upovi odmah nadograđuju oružje igrača. Sprite broda se vizualno mijenja s efektom <strong>\"Galaxy AI is upgraded\"</strong> pri svakom napredovanju.",
+    sam_w1:"Razina 1 — 1 hitac iz centra",sam_w2:"Razina 2 — 2 hica s lijeve i desne strane",sam_w3:"Razina 3 — 3 hica s lijeve, desne i centra",sam_w4:"Razina 4 — 2 pojačana hica",sam_w5:"Razina 5 — 3 pojačana lasera",
+    sam_s5_eye:"BOSS FIGHT",sam_s5_title:"Epski boss s <span>više attack patterna</span>",
+    sam_s5_p1:"Boss neprijatelj ulazi u <strong>6. valu</strong> i ostaje do kraja igre. Ima <strong>više različitih attack patterna</strong>, health bar i kreće se iza regularnog vala. Kad se posljednji val uništi, ostaje samo boss — finalni showdown.",
+    sam_s5_p2:"Boss ima jedinstvene dijaloge koji provociraju igrača — \"Muahahaha! Tvoj Galaxy S26 mi ne može ništa!\" — dodajući humora i personalnosti igri.",
+    sam_s6_eye:"LEADERBOARD & SCORING",sam_s6_title:"Online ljestvica u <span>realnom vremenu</span>",
+    sam_s6_p1:"Detaljan scoring sustav: bodovi za uništene neprijatelje, bonus power-upove, penali za primljenu štetu i smrti. Svaka preostala milisekunda se dodaje na ukupni rezultat.",
+    sam_s6_p2:"Na kraju igre prikazuje se <strong>kompletna statistika</strong> — damage dealt, enemies destroyed, bonus points, time bonus, damage taken i deaths. Integrirana <strong>online ljestvica</strong> rangira igrače diljem svih 30+ trgovina u regiji.",
+    sam_quote:"\"Galaxy Heroes igra je bila apsolutni hit u našim trgovinama. Kupci su se natjecali za top pozicije na ljestvici, a prosječno vrijeme zadržavanja u Samsung zoni se utrostručilo.\"",
+    sam_s7_eye:"BRAND INTEGRACIJA",sam_s7_title:"Samsung <span>promo popupi</span> tijekom gameplayja",
+    sam_s7_p1:"Tijekom igre pojavljuju se <strong>integrirani Samsung promotional popupi</strong> koji prikazuju feature-e Galaxy S26 serije — \"Ultimate Visual Experience\", kamera mogućnosti i više. Svaki popup pauzira igru i prikazuje informaciju s gumbom za nastavak.",
+    sam_s7_p2:"Brod igrača nosi <strong>Galaxy S25 branding na krilima</strong>, a cijeli vizualni identitet igre je usklađen sa Samsung brand guidelines. Potpuna integracija brenda bez ometanja gameplayja.",
+    sam_n1:"Valova",sam_n2:"Po valu max",sam_n3:"Min timer",sam_n4:"Respawns",
+    sam_gal_eye:"GAMEPLAY GALERIJA",
+    sam_cta_title:"Imate sličan projekt?",sam_cta_desc:"Razvijamo custom igre, interaktivna iskustva i in-store promocije za brendove. Razgovarajmo o vašem projektu.",sam_cta_btn:"POKRENITE PROJEKT"
+  },
+  de: {
+    menu_home:"Startseite",menu_services:"Leistungen",menu_work:"Projekte",menu_blog:"Blog",menu_contact:"Kontakt",menu_btn:"MENU",menu_proj_samsung:"Samsung Galaxy Heroes",
+    sam_badge:"OFFIZIELLER SAMSUNG-PARTNER",sam_hero1:"GALAXY",sam_hero2:"HEROES",
+    sam_hero_sub:"Ein vollständig maßgeschneidertes Arcade-Spiel für Samsungs Q4 In-Store-Promotion der Galaxy S25-Serie. Gespielt in über 30 Geschäften der Region.",
+    sam_stat1:"Geschäfte",sam_stat2:"Wellen",sam_stat3:"Sprachen",sam_stat4:"Waffen-Level",
+    sam_s1_eye:"FALLSTUDIE",sam_s1_title:"Custom <span>Arcade-Spiel</span> für die größte Tech-Marke der Welt",
+    sam_s1_p1:"Samsung beauftragte uns mit der Entwicklung eines vollständig maßgeschneiderten Arcade-Spiels für ihre Q4 In-Store-Promotion der <strong>Galaxy S25-Serie</strong>. Die Aufgabe war klar: ein visuell spektakuläres, technisch einwandfreies Spiel zu schaffen, das Kunden in den Geschäften anzieht und die Stärke des neuesten Samsung-Geräts demonstriert.",
+    sam_s1_p2:"Das Ergebnis ist <strong>Galaxy Heroes</strong> — ein vielschichtiger Space-Shooter mit modernem Pixel-Grafikstil, fortschrittlichen Mechaniken und vollständiger Markenintegration. Entwickelt in HTML5 für <strong>Galaxy S25 Ultra</strong> und <strong>43\"-vertikale Touchscreens</strong>.",
+    sam_s2_eye:"GEGNER",sam_s2_title:"Verschiedene Gegnertypen mit <span>zufälligen Angriffsmustern</span>",
+    sam_s2_p1:"Das Spiel bietet <strong>3-4 verschiedene reguläre Gegnertypen</strong>, jeder mit einzigartigem HP, Angriffen und Bewegungsmustern. Sie spawnen je nach Welle in Formationen und fliegen mit Animationen in Position.",
+    sam_s2_p2:"<strong>2 Fly-In-Gegnertypen</strong> greifen vom Bildschirmrand mit unterschiedlicher Geschwindigkeit an. Und der <strong>Boss-Gegner</strong> erscheint in späteren Wellen — schwerer zu zerstören, mit mehreren Angriffsmustern, bewegt sich hinter der gespawnten Welle.",
+    sam_s3_eye:"POWER-UP-SYSTEM",sam_s3_title:"Strategische Tiefe mit <span>5 Power-Ups</span>",
+    sam_s3_p1:"Spieler sammeln Power-Ups, die im UI gespeichert und zu strategischen Zeitpunkten eingesetzt werden. Jedes Power-Up <strong>pausiert das Spiel und zeigt eine Erklärung</strong> des Effekts vor der Aktivierung.",
+    sam_pu1:"Alle Gegner auf dem Bildschirm zerstören",sam_pu2:"Zeit verlangsamen ohne den Spieler zu verlangsamen",sam_pu3:"Doppelter Schaden für 10 Sekunden",sam_pu4:"Schiff reparieren und verlorene Punkte wiederherstellen",sam_pu5:"Schild für 10 Sekunden aktivieren",
+    sam_s4_eye:"WAFFEN",sam_s4_title:"<span>5 Stufen</span> der Waffenprogression",
+    sam_s4_p1:"Waffen-Power-Ups upgraden sofort die Waffe des Spielers. Der Schiff-Sprite ändert sich visuell mit einem <strong>\"Galaxy AI is upgraded\"</strong>-Effekt bei jedem Fortschritt.",
+    sam_w1:"Stufe 1 — 1 Schuss aus der Mitte",sam_w2:"Stufe 2 — 2 Schüsse von links und rechts",sam_w3:"Stufe 3 — 3 Schüsse von links, rechts und Mitte",sam_w4:"Stufe 4 — 2 verstärkte Schüsse",sam_w5:"Stufe 5 — 3 verstärkte Laser",
+    sam_s5_eye:"BOSSKAMPF",sam_s5_title:"Epischer Boss mit <span>mehreren Angriffsmustern</span>",
+    sam_s5_p1:"Der Boss-Gegner tritt in <strong>Welle 6</strong> ein und bleibt bis zum Ende. Er hat <strong>mehrere verschiedene Angriffsmuster</strong>, eine Gesundheitsleiste und bewegt sich hinter der regulären Welle. Wenn die letzte Welle zerstört ist, bleibt nur der Boss — das finale Showdown.",
+    sam_s5_p2:"Der Boss hat einzigartige Dialoge, die den Spieler provozieren — \"Muahahaha! Dein Galaxy S26 kann mir nichts anhaben!\" — und fügt dem Spiel Humor und Persönlichkeit hinzu.",
+    sam_s6_eye:"BESTENLISTE & PUNKTE",sam_s6_title:"Echtzeit-<span>Online-Bestenliste</span>",
+    sam_s6_p1:"Detailliertes Punktesystem: Punkte für zerstörte Gegner, Bonus-Power-Ups, Strafen für erlittenen Schaden und Tode. Jede verbleibende Millisekunde wird zum Gesamtpunktestand addiert.",
+    sam_s6_p2:"Am Ende werden <strong>komplette Statistiken</strong> angezeigt — verursachter Schaden, zerstörte Gegner, Bonuspunkte, Zeitbonus, erlittener Schaden und Tode. Die integrierte <strong>Online-Bestenliste</strong> rankt Spieler über alle 30+ Geschäfte der Region.",
+    sam_quote:"\"Das Galaxy Heroes Spiel war ein absoluter Hit in unseren Geschäften. Kunden wetteiferten um die Top-Positionen in der Bestenliste, und die durchschnittliche Verweildauer in der Samsung-Zone hat sich verdreifacht.\"",
+    sam_s7_eye:"MARKENINTEGRATION",sam_s7_title:"Samsung <span>Promo-Popups</span> während des Gameplays",
+    sam_s7_p1:"Während des Gameplays erscheinen <strong>integrierte Samsung-Werbe-Popups</strong>, die Features der Galaxy S26-Serie präsentieren — \"Ultimate Visual Experience\", Kamera-Fähigkeiten und mehr. Jedes Popup pausiert das Spiel und zeigt die Information mit einem Weiter-Button.",
+    sam_s7_p2:"Das Spielerschiff trägt <strong>Galaxy S25-Branding auf den Flügeln</strong>, und die gesamte visuelle Identität des Spiels ist auf die Samsung-Markenrichtlinien abgestimmt. Vollständige Markenintegration ohne Störung des Gameplays.",
+    sam_n1:"Wellen",sam_n2:"Pro Welle max",sam_n3:"Min Timer",sam_n4:"Respawns",
+    sam_gal_eye:"GAMEPLAY-GALERIE",
+    sam_cta_title:"Haben Sie ein ähnliches Projekt?",sam_cta_desc:"Wir entwickeln individuelle Spiele, interaktive Erlebnisse und In-Store-Promotionen für Marken. Lassen Sie uns über Ihr Projekt sprechen.",sam_cta_btn:"PROJEKT STARTEN"
+  },
+  es: {
+    menu_home:"Inicio",menu_services:"Servicios",menu_work:"Proyectos",menu_blog:"Blog",menu_contact:"Contacto",menu_btn:"MENU",menu_proj_samsung:"Samsung Galaxy Heroes",
+    sam_badge:"SOCIO OFICIAL DE SAMSUNG",sam_hero1:"GALAXY",sam_hero2:"HEROES",
+    sam_hero_sub:"Un juego arcade completamente personalizado desarrollado para la promoción in-store Q4 de Samsung para la serie Galaxy S25. Jugado en más de 30 tiendas de la región.",
+    sam_stat1:"Tiendas",sam_stat2:"Oleadas",sam_stat3:"Idiomas",sam_stat4:"Niveles de arma",
+    sam_s1_eye:"CASO DE ESTUDIO",sam_s1_title:"Juego <span>arcade personalizado</span> para la mayor marca tecnológica del mundo",
+    sam_s1_p1:"Samsung nos confió la creación de un juego arcade completamente personalizado para su promoción in-store Q4 de la <strong>serie Galaxy S25</strong>. El objetivo era claro: crear un juego visualmente espectacular y técnicamente impecable que atrajera clientes en las tiendas y demostrara la potencia del último dispositivo Samsung.",
+    sam_s1_p2:"El resultado es <strong>Galaxy Heroes</strong> — un shooter espacial por capas con gráficos pixelados modernos, mecánicas avanzadas e integración de marca completa. Desarrollado en HTML5 para <strong>Galaxy S25 Ultra</strong> y <strong>pantallas táctiles verticales de 43\"</strong>.",
+    sam_s2_eye:"ENEMIGOS",sam_s2_title:"Multiples tipos de enemigos con <span>patrones de ataque aleatorios</span>",
+    sam_s2_p1:"El juego cuenta con <strong>3-4 tipos diferentes de enemigos regulares</strong>, cada uno con HP, ataques y patrones de movimiento unicos. Aparecen en formaciones segun la oleada y vuelan a posicion con animaciones.",
+    sam_s2_p2:"<strong>2 tipos de enemigos fly-in</strong> atacan desde los bordes de la pantalla a diferentes velocidades. Y el <strong>enemigo Jefe</strong> aparece en oleadas posteriores — mas dificil de destruir, con multiples patrones de ataque, moviendose detras de la oleada generada.",
+    sam_s3_eye:"SISTEMA DE POWER-UPS",sam_s3_title:"Profundidad estrategica con <span>5 power-ups</span>",
+    sam_s3_p1:"Los jugadores recolectan power-ups almacenados en la UI y los usan en momentos estrategicos. Cada power-up <strong>pausa el juego y muestra una explicacion</strong> del efecto antes de la activacion.",
+    sam_pu1:"Destruir todos los enemigos en pantalla",sam_pu2:"Ralentizar el tiempo sin ralentizar al jugador",sam_pu3:"Duplicar el dano durante 10 segundos",sam_pu4:"Reparar la nave y recuperar puntos perdidos",sam_pu5:"Activar escudo durante 10 segundos",
+    sam_s4_eye:"ARMAS",sam_s4_title:"<span>5 niveles</span> de progresion de armas",
+    sam_s4_p1:"Los power-ups de armas mejoran inmediatamente el arma del jugador. El sprite de la nave cambia visualmente con un efecto <strong>\"Galaxy AI is upgraded\"</strong> en cada avance.",
+    sam_w1:"Nivel 1 — 1 disparo desde el centro",sam_w2:"Nivel 2 — 2 disparos desde izquierda y derecha",sam_w3:"Nivel 3 — 3 disparos desde izquierda, derecha y centro",sam_w4:"Nivel 4 — 2 disparos potenciados",sam_w5:"Nivel 5 — 3 laseres potenciados",
+    sam_s5_eye:"PELEA DE JEFE",sam_s5_title:"Jefe epico con <span>multiples patrones de ataque</span>",
+    sam_s5_p1:"El enemigo Jefe entra en la <strong>oleada 6</strong> y permanece hasta el final. Tiene <strong>multiples patrones de ataque diferentes</strong>, barra de salud y se mueve detras de la oleada regular. Cuando se destruye la ultima oleada, solo queda el jefe — el enfrentamiento final.",
+    sam_s5_p2:"El jefe tiene dialogos unicos que provocan al jugador — \"Muahahaha! Tu Galaxy S26 no puede hacer nada contra mi!\" — anadiendo humor y personalidad al juego.",
+    sam_s6_eye:"CLASIFICACION Y PUNTUACION",sam_s6_title:"Clasificacion online en <span>tiempo real</span>",
+    sam_s6_p1:"Sistema de puntuacion detallado: puntos por enemigos destruidos, power-ups bonus, penalizaciones por dano recibido y muertes. Cada milisegundo restante se suma a la puntuacion total.",
+    sam_s6_p2:"Al final se muestran <strong>estadisticas completas</strong> — dano causado, enemigos destruidos, puntos bonus, bonus de tiempo, dano recibido y muertes. La <strong>clasificacion online</strong> integrada clasifica a los jugadores en las mas de 30 tiendas de la region.",
+    sam_quote:"\"El juego Galaxy Heroes fue un exito absoluto en nuestras tiendas. Los clientes competian por las primeras posiciones en la clasificacion, y el tiempo promedio de permanencia en la zona Samsung se triplico.\"",
+    sam_s7_eye:"INTEGRACION DE MARCA",sam_s7_title:"<span>Popups promocionales</span> de Samsung durante el gameplay",
+    sam_s7_p1:"Durante el juego aparecen <strong>popups promocionales integrados de Samsung</strong> que muestran caracteristicas de la serie Galaxy S26 — \"Ultimate Visual Experience\", capacidades de camara y mas. Cada popup pausa el juego y muestra la informacion con un boton de continuar.",
+    sam_s7_p2:"La nave del jugador lleva <strong>branding Galaxy S25 en sus alas</strong>, y toda la identidad visual del juego esta alineada con las directrices de marca de Samsung. Integracion de marca completa sin interrumpir el gameplay.",
+    sam_n1:"Oleadas",sam_n2:"Por oleada max",sam_n3:"Min temporizador",sam_n4:"Respawns",
+    sam_gal_eye:"GALERIA DE GAMEPLAY",
+    sam_cta_title:"¿Tienes un proyecto similar?",sam_cta_desc:"Desarrollamos juegos personalizados, experiencias interactivas y promociones in-store para marcas. Hablemos de tu proyecto.",sam_cta_btn:"INICIAR PROYECTO"
+  }
+};
+
+function setLang(lang) {
+  sessionStorage.setItem('lang_set', lang);
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+  const lb = document.getElementById('btn-' + lang);
+  if (lb) lb.classList.add('active');
+  document.documentElement.lang = lang;
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (translations[lang] && translations[lang][key]) el.innerHTML = translations[lang][key];
+  });
+}
+
+(function() {
+  const saved = sessionStorage.getItem('lang_set');
+  if (saved) { setLang(saved); return; }
+  fetch('https://ipapi.co/json/')
+    .then(r => r.json())
+    .then(data => {
+      const cc = (data.country_code || '').toUpperCase();
+      let lang = 'en';
+      if (['DE','AT','CH'].includes(cc)) lang = 'de';
+      else if (['HR','BA','RS','ME','MK','SI','BG','XK'].includes(cc)) lang = 'hr';
+      else if (cc === 'ES') lang = 'es';
+      setLang(lang);
+    })
+    .catch(() => setLang('en'));
+})();
+</script>
+</body>
+</html>
