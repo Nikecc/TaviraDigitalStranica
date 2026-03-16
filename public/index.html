@@ -2833,15 +2833,15 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 1600);
   }
 
-  // Timeline: 0-2s hold, 2-3s dissolve, 3-4.5s form hero
+  // Timeline: 0-1.5s hold, 1.5-2.5s dissolve, 2.5s+ form hero
   window.addEventListener("load", () => {
-    setTimeout(dissolveText, 2000);
-    setTimeout(formHero, 3000);
+    setTimeout(dissolveText, 1500);
+    setTimeout(formHero, 2500);
   });
 
   // Failsafe
-  setTimeout(() => { if (phase < 1) dissolveText(); }, 3500);
-  setTimeout(() => { if (phase < 2) formHero(); }, 4500);
+  setTimeout(() => { if (phase < 1) dissolveText(); }, 3000);
+  setTimeout(() => { if (phase < 2) formHero(); }, 4000);
 })();
 </script>
 
