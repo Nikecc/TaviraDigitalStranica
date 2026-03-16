@@ -2762,14 +2762,31 @@ document.addEventListener("DOMContentLoaded", () => {
     } else if (phase === 1) {
       // ── Particles converge to form text (proper lerp) ──
       const dur = 1400;
+      const globalProgress = Math.min(elapsed / dur, 1);
+
+      // Draw clean text fading in during last 40% of formation
+      const textFade = Math.max(0, (globalProgress - 0.6) / 0.4);
+      if (textFade > 0) {
+        ctx.globalAlpha = textFade;
+        ctx.fillStyle = "#fff";
+        ctx.font = "800 " + fontSize + "px Montserrat, sans-serif";
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        if (W < 768) {
+          ctx.fillText("TAVIRA", W / 2, H / 2 - fontSize * 0.6);
+          ctx.fillText("DIGITAL", W / 2, H / 2 + fontSize * 0.6);
+        } else {
+          ctx.fillText("TAVIRA DIGITAL", W / 2, H / 2);
+        }
+      }
+
+      // Particles converge, fade out as clean text takes over
       formParticles.forEach(p => {
-        // Per-particle progress with stagger
         const t = Math.min(Math.max((elapsed - p.stagger * dur) / (dur * (1 - p.stagger)), 0), 1);
-        // easeInOutCubic for smooth arrival
         const ease = t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
         p.x = p.startX + (p.homeX - p.startX) * ease;
         p.y = p.startY + (p.homeY - p.startY) * ease;
-        ctx.globalAlpha = 0.95;
+        ctx.globalAlpha = (1 - textFade) * 0.9;
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
         ctx.fillStyle = "#fff";
@@ -2777,7 +2794,7 @@ document.addEventListener("DOMContentLoaded", () => {
       });
       drawFloating(now);
 
-      // Transition to hold when all arrived
+      // Transition to hold when done
       if (elapsed >= dur) setPhase(2);
 
     } else if (phase === 2) {
