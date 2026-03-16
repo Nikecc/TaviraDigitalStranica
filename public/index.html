@@ -2760,7 +2760,7 @@ document.addEventListener("DOMContentLoaded", () => {
       drawFloating(now);
 
       // Snapshot positions before formation starts
-      if (elapsed >= 1000) {
+      if (elapsed >= 500) {
         formParticles.forEach(p => { p.startX = p.x; p.startY = p.y; });
         setPhase(1);
       }
