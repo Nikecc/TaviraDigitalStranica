@@ -2610,8 +2610,8 @@ document.addEventListener("DOMContentLoaded", () => {
   resize();
   window.addEventListener("resize", resize);
 
-  // Sample text pixels from offscreen canvas
-  function getTextParticles(text, fontSize) {
+  // Sample text pixels for dissolve phase
+  function getTextPixels(text, fontSize) {
     const off = document.createElement("canvas");
     const octx = off.getContext("2d");
     off.width = W; off.height = H;
@@ -2619,7 +2619,6 @@ document.addEventListener("DOMContentLoaded", () => {
     octx.font = "800 " + fontSize + "px Montserrat, sans-serif";
     octx.textAlign = "center";
     octx.textBaseline = "middle";
-    // Draw two lines for mobile
     if (W < 768) {
       octx.fillText("TAVIRA", W / 2, H / 2 - fontSize * 0.6);
       octx.fillText("DIGITAL", W / 2, H / 2 + fontSize * 0.6);
@@ -2628,47 +2627,54 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     const data = octx.getImageData(0, 0, W, H).data;
     const points = [];
-    const gap = 2; // dense sampling for crisp text
+    const gap = 4;
     for (let y = 0; y < H; y += gap) {
       for (let x = 0; x < W; x += gap) {
-        if (data[(y * W + x) * 4 + 3] > 128) {
-          points.push({ x, y });
-        }
+        if (data[(y * W + x) * 4 + 3] > 128) points.push({ x, y });
       }
     }
     return points;
   }
 
   const fontSize = W < 768 ? Math.min(W * 0.13, 70) : Math.min(W * 0.065, 100);
-  const textPoints = getTextParticles("TAVIRA DIGITAL", fontSize);
+  const textPixels = getTextPixels("TAVIRA DIGITAL", fontSize);
 
-  // Create particles - background + text
-  const BG_COUNT = Math.min(400, Math.floor(W * H / 3000));
+  // Floating white particles across screen
+  const FLOAT_COUNT = Math.min(600, Math.floor(W * H / 2000));
   const particles = [];
-
-  // Background particles
-  for (let i = 0; i < BG_COUNT; i++) {
+  for (let i = 0; i < FLOAT_COUNT; i++) {
     particles.push({
       x: Math.random() * W, y: Math.random() * H,
-      r: Math.random() * 1.5 + 0.3,
-      vx: (Math.random() - 0.5) * 0.15, vy: (Math.random() - 0.5) * 0.15,
-      alpha: Math.random() * 0.3 + 0.06,
-      isText: false
+      r: Math.random() * 2 + 0.5,
+      vx: (Math.random() - 0.5) * 0.3, vy: (Math.random() - 0.5) * 0.3,
+      alpha: Math.random() * 0.4 + 0.15,
+      targetX: null, targetY: null
     });
   }
 
-  // Text particles — start already at home positions (no gathering)
-  textPoints.forEach(tp => {
-    particles.push({
-      x: tp.x, y: tp.y,
-      homeX: tp.x, homeY: tp.y,
-      r: 1,
-      alpha: 0.9,
-      isText: true
-    });
-  });
+  // Text particles (created on dissolve)
+  let textParticles = [];
 
-  // Phases: 0 = hold text (2s), 1 = scatter into hero
+  // Get hero element positions for particle targets
+  function getHeroTargets() {
+    const hero = document.querySelector('.hero');
+    const selectors = ['.hero-badge', '.hero__content h1', '.hero__content p', '.cta-row', '.hero-stats', '.hero__visuals'];
+    const targets = [];
+    selectors.forEach(sel => {
+      const el = hero.querySelector(sel);
+      if (!el) return;
+      const rect = el.getBoundingClientRect();
+      const density = Math.max(20, Math.floor((rect.width * rect.height) / 400));
+      for (let i = 0; i < density; i++) {
+        targets.push({ x: rect.left + Math.random() * rect.width, y: rect.top + Math.random() * rect.height });
+      }
+    });
+    return targets;
+  }
+
+  // Phase 0: clean text + floating particles (2s)
+  // Phase 1: text dissolves into particles, screen fills (1s)
+  // Phase 2: particles converge to hero elements, intro fades (1.5s)
   let phase = 0;
   let phaseStart = Date.now();
   let animId;
@@ -2680,81 +2686,162 @@ document.addEventListener("DOMContentLoaded", () => {
     const now = Date.now();
     const elapsed = now - phaseStart;
 
-    particles.forEach(p => {
-      if (phase === 0) {
-        // Text stays in place with subtle breathing, bg floats
-        if (p.isText) {
-          p.x = p.homeX + Math.sin(now * 0.002 + p.homeX * 0.01) * 0.15;
-          p.y = p.homeY + Math.cos(now * 0.002 + p.homeY * 0.01) * 0.15;
-          ctx.globalAlpha = 0.85 + Math.sin(now * 0.003) * 0.1;
-        } else {
-          p.x += p.vx + Math.sin(now * 0.0005 + p.y * 0.007) * 0.08;
-          p.y += p.vy + Math.cos(now * 0.0005 + p.x * 0.007) * 0.08;
-          if (p.x < -10) p.x = W + 10; if (p.x > W + 10) p.x = -10;
-          if (p.y < -10) p.y = H + 10; if (p.y > H + 10) p.y = -10;
-          ctx.globalAlpha = p.alpha * 0.4;
-        }
-      } else if (phase === 1) {
-        // Scatter all particles outward
-        if (!p.scatterVx) {
-          const dx = p.x - W / 2;
-          const dy = p.y - H / 2;
-          const dist = Math.sqrt(dx * dx + dy * dy) || 1;
-          const speed = p.isText ? (3 + Math.random() * 5) : (2 + Math.random() * 4);
-          p.scatterVx = (dx / dist) * speed + (Math.random() - 0.5) * 2;
-          p.scatterVy = (dy / dist) * speed + (Math.random() - 0.5) * 2;
-          p.scatterAlpha = 1;
-        }
-        p.x += p.scatterVx;
-        p.y += p.scatterVy;
-        p.scatterAlpha *= 0.97;
-        ctx.globalAlpha = (p.isText ? 0.9 : p.alpha) * p.scatterAlpha;
-      }
-
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-      ctx.fillStyle = p.isText && phase === 0
-        ? "rgba(255, 255, 255, 1)"
-        : "rgba(34, 211, 238, 0.8)";
-      ctx.fill();
-    });
-
-    // Connecting lines between bg particles during hold phase
     if (phase === 0) {
-      ctx.strokeStyle = "rgba(34, 211, 238, 0.04)";
-      ctx.lineWidth = 0.5;
-      const bgOnly = particles.filter(p => !p.isText);
-      for (let i = 0; i < bgOnly.length; i++) {
-        for (let j = i + 1; j < bgOnly.length; j++) {
-          const dx = bgOnly[i].x - bgOnly[j].x;
-          const dy = bgOnly[i].y - bgOnly[j].y;
-          const d = dx * dx + dy * dy;
-          if (d < 6000) {
-            ctx.globalAlpha = (1 - d / 6000) * 0.06;
-            ctx.beginPath();
-            ctx.moveTo(bgOnly[i].x, bgOnly[i].y);
-            ctx.lineTo(bgOnly[j].x, bgOnly[j].y);
-            ctx.stroke();
-          }
+      // Clean white text
+      ctx.globalAlpha = 1;
+      ctx.fillStyle = "#fff";
+      ctx.font = "800 " + fontSize + "px Montserrat, sans-serif";
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      if (W < 768) {
+        ctx.fillText("TAVIRA", W / 2, H / 2 - fontSize * 0.6);
+        ctx.fillText("DIGITAL", W / 2, H / 2 + fontSize * 0.6);
+      } else {
+        ctx.fillText("TAVIRA DIGITAL", W / 2, H / 2);
+      }
+
+      // Floating white particles
+      particles.forEach(p => {
+        p.x += p.vx + Math.sin(now * 0.0005 + p.y * 0.007) * 0.08;
+        p.y += p.vy + Math.cos(now * 0.0005 + p.x * 0.007) * 0.08;
+        if (p.x < -10) p.x = W + 10; if (p.x > W + 10) p.x = -10;
+        if (p.y < -10) p.y = H + 10; if (p.y > H + 10) p.y = -10;
+        ctx.globalAlpha = p.alpha;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = "#fff";
+        ctx.fill();
+      });
+
+    } else if (phase === 1) {
+      // Text fading out
+      const progress = Math.min(elapsed / 800, 1);
+      if (progress < 0.6) {
+        ctx.globalAlpha = 1 - progress / 0.6;
+        ctx.fillStyle = "#fff";
+        ctx.font = "800 " + fontSize + "px Montserrat, sans-serif";
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        if (W < 768) {
+          ctx.fillText("TAVIRA", W / 2, H / 2 - fontSize * 0.6);
+          ctx.fillText("DIGITAL", W / 2, H / 2 + fontSize * 0.6);
+        } else {
+          ctx.fillText("TAVIRA DIGITAL", W / 2, H / 2);
         }
       }
+
+      // Text particles scatter outward
+      textParticles.forEach(p => {
+        p.x += p.vx;
+        p.y += p.vy;
+        p.vx *= 0.98; p.vy *= 0.98;
+        ctx.globalAlpha = Math.max(0.15, p.alpha * (1 - progress * 0.5));
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = "#fff";
+        ctx.fill();
+      });
+
+      // Floating particles keep floating
+      particles.forEach(p => {
+        p.x += p.vx + Math.sin(now * 0.0005 + p.y * 0.007) * 0.08;
+        p.y += p.vy + Math.cos(now * 0.0005 + p.x * 0.007) * 0.08;
+        if (p.x < -10) p.x = W + 10; if (p.x > W + 10) p.x = -10;
+        if (p.y < -10) p.y = H + 10; if (p.y > H + 10) p.y = -10;
+        ctx.globalAlpha = p.alpha;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = "#fff";
+        ctx.fill();
+      });
+
+    } else if (phase === 2) {
+      // All particles converge toward hero element positions
+      const progress = Math.min(elapsed / 1500, 1);
+      const ease = 1 - Math.pow(1 - progress, 3);
+
+      const allP = particles.concat(textParticles);
+      allP.forEach(p => {
+        if (p.targetX != null) {
+          p.x += (p.targetX - p.x) * (0.03 + ease * 0.08);
+          p.y += (p.targetY - p.y) * (0.03 + ease * 0.08);
+        }
+        ctx.globalAlpha = Math.max(0, (1 - ease * 1.2)) * (p.alpha || 0.5);
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = "#fff";
+        ctx.fill();
+      });
     }
 
     animId = requestAnimationFrame(draw);
   }
   draw();
 
-  // Timeline: hold 2s, then scatter into hero
-  function triggerScatter() {
-    if (phase === 1) return;
+  // Phase 1: dissolve text into particles
+  function dissolveText() {
+    if (phase >= 1) return;
     setPhase(1);
-    intro.style.transition = "opacity 0.8s ease 0.3s";
-    intro.style.opacity = "0";
-    setTimeout(() => { cancelAnimationFrame(animId); intro.remove(); }, 1200);
+    textPixels.forEach(tp => {
+      const dx = tp.x - W / 2;
+      const dy = tp.y - H / 2;
+      const dist = Math.sqrt(dx * dx + dy * dy) || 1;
+      const speed = 1.5 + Math.random() * 3;
+      textParticles.push({
+        x: tp.x, y: tp.y,
+        r: Math.random() * 1.5 + 0.5,
+        vx: (dx / dist) * speed + (Math.random() - 0.5) * 2,
+        vy: (dy / dist) * speed + (Math.random() - 0.5) * 2,
+        alpha: 0.7 + Math.random() * 0.3,
+        targetX: null, targetY: null
+      });
+    });
   }
 
-  window.addEventListener("load", () => { setTimeout(triggerScatter, 2000); });
-  setTimeout(triggerScatter, 3500); // failsafe
+  // Phase 2: particles form hero section
+  function formHero() {
+    if (phase >= 2) return;
+    setPhase(2);
+
+    const targets = getHeroTargets();
+    const allP = particles.concat(textParticles);
+
+    // Assign each particle a target within hero elements
+    allP.forEach((p, i) => {
+      if (targets.length > 0) {
+        const t = targets[i % targets.length];
+        p.targetX = t.x;
+        p.targetY = t.y;
+      }
+    });
+
+    // Make intro bg transparent so hero shows through
+    intro.style.background = "transparent";
+
+    // Trigger hero element reveal
+    const hero = document.querySelector('.hero');
+    const logoHeader = document.querySelector('.logo-header');
+    setTimeout(() => {
+      hero.classList.add('animate');
+      logoHeader.classList.add('animate');
+    }, 300);
+
+    // Remove intro after particles converge
+    setTimeout(() => {
+      cancelAnimationFrame(animId);
+      intro.remove();
+    }, 1600);
+  }
+
+  // Timeline: 0-2s hold, 2-3s dissolve, 3-4.5s form hero
+  window.addEventListener("load", () => {
+    setTimeout(dissolveText, 2000);
+    setTimeout(formHero, 3000);
+  });
+
+  // Failsafe
+  setTimeout(() => { if (phase < 1) dissolveText(); }, 3500);
+  setTimeout(() => { if (phase < 2) formHero(); }, 4500);
 })();
 </script>
 
