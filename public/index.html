@@ -2786,7 +2786,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const ease = t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
         p.x = p.startX + (p.homeX - p.startX) * ease;
         p.y = p.startY + (p.homeY - p.startY) * ease;
-        ctx.globalAlpha = (1 - textFade) * 0.9;
+        ctx.globalAlpha = p.alpha * (1 - textFade);
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
         ctx.fillStyle = "#fff";
