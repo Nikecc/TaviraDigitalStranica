@@ -476,7 +476,8 @@
       .hero__content p { margin: 0 auto 30px; font-size: 1rem;}
       .cta-row { justify-content: center; margin-bottom: 30px;}
       .hero-stats { justify-content: center; width: 100%; border-top: none; padding-top: 0; }
-      .hero__visuals { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(8deg) scale(1.1); min-width: 100%; height: 100%; opacity: 0.15 !important; filter: blur(2px); z-index: 0; pointer-events: none; }
+      .hero__visuals { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(8deg) scale(1.1); min-width: 100%; height: 100%; opacity: 0.15; z-index: 0; pointer-events: none; }
+      .hero.animate .hero__visuals { opacity: 0.15; filter: blur(2px); }
       .v-track { width: 45vw; }
       .v-track img { height: 180px; }
     }
@@ -2609,179 +2610,87 @@ document.addEventListener("DOMContentLoaded", () => {
   resize();
   window.addEventListener("resize", resize);
 
-  // ── Helpers ──────────────────────────────────────────
-  // Sample pixels from text drawn on offscreen canvas
-  function sampleText(text, font, cx, cy, align, baseline) {
+  // Sample text pixels for dissolve phase
+  function getTextPixels(text, fontSize) {
     const off = document.createElement("canvas");
+    const octx = off.getContext("2d");
     off.width = W; off.height = H;
-    const o = off.getContext("2d");
-    o.fillStyle = "#fff";
-    o.font = font;
-    o.textAlign = align || "center";
-    o.textBaseline = baseline || "middle";
-    o.fillText(text, cx, cy);
-    const d = o.getImageData(0, 0, W, H).data;
-    const pts = [];
-    for (let y = 0; y < H; y += 4) {
-      for (let x = 0; x < W; x += 4) {
-        if (d[(y * W + x) * 4 + 3] > 128) pts.push({ x, y });
+    octx.fillStyle = "#fff";
+    octx.font = "800 " + fontSize + "px Montserrat, sans-serif";
+    octx.textAlign = "center";
+    octx.textBaseline = "middle";
+    if (W < 768) {
+      octx.fillText("TAVIRA", W / 2, H / 2 - fontSize * 0.6);
+      octx.fillText("DIGITAL", W / 2, H / 2 + fontSize * 0.6);
+    } else {
+      octx.fillText(text, W / 2, H / 2);
+    }
+    const data = octx.getImageData(0, 0, W, H).data;
+    const points = [];
+    const gap = 4;
+    for (let y = 0; y < H; y += gap) {
+      for (let x = 0; x < W; x += gap) {
+        if (data[(y * W + x) * 4 + 3] > 128) points.push({ x, y });
       }
     }
-    return pts;
+    return points;
   }
 
-  // Sample text element pixels by rendering its text on canvas
-  function sampleElementText(el) {
-    const off = document.createElement("canvas");
-    off.width = W; off.height = H;
-    const o = off.getContext("2d");
-    o.fillStyle = "#fff";
-    const rect = el.getBoundingClientRect();
-    const style = getComputedStyle(el);
-    const fs = parseFloat(style.fontSize);
-    const lh = parseFloat(style.lineHeight) || fs * 1.3;
-    o.font = style.fontWeight + " " + fs + "px " + style.fontFamily;
-    const centered = style.textAlign === "center";
-    o.textAlign = centered ? "center" : "left";
-    o.textBaseline = "top";
-    const xStart = centered ? rect.left + rect.width / 2 : rect.left;
-    let yPos = rect.top;
-    el.innerText.trim().split("\n").forEach(function(para) {
-      var words = para.trim().split(" ");
-      var line = "";
-      words.forEach(function(word) {
-        var test = line + (line ? " " : "") + word;
-        if (o.measureText(test).width > rect.width * 0.95 && line) {
-          o.fillText(line, xStart, yPos);
-          line = word; yPos += lh;
-        } else { line = test; }
-      });
-      if (line) { o.fillText(line, xStart, yPos); yPos += lh; }
-    });
-    var data = o.getImageData(0, 0, W, H).data;
-    var pts = [];
-    var t = Math.max(0, Math.floor(rect.top) - 2);
-    var b = Math.min(H, Math.ceil(rect.bottom) + 2);
-    var l = Math.max(0, Math.floor(rect.left) - 2);
-    var r = Math.min(W, Math.ceil(rect.right) + 2);
-    for (var y = t; y < b; y += 3) {
-      for (var x = l; x < r; x += 3) {
-        if (data[(y * W + x) * 4 + 3] > 128) pts.push({ x: x, y: y });
-      }
-    }
-    return pts;
-  }
+  const fontSize = W < 768 ? Math.min(W * 0.13, 70) : Math.min(W * 0.065, 100);
+  const textPixels = getTextPixels("TAVIRA DIGITAL", fontSize);
 
-  // Sample filled rectangle
-  function sampleRect(el, gap) {
-    var rect = el.getBoundingClientRect();
-    var pts = [];
-    for (var y = rect.top; y < rect.bottom; y += gap) {
-      for (var x = rect.left; x < rect.right; x += gap) {
-        if (Math.random() > 0.25) pts.push({ x: x, y: y });
-      }
-    }
-    return pts;
-  }
-
-  // ── Intro text sampling ─────────────────────────────
-  var fontSize = W < 768 ? Math.min(W * 0.13, 70) : Math.min(W * 0.065, 100);
-  var introFont = "800 " + fontSize + "px Montserrat, sans-serif";
-  var introTextPixels;
-  if (W < 768) {
-    var p1 = sampleText("TAVIRA", introFont, W / 2, H / 2 - fontSize * 0.6);
-    var p2 = sampleText("DIGITAL", introFont, W / 2, H / 2 + fontSize * 0.6);
-    introTextPixels = p1.concat(p2);
-  } else {
-    introTextPixels = sampleText("TAVIRA DIGITAL", introFont, W / 2, H / 2);
-  }
-
-  // ── Floating particles ──────────────────────────────
-  var FLOAT_COUNT = Math.min(800, Math.floor(W * H / 1500));
-  var particles = [];
-  for (var i = 0; i < FLOAT_COUNT; i++) {
+  // Floating white particles across screen
+  const FLOAT_COUNT = Math.min(600, Math.floor(W * H / 2000));
+  const particles = [];
+  for (let i = 0; i < FLOAT_COUNT; i++) {
     particles.push({
       x: Math.random() * W, y: Math.random() * H,
       r: Math.random() * 2 + 0.5,
       vx: (Math.random() - 0.5) * 0.3, vy: (Math.random() - 0.5) * 0.3,
       alpha: Math.random() * 0.4 + 0.15,
-      targetX: null, targetY: null, assigned: false
+      targetX: null, targetY: null
     });
   }
 
-  var textParticles = [];
-  var heroGroups = [];
-  var unassigned = [];
+  // Text particles (created on dissolve)
+  let textParticles = [];
 
-  // ── Build hero element groups ───────────────────────
-  function buildHeroGroups() {
-    var hero = document.querySelector(".hero");
-    var groups = [];
-
-    // Badge
-    var badge = hero.querySelector(".hero-badge");
-    if (badge) {
-      var pts = sampleElementText(badge);
-      if (pts.length < 20) pts = sampleRect(badge, 4);
-      groups.push({ points: pts, el: badge, delay: 0, revealed: false, particles: [] });
-    }
-
-    // H1
-    var h1 = hero.querySelector(".hero__content h1");
-    if (h1) {
-      var pts2 = sampleElementText(h1);
-      if (pts2.length < 20) pts2 = sampleRect(h1, 3);
-      groups.push({ points: pts2, el: h1, delay: 300, revealed: false, particles: [] });
-    }
-
-    // Paragraph
-    var p = hero.querySelector(".hero__content p");
-    if (p) {
-      var pts3 = sampleElementText(p);
-      if (pts3.length < 20) pts3 = sampleRect(p, 4);
-      groups.push({ points: pts3, el: p, delay: 700, revealed: false, particles: [] });
-    }
-
-    // CTA buttons
-    var cta = hero.querySelector(".cta-row");
-    if (cta) {
-      var ctaPts = [];
-      cta.querySelectorAll(".btn").forEach(function(btn) {
-        ctaPts = ctaPts.concat(sampleRect(btn, 5));
-      });
-      if (ctaPts.length < 10) ctaPts = sampleRect(cta, 5);
-      groups.push({ points: ctaPts, el: cta, delay: 1000, revealed: false, particles: [] });
-    }
-
-    // Visuals
-    var visuals = hero.querySelector(".hero__visuals");
-    if (visuals) {
-      var visPts = [];
-      visuals.querySelectorAll("img").forEach(function(img) {
-        var r = img.getBoundingClientRect();
-        if (r.width > 0 && r.height > 0) visPts = visPts.concat(sampleRect(img, 7));
-      });
-      if (visPts.length < 20) visPts = sampleRect(visuals, 6);
-      groups.push({ points: visPts, el: visuals, delay: 400, revealed: false, particles: [] });
-    }
-
-    return groups;
+  // Get hero element positions for particle targets
+  function getHeroTargets() {
+    const hero = document.querySelector('.hero');
+    const selectors = ['.hero-badge', '.hero__content h1', '.hero__content p', '.cta-row', '.hero-stats', '.hero__visuals'];
+    const targets = [];
+    selectors.forEach(sel => {
+      const el = hero.querySelector(sel);
+      if (!el) return;
+      const rect = el.getBoundingClientRect();
+      const density = Math.max(20, Math.floor((rect.width * rect.height) / 400));
+      for (let i = 0; i < density; i++) {
+        targets.push({ x: rect.left + Math.random() * rect.width, y: rect.top + Math.random() * rect.height });
+      }
+    });
+    return targets;
   }
 
-  // ── Animation phases ────────────────────────────────
-  var phase = 0, phaseStart = Date.now(), animId;
+  // Phase 0: clean text + floating particles (2s)
+  // Phase 1: text dissolves into particles, screen fills (1s)
+  // Phase 2: particles converge to hero elements, intro fades (1.5s)
+  let phase = 0;
+  let phaseStart = Date.now();
+  let animId;
+
   function setPhase(p) { phase = p; phaseStart = Date.now(); }
 
   function draw() {
     ctx.clearRect(0, 0, W, H);
-    var now = Date.now();
-    var elapsed = now - phaseStart;
+    const now = Date.now();
+    const elapsed = now - phaseStart;
 
     if (phase === 0) {
-      // ── Phase 0: Clean white text + floating particles ──
+      // Clean white text
       ctx.globalAlpha = 1;
       ctx.fillStyle = "#fff";
-      ctx.font = introFont;
+      ctx.font = "800 " + fontSize + "px Montserrat, sans-serif";
       ctx.textAlign = "center";
       ctx.textBaseline = "middle";
       if (W < 768) {
@@ -2790,7 +2699,9 @@ document.addEventListener("DOMContentLoaded", () => {
       } else {
         ctx.fillText("TAVIRA DIGITAL", W / 2, H / 2);
       }
-      particles.forEach(function(p) {
+
+      // Floating white particles
+      particles.forEach(p => {
         p.x += p.vx + Math.sin(now * 0.0005 + p.y * 0.007) * 0.08;
         p.y += p.vy + Math.cos(now * 0.0005 + p.x * 0.007) * 0.08;
         if (p.x < -10) p.x = W + 10; if (p.x > W + 10) p.x = -10;
@@ -2803,13 +2714,12 @@ document.addEventListener("DOMContentLoaded", () => {
       });
 
     } else if (phase === 1) {
-      // ── Phase 1: Text dissolves, screen fills with particles ──
-      var progress = Math.min(elapsed / 1000, 1);
-      // Fading text
-      if (progress < 0.5) {
-        ctx.globalAlpha = 1 - progress * 2;
+      // Text fading out
+      const progress = Math.min(elapsed / 800, 1);
+      if (progress < 0.6) {
+        ctx.globalAlpha = 1 - progress / 0.6;
         ctx.fillStyle = "#fff";
-        ctx.font = introFont;
+        ctx.font = "800 " + fontSize + "px Montserrat, sans-serif";
         ctx.textAlign = "center";
         ctx.textBaseline = "middle";
         if (W < 768) {
@@ -2819,18 +2729,21 @@ document.addEventListener("DOMContentLoaded", () => {
           ctx.fillText("TAVIRA DIGITAL", W / 2, H / 2);
         }
       }
-      // Text particles scattering
-      textParticles.forEach(function(p) {
-        p.x += p.vx; p.y += p.vy;
-        p.vx *= 0.985; p.vy *= 0.985;
-        ctx.globalAlpha = Math.max(0.1, p.alpha * (1 - progress * 0.3));
+
+      // Text particles scatter outward
+      textParticles.forEach(p => {
+        p.x += p.vx;
+        p.y += p.vy;
+        p.vx *= 0.98; p.vy *= 0.98;
+        ctx.globalAlpha = Math.max(0.15, p.alpha * (1 - progress * 0.5));
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
         ctx.fillStyle = "#fff";
         ctx.fill();
       });
-      // Floating particles
-      particles.forEach(function(p) {
+
+      // Floating particles keep floating
+      particles.forEach(p => {
         p.x += p.vx + Math.sin(now * 0.0005 + p.y * 0.007) * 0.08;
         p.y += p.vy + Math.cos(now * 0.0005 + p.x * 0.007) * 0.08;
         if (p.x < -10) p.x = W + 10; if (p.x > W + 10) p.x = -10;
@@ -2843,136 +2756,92 @@ document.addEventListener("DOMContentLoaded", () => {
       });
 
     } else if (phase === 2) {
-      // ── Phase 2: Particles form hero elements one by one ──
-      var allDone = true;
-      var formDur = 1200;
+      // All particles converge toward hero element positions
+      const progress = Math.min(elapsed / 1500, 1);
+      const ease = 1 - Math.pow(1 - progress, 3);
 
-      heroGroups.forEach(function(group) {
-        var ge = elapsed - group.delay;
-        if (ge < 0) { allDone = false; return; }
-        var gp = Math.min(ge / formDur, 1);
-        var ease = 1 - Math.pow(1 - gp, 3);
-        if (gp < 1) allDone = false;
-
-        // Reveal actual DOM element when particles mostly formed
-        if (gp > 0.55 && !group.revealed) {
-          group.revealed = true;
-          group.el.style.opacity = "1";
-          group.el.style.transform = "translateY(0)";
+      const allP = particles.concat(textParticles);
+      allP.forEach(p => {
+        if (p.targetX != null) {
+          p.x += (p.targetX - p.x) * (0.03 + ease * 0.08);
+          p.y += (p.targetY - p.y) * (0.03 + ease * 0.08);
         }
-
-        // Draw converging particles
-        group.particles.forEach(function(p) {
-          if (p.targetX != null) {
-            p.x += (p.targetX - p.x) * (0.04 + ease * 0.12);
-            p.y += (p.targetY - p.y) * (0.04 + ease * 0.12);
-          }
-          var fadeOut = gp > 0.5 ? Math.max(0, 1 - (gp - 0.5) / 0.5) : 1;
-          ctx.globalAlpha = fadeOut * 0.8;
-          ctx.beginPath();
-          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-          ctx.fillStyle = "#fff";
-          ctx.fill();
-        });
+        ctx.globalAlpha = Math.max(0, (1 - ease * 1.2)) * (p.alpha || 0.5);
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = "#fff";
+        ctx.fill();
       });
-
-      // Unassigned particles fade out
-      unassigned.forEach(function(p) {
-        p.alpha *= 0.97;
-        p.x += (p.vx || 0) * 0.5;
-        p.y += (p.vy || 0) * 0.5;
-        if (p.alpha > 0.02) {
-          allDone = false;
-          ctx.globalAlpha = p.alpha;
-          ctx.beginPath();
-          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-          ctx.fillStyle = "#fff";
-          ctx.fill();
-        }
-      });
-
-      if (allDone || elapsed > 4000) {
-        cancelAnimationFrame(animId);
-        intro.remove();
-        return;
-      }
     }
 
     animId = requestAnimationFrame(draw);
   }
   draw();
 
-  // ── Phase triggers ──────────────────────────────────
+  // Phase 1: dissolve text into particles
   function dissolveText() {
     if (phase >= 1) return;
     setPhase(1);
-    introTextPixels.forEach(function(tp) {
-      var dx = tp.x - W / 2;
-      var dy = tp.y - H / 2;
-      var dist = Math.sqrt(dx * dx + dy * dy) || 1;
-      var speed = 1.5 + Math.random() * 3;
+    textPixels.forEach(tp => {
+      const dx = tp.x - W / 2;
+      const dy = tp.y - H / 2;
+      const dist = Math.sqrt(dx * dx + dy * dy) || 1;
+      const speed = 1.5 + Math.random() * 3;
       textParticles.push({
         x: tp.x, y: tp.y,
         r: Math.random() * 1.5 + 0.5,
         vx: (dx / dist) * speed + (Math.random() - 0.5) * 2,
         vy: (dy / dist) * speed + (Math.random() - 0.5) * 2,
         alpha: 0.7 + Math.random() * 0.3,
-        targetX: null, targetY: null, assigned: false
+        targetX: null, targetY: null
       });
     });
   }
 
+  // Phase 2: particles form hero section
   function formHero() {
     if (phase >= 2) return;
+    setPhase(2);
 
-    // Sample hero elements
-    heroGroups = buildHeroGroups();
+    const targets = getHeroTargets();
+    const allP = particles.concat(textParticles);
 
-    // Pool all particles, shuffle
-    var pool = particles.concat(textParticles);
-    for (var i = pool.length - 1; i > 0; i--) {
-      var j = Math.floor(Math.random() * (i + 1));
-      var tmp = pool[i]; pool[i] = pool[j]; pool[j] = tmp;
-    }
-
-    // Distribute proportionally
-    var totalTargets = heroGroups.reduce(function(s, g) { return s + g.points.length; }, 0);
-    var poolIdx = 0;
-    heroGroups.forEach(function(group) {
-      var allocation = Math.min(group.points.length, Math.floor((group.points.length / totalTargets) * pool.length));
-      // Shuffle group points so we pick a varied subset
-      var shuffled = group.points.slice().sort(function() { return Math.random() - 0.5; });
-      for (var k = 0; k < allocation && poolIdx < pool.length; k++, poolIdx++) {
-        var p = pool[poolIdx];
-        p.targetX = shuffled[k].x;
-        p.targetY = shuffled[k].y;
-        p.assigned = true;
-        group.particles.push(p);
+    // Assign each particle a target within hero elements
+    allP.forEach((p, i) => {
+      if (targets.length > 0) {
+        const t = targets[i % targets.length];
+        p.targetX = t.x;
+        p.targetY = t.y;
       }
     });
 
-    // Remaining unassigned particles
-    unassigned = pool.filter(function(p) { return !p.assigned; });
-
-    // Make intro bg transparent to reveal hero beneath
+    // Make intro bg transparent so hero shows through
     intro.style.background = "transparent";
 
-    // Reveal logo header
-    var logoHeader = document.querySelector(".logo-header");
-    if (logoHeader) setTimeout(function() { logoHeader.classList.add("animate"); }, 400);
+    // Trigger hero element reveal
+    const hero = document.querySelector('.hero');
+    const logoHeader = document.querySelector('.logo-header');
+    setTimeout(() => {
+      hero.classList.add('animate');
+      logoHeader.classList.add('animate');
+    }, 300);
 
-    setPhase(2);
+    // Remove intro after particles converge
+    setTimeout(() => {
+      cancelAnimationFrame(animId);
+      intro.remove();
+    }, 1600);
   }
 
-  // Timeline: 0-2s hold, 2-3s dissolve, 3s+ form hero elements
-  window.addEventListener("load", function() {
+  // Timeline: 0-2s hold, 2-3s dissolve, 3-4.5s form hero
+  window.addEventListener("load", () => {
     setTimeout(dissolveText, 2000);
     setTimeout(formHero, 3000);
   });
 
   // Failsafe
-  setTimeout(function() { if (phase < 1) dissolveText(); }, 3500);
-  setTimeout(function() { if (phase < 2) formHero(); }, 4500);
+  setTimeout(() => { if (phase < 1) dissolveText(); }, 3500);
+  setTimeout(() => { if (phase < 2) formHero(); }, 4500);
 })();
 </script>
 
