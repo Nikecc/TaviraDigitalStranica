@@ -2619,11 +2619,16 @@ document.addEventListener("DOMContentLoaded", () => {
     octx.font = "800 " + fontSize + "px Montserrat, sans-serif";
     octx.textAlign = "center";
     octx.textBaseline = "middle";
-    octx.letterSpacing = "0.12em";
-    octx.fillText(text, W / 2, H / 2);
+    // Draw two lines for mobile
+    if (W < 768) {
+      octx.fillText("TAVIRA", W / 2, H / 2 - fontSize * 0.6);
+      octx.fillText("DIGITAL", W / 2, H / 2 + fontSize * 0.6);
+    } else {
+      octx.fillText(text, W / 2, H / 2);
+    }
     const data = octx.getImageData(0, 0, W, H).data;
     const points = [];
-    const gap = Math.max(3, Math.floor(fontSize / 18));
+    const gap = 2; // dense sampling for crisp text
     for (let y = 0; y < H; y += gap) {
       for (let x = 0; x < W; x += gap) {
         if (data[(y * W + x) * 4 + 3] > 128) {
@@ -2634,7 +2639,7 @@ document.addEventListener("DOMContentLoaded", () => {
     return points;
   }
 
-  const fontSize = Math.min(W * 0.07, 90);
+  const fontSize = W < 768 ? Math.min(W * 0.13, 70) : Math.min(W * 0.065, 100);
   const textPoints = getTextParticles("TAVIRA DIGITAL", fontSize);
 
   // Create particles - background + text
@@ -2653,12 +2658,12 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Text particles
+  // Text particles — use all sampled points for crisp readable text
   textPoints.forEach(tp => {
     particles.push({
       x: Math.random() * W, y: Math.random() * H,
       homeX: tp.x, homeY: tp.y,
-      r: Math.random() * 1.2 + 0.6,
+      r: 1,
       vx: (Math.random() - 0.5) * 0.15, vy: (Math.random() - 0.5) * 0.15,
       alpha: Math.random() * 0.3 + 0.1,
       isText: true, phase: 0
@@ -2688,11 +2693,11 @@ document.addEventListener("DOMContentLoaded", () => {
       } else if (phase === 1) {
         // Text particles move to home, bg particles keep floating
         if (p.isText) {
-          const progress = Math.min(elapsed / 1200, 1);
+          const progress = Math.min(elapsed / 1400, 1);
           const ease = 1 - Math.pow(1 - progress, 3); // easeOutCubic
-          p.x += (p.homeX - p.x) * 0.06 * ease;
-          p.y += (p.homeY - p.y) * 0.06 * ease;
-          ctx.globalAlpha = p.alpha + (0.9 - p.alpha) * ease;
+          p.x += (p.homeX - p.x) * (0.04 + ease * 0.12);
+          p.y += (p.homeY - p.y) * (0.04 + ease * 0.12);
+          ctx.globalAlpha = p.alpha + (0.95 - p.alpha) * ease;
         } else {
           p.x += p.vx + Math.sin(now * 0.0005 + p.y * 0.007) * 0.08;
           p.y += p.vy + Math.cos(now * 0.0005 + p.x * 0.007) * 0.08;
