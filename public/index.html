@@ -2808,6 +2808,9 @@ document.addEventListener("DOMContentLoaded", () => {
       drawCleanText();
       drawFloating(now);
 
+      // Auto-transition to dissolve after 400ms hold
+      if (elapsed >= 400) dissolveText();
+
     } else if (phase === 3) {
       // ── Text dissolves into particles ──
       const progress = Math.min(elapsed / 800, 1);
@@ -2840,6 +2843,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // Floating particles
       drawFloating(now);
+
+      // Auto-transition to hero formation after dissolve
+      if (elapsed >= 1000) formHero();
 
     } else if (phase === 4) {
       // ── All particles converge to hero elements ──
@@ -2919,15 +2925,11 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 1600);
   }
 
-  // Timeline: 0-1s float, 1-2.4s form, 2.4-2.8s hold, 2.8s dissolve, 3.8s hero
-  window.addEventListener("load", () => {
-    setTimeout(dissolveText, 2800);
-    setTimeout(formHero, 3800);
-  });
-
-  // Failsafe
-  setTimeout(() => { if (phase < 3) dissolveText(); }, 4300);
-  setTimeout(() => { if (phase < 4) formHero(); }, 5300);
+  // Timeline driven by draw loop auto-transitions:
+  // 0-1s float → 1-2.4s form → 2.4-2.8s hold → 2.8s dissolve → 3.8s hero
+  // Failsafes only
+  setTimeout(() => { if (phase < 3) dissolveText(); }, 4000);
+  setTimeout(() => { if (phase < 4) formHero(); }, 5000);
 })();
 </script>
 
