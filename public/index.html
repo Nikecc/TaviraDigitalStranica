@@ -2647,7 +2647,7 @@ document.addEventListener("DOMContentLoaded", () => {
       x: Math.random() * W, y: Math.random() * H,
       r: Math.random() * 2 + 0.5,
       vx: (Math.random() - 0.5) * 0.3, vy: (Math.random() - 0.5) * 0.3,
-      alpha: Math.random() * 0.4 + 0.15,
+      alpha: Math.random() * 0.3 + 0.4,
       targetX: null, targetY: null
     });
   }
@@ -2669,7 +2669,7 @@ document.addEventListener("DOMContentLoaded", () => {
       homeX: tp.x, homeY: tp.y,
       r: 1,
       vx: (Math.random() - 0.5) * 0.15, vy: (Math.random() - 0.5) * 0.15,
-      alpha: Math.random() * 0.3 + 0.1,
+      alpha: Math.random() * 0.3 + 0.5,
       stagger: stagger
     });
   });
@@ -2913,15 +2913,15 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 1600);
   }
 
-  // Timeline: 0-1s float, 1-2.4s form, 2.4-4.4s hold, 4.4s dissolve, 5.4s hero
+  // Timeline: 0-1s float, 1-2.4s form, 2.4-3.6s hold, 3.6s dissolve, 4.6s hero
   window.addEventListener("load", () => {
-    setTimeout(dissolveText, 4400);
-    setTimeout(formHero, 5400);
+    setTimeout(dissolveText, 3600);
+    setTimeout(formHero, 4600);
   });
 
   // Failsafe
-  setTimeout(() => { if (phase < 3) dissolveText(); }, 5900);
-  setTimeout(() => { if (phase < 4) formHero(); }, 6900);
+  setTimeout(() => { if (phase < 3) dissolveText(); }, 5100);
+  setTimeout(() => { if (phase < 4) formHero(); }, 6100);
 })();
 </script>
 
