@@ -2654,13 +2654,23 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Text formation particles — start at random positions, converge to text
   const formParticles = [];
+  // Pre-calculate text center for stagger
+  const textCx = W / 2;
+  const textCy = H / 2;
+  const maxTextDist = Math.sqrt(W * W + H * H) * 0.3;
   textPixels.forEach(tp => {
+    const sx = Math.random() * W, sy = Math.random() * H;
+    // Stagger: particles forming center letters arrive first
+    const distFromCenter = Math.sqrt((tp.x - textCx) ** 2 + (tp.y - textCy) ** 2);
+    const stagger = (distFromCenter / maxTextDist) * 0.3; // 0-0.3 delay factor
     formParticles.push({
-      x: Math.random() * W, y: Math.random() * H,
+      x: sx, y: sy,
+      startX: sx, startY: sy,
       homeX: tp.x, homeY: tp.y,
       r: 1,
       vx: (Math.random() - 0.5) * 0.15, vy: (Math.random() - 0.5) * 0.15,
-      alpha: Math.random() * 0.3 + 0.1
+      alpha: Math.random() * 0.3 + 0.1,
+      stagger: stagger
     });
   });
 
@@ -2730,7 +2740,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (phase === 0) {
       // ── Just floating particles ──
-      // Draw formParticles floating randomly too
       formParticles.forEach(p => {
         p.x += p.vx + Math.sin(now * 0.0005 + p.y * 0.005) * 0.08;
         p.y += p.vy + Math.cos(now * 0.0005 + p.x * 0.005) * 0.08;
@@ -2744,18 +2753,23 @@ document.addEventListener("DOMContentLoaded", () => {
       });
       drawFloating(now);
 
-      // Auto-transition after 1s
-      if (elapsed >= 1000) setPhase(1);
+      // Snapshot positions before formation starts
+      if (elapsed >= 1000) {
+        formParticles.forEach(p => { p.startX = p.x; p.startY = p.y; });
+        setPhase(1);
+      }
 
     } else if (phase === 1) {
-      // ── Particles converge to form text ──
-      const progress = Math.min(elapsed / 1200, 1);
-      const ease = 1 - Math.pow(1 - progress, 3);
-
+      // ── Particles converge to form text (proper lerp) ──
+      const dur = 1400;
       formParticles.forEach(p => {
-        p.x += (p.homeX - p.x) * (0.03 + ease * 0.1);
-        p.y += (p.homeY - p.y) * (0.03 + ease * 0.1);
-        ctx.globalAlpha = p.alpha + (0.9 - p.alpha) * ease;
+        // Per-particle progress with stagger
+        const t = Math.min(Math.max((elapsed - p.stagger * dur) / (dur * (1 - p.stagger)), 0), 1);
+        // easeInOutCubic for smooth arrival
+        const ease = t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+        p.x = p.startX + (p.homeX - p.startX) * ease;
+        p.y = p.startY + (p.homeY - p.startY) * ease;
+        ctx.globalAlpha = 0.1 + 0.85 * ease;
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
         ctx.fillStyle = "#fff";
@@ -2763,8 +2777,8 @@ document.addEventListener("DOMContentLoaded", () => {
       });
       drawFloating(now);
 
-      // Transition to hold when formed
-      if (progress >= 1) setPhase(2);
+      // Transition to hold when all arrived
+      if (elapsed >= dur) setPhase(2);
 
     } else if (phase === 2) {
       // ── Clean text hold + floating particles ──
@@ -2882,15 +2896,15 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 1600);
   }
 
-  // Timeline: 0-1s float, 1-2.2s form, 2.2-4.2s hold, 4.2-5s dissolve, 5s+ hero
+  // Timeline: 0-1s float, 1-2.4s form, 2.4-4.4s hold, 4.4s dissolve, 5.4s hero
   window.addEventListener("load", () => {
-    setTimeout(dissolveText, 4200);
-    setTimeout(formHero, 5200);
+    setTimeout(dissolveText, 4400);
+    setTimeout(formHero, 5400);
   });
 
   // Failsafe
-  setTimeout(() => { if (phase < 3) dissolveText(); }, 5700);
-  setTimeout(() => { if (phase < 4) formHero(); }, 6700);
+  setTimeout(() => { if (phase < 3) dissolveText(); }, 5900);
+  setTimeout(() => { if (phase < 4) formHero(); }, 6900);
 })();
 </script>
 
