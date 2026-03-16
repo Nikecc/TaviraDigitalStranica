@@ -2919,15 +2919,15 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 1600);
   }
 
-  // Timeline: 0-1s float, 1-2.4s form, 2.4-3.1s hold, 3.1s dissolve, 4.1s hero
+  // Timeline: 0-1s float, 1-2.4s form, 2.4-2.8s hold, 2.8s dissolve, 3.8s hero
   window.addEventListener("load", () => {
-    setTimeout(dissolveText, 3100);
-    setTimeout(formHero, 4100);
+    setTimeout(dissolveText, 2800);
+    setTimeout(formHero, 3800);
   });
 
   // Failsafe
-  setTimeout(() => { if (phase < 3) dissolveText(); }, 4600);
-  setTimeout(() => { if (phase < 4) formHero(); }, 5600);
+  setTimeout(() => { if (phase < 3) dissolveText(); }, 4300);
+  setTimeout(() => { if (phase < 4) formHero(); }, 5300);
 })();
 </script>
 
@@ -2969,6 +2969,7 @@ document.addEventListener("DOMContentLoaded", () => {
 .footer-bottom { margin-top: 50px; padding-top: 20px; border-top: 1px solid rgba(34,211,238,0.15); text-align: center; font-size: 14px; color: var(--muted); }
 @media (max-width: 768px) { .footer-inner { flex-direction: column; text-align: center; } }
 body.intro-active #taviraCtaBox { opacity: 0 !important; pointer-events: none !important; transform: translateY(20px) !important; }
+body.intro-active .td-chat-toggle { opacity: 0 !important; pointer-events: none !important; }
 </style>
 
 <script>
