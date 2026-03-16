@@ -456,7 +456,15 @@
     @keyframes vScrollUp { 0% { transform: translateY(0); } 100% { transform: translateY(calc(-50% - 10px)); } }
     @keyframes vScrollDown { 0% { transform: translateY(calc(-50% - 10px)); } 100% { transform: translateY(0); } }
 
-    /* Hero animacije - elementi su odmah vidljivi */
+    /* Hero animacije - brzi fade-in nakon intro scatter-a */
+    .hero-badge, .hero__content h1, .hero__content p, .cta-row, .hero-stats { opacity: 0; transform: translateY(15px); transition: all 0.5s cubic-bezier(.4,0,.2,1); }
+    .hero__visuals { opacity: 0; transition: all 0.6s ease; }
+    .hero.animate .hero-badge { opacity: 1; transform: translateY(0); transition-delay: 0s; }
+    .hero.animate .hero__content h1 { opacity: 1; transform: translateY(0); transition-delay: 0.08s; }
+    .hero.animate .hero__content p { opacity: 1; transform: translateY(0); transition-delay: 0.16s; }
+    .hero.animate .cta-row { opacity: 1; transform: translateY(0); transition-delay: 0.24s; }
+    .hero.animate .hero-stats { opacity: 1; transform: translateY(0); transition-delay: 0.32s; }
+    .hero.animate .hero__visuals { opacity: 1; transition-delay: 0.1s; }
 
     @media (max-width: 1024px) {
       .hero { min-height: 100vh; height: auto; padding: 120px 0 60px; }
@@ -469,7 +477,7 @@
       .cta-row { justify-content: center; margin-bottom: 30px;}
       .hero-stats { justify-content: center; width: 100%; border-top: none; padding-top: 0; }
       .hero__visuals { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(8deg) scale(1.1); min-width: 100%; height: 100%; opacity: 0.15; z-index: 0; pointer-events: none; }
-      .hero__visuals { opacity: 0.15 !important; filter: blur(2px); }
+      .hero.animate .hero__visuals { opacity: 0.15; filter: blur(2px); }
       .v-track { width: 45vw; }
       .v-track img { height: 180px; }
     }
@@ -2642,27 +2650,25 @@ document.addEventListener("DOMContentLoaded", () => {
   for (let i = 0; i < BG_COUNT; i++) {
     particles.push({
       x: Math.random() * W, y: Math.random() * H,
-      homeX: -1, homeY: -1, // no text target
       r: Math.random() * 1.5 + 0.3,
       vx: (Math.random() - 0.5) * 0.15, vy: (Math.random() - 0.5) * 0.15,
       alpha: Math.random() * 0.3 + 0.06,
-      isText: false, phase: 0
+      isText: false
     });
   }
 
-  // Text particles — use all sampled points for crisp readable text
+  // Text particles — start already at home positions (no gathering)
   textPoints.forEach(tp => {
     particles.push({
-      x: Math.random() * W, y: Math.random() * H,
+      x: tp.x, y: tp.y,
       homeX: tp.x, homeY: tp.y,
       r: 1,
-      vx: (Math.random() - 0.5) * 0.15, vy: (Math.random() - 0.5) * 0.15,
-      alpha: Math.random() * 0.3 + 0.1,
-      isText: true, phase: 0
+      alpha: 0.9,
+      isText: true
     });
   });
 
-  // Phases: 0 = floating, 1 = forming text, 2 = holding, 3 = scatter
+  // Phases: 0 = hold text (2s), 1 = scatter into hero
   let phase = 0;
   let phaseStart = Date.now();
   let animId;
@@ -2676,42 +2682,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
     particles.forEach(p => {
       if (phase === 0) {
-        // Idle floating
-        p.x += p.vx + Math.sin(now * 0.0005 + p.y * 0.007) * 0.08;
-        p.y += p.vy + Math.cos(now * 0.0005 + p.x * 0.007) * 0.08;
-        if (p.x < -10) p.x = W + 10; if (p.x > W + 10) p.x = -10;
-        if (p.y < -10) p.y = H + 10; if (p.y > H + 10) p.y = -10;
-        ctx.globalAlpha = p.alpha;
-      } else if (phase === 1) {
-        // Text particles move to home, bg particles keep floating
+        // Text stays in place with subtle breathing, bg floats
         if (p.isText) {
-          const progress = Math.min(elapsed / 1400, 1);
-          const ease = 1 - Math.pow(1 - progress, 3); // easeOutCubic
-          p.x += (p.homeX - p.x) * (0.04 + ease * 0.12);
-          p.y += (p.homeY - p.y) * (0.04 + ease * 0.12);
-          ctx.globalAlpha = p.alpha + (0.95 - p.alpha) * ease;
+          p.x = p.homeX + Math.sin(now * 0.002 + p.homeX * 0.01) * 0.15;
+          p.y = p.homeY + Math.cos(now * 0.002 + p.homeY * 0.01) * 0.15;
+          ctx.globalAlpha = 0.85 + Math.sin(now * 0.003) * 0.1;
         } else {
           p.x += p.vx + Math.sin(now * 0.0005 + p.y * 0.007) * 0.08;
           p.y += p.vy + Math.cos(now * 0.0005 + p.x * 0.007) * 0.08;
           if (p.x < -10) p.x = W + 10; if (p.x > W + 10) p.x = -10;
           if (p.y < -10) p.y = H + 10; if (p.y > H + 10) p.y = -10;
-          // Fade bg particles slightly
-          ctx.globalAlpha = p.alpha * (1 - Math.min(elapsed / 2000, 0.5));
+          ctx.globalAlpha = p.alpha * 0.4;
         }
-      } else if (phase === 2) {
-        // Hold text, subtle breathing
-        if (p.isText) {
-          p.x += Math.sin(now * 0.002 + p.homeX * 0.01) * 0.15;
-          p.y += Math.cos(now * 0.002 + p.homeY * 0.01) * 0.15;
-          ctx.globalAlpha = 0.85 + Math.sin(now * 0.003) * 0.1;
-        } else {
-          p.x += p.vx * 0.5; p.y += p.vy * 0.5;
-          if (p.x < -10) p.x = W + 10; if (p.x > W + 10) p.x = -10;
-          if (p.y < -10) p.y = H + 10; if (p.y > H + 10) p.y = -10;
-          ctx.globalAlpha = p.alpha * 0.3;
-        }
-      } else if (phase === 3) {
-        // Scatter everything outward
+      } else if (phase === 1) {
+        // Scatter all particles outward
         if (!p.scatterVx) {
           const dx = p.x - W / 2;
           const dy = p.y - H / 2;
@@ -2723,20 +2707,20 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         p.x += p.scatterVx;
         p.y += p.scatterVy;
-        p.scatterAlpha *= 0.975;
+        p.scatterAlpha *= 0.97;
         ctx.globalAlpha = (p.isText ? 0.9 : p.alpha) * p.scatterAlpha;
       }
 
       ctx.beginPath();
       ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-      ctx.fillStyle = p.isText && (phase === 1 || phase === 2)
+      ctx.fillStyle = p.isText && phase === 0
         ? "rgba(255, 255, 255, 1)"
         : "rgba(34, 211, 238, 0.8)";
       ctx.fill();
     });
 
-    // Connecting lines in phase 0 and 1
-    if (phase < 2) {
+    // Connecting lines between bg particles during hold phase
+    if (phase === 0) {
       ctx.strokeStyle = "rgba(34, 211, 238, 0.04)";
       ctx.lineWidth = 0.5;
       const bgOnly = particles.filter(p => !p.isText);
@@ -2760,24 +2744,17 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   draw();
 
-  // Timeline
-  // Phase 0: float (0 - 800ms)
-  // Phase 1: form text (800ms - 2200ms)
-  // Phase 2: hold (2200ms - 3500ms)
-  // Phase 3: scatter (3500ms+), fade overlay, remove at 5000ms
-  setTimeout(() => setPhase(1), 800);
-  setTimeout(() => setPhase(2), 2200);
-
+  // Timeline: hold 2s, then scatter into hero
   function triggerScatter() {
-    if (phase === 3) return;
-    setPhase(3);
-    intro.style.transition = "opacity 1s ease 0.5s";
+    if (phase === 1) return;
+    setPhase(1);
+    intro.style.transition = "opacity 0.8s ease 0.3s";
     intro.style.opacity = "0";
-    setTimeout(() => { cancelAnimationFrame(animId); intro.remove(); }, 1500);
+    setTimeout(() => { cancelAnimationFrame(animId); intro.remove(); }, 1200);
   }
 
-  window.addEventListener("load", () => { setTimeout(triggerScatter, 3500); });
-  setTimeout(triggerScatter, 5500); // failsafe
+  window.addEventListener("load", () => { setTimeout(triggerScatter, 2000); });
+  setTimeout(triggerScatter, 3500); // failsafe
 })();
 </script>
 
