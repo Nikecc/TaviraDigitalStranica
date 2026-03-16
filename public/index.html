@@ -2684,10 +2684,11 @@ document.addEventListener("DOMContentLoaded", () => {
     return targets;
   }
 
-  // Phase 0: particles form text (1.2s)
-  // Phase 1: clean text + floating particles — hold (1.5s)
-  // Phase 2: text dissolves into particles (1s)
-  // Phase 3: particles converge to hero elements (1.5s)
+  // Phase 0: just floating particles (1s)
+  // Phase 1: particles form text (1.2s)
+  // Phase 2: clean text + floating particles — hold (2s)
+  // Phase 3: text dissolves into particles (1s)
+  // Phase 4: particles converge to hero elements (1.5s)
   let phase = 0;
   let phaseStart = Date.now();
   let animId;
@@ -2728,9 +2729,28 @@ document.addEventListener("DOMContentLoaded", () => {
     const elapsed = now - phaseStart;
 
     if (phase === 0) {
+      // ── Just floating particles ──
+      // Draw formParticles floating randomly too
+      formParticles.forEach(p => {
+        p.x += p.vx + Math.sin(now * 0.0005 + p.y * 0.005) * 0.08;
+        p.y += p.vy + Math.cos(now * 0.0005 + p.x * 0.005) * 0.08;
+        if (p.x < -10) p.x = W + 10; if (p.x > W + 10) p.x = -10;
+        if (p.y < -10) p.y = H + 10; if (p.y > H + 10) p.y = -10;
+        ctx.globalAlpha = p.alpha;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = "#fff";
+        ctx.fill();
+      });
+      drawFloating(now);
+
+      // Auto-transition after 1s
+      if (elapsed >= 1000) setPhase(1);
+
+    } else if (phase === 1) {
       // ── Particles converge to form text ──
       const progress = Math.min(elapsed / 1200, 1);
-      const ease = 1 - Math.pow(1 - progress, 3); // easeOutCubic
+      const ease = 1 - Math.pow(1 - progress, 3);
 
       formParticles.forEach(p => {
         p.x += (p.homeX - p.x) * (0.03 + ease * 0.1);
@@ -2741,19 +2761,17 @@ document.addEventListener("DOMContentLoaded", () => {
         ctx.fillStyle = "#fff";
         ctx.fill();
       });
-
-      // Floating particles in background
       drawFloating(now);
 
-      // Transition to hold phase when formed
-      if (progress >= 1) setPhase(1);
+      // Transition to hold when formed
+      if (progress >= 1) setPhase(2);
 
-    } else if (phase === 1) {
+    } else if (phase === 2) {
       // ── Clean text hold + floating particles ──
       drawCleanText();
       drawFloating(now);
 
-    } else if (phase === 2) {
+    } else if (phase === 3) {
       // ── Text dissolves into particles ──
       const progress = Math.min(elapsed / 800, 1);
 
@@ -2786,7 +2804,7 @@ document.addEventListener("DOMContentLoaded", () => {
       // Floating particles
       drawFloating(now);
 
-    } else if (phase === 3) {
+    } else if (phase === 4) {
       // ── All particles converge to hero elements ──
       const progress = Math.min(elapsed / 1500, 1);
       const ease = 1 - Math.pow(1 - progress, 3);
@@ -2809,10 +2827,10 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   draw();
 
-  // Phase 2: dissolve text into particles
+  // Phase 3: dissolve text into particles
   function dissolveText() {
-    if (phase >= 2) return;
-    setPhase(2);
+    if (phase >= 3) return;
+    setPhase(3);
     // Create scatter particles from text pixel positions
     formParticles.forEach(p => {
       const dx = p.homeX - W / 2;
@@ -2830,10 +2848,10 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Phase 3: particles form hero section
+  // Phase 4: particles form hero section
   function formHero() {
-    if (phase >= 3) return;
-    setPhase(3);
+    if (phase >= 4) return;
+    setPhase(4);
 
     const targets = getHeroTargets();
     const allP = particles.concat(textParticles);
@@ -2864,15 +2882,15 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 1600);
   }
 
-  // Timeline: 0-1.2s form, 1.2-2.7s hold, 2.7-3.5s dissolve, 3.5s+ hero
+  // Timeline: 0-1s float, 1-2.2s form, 2.2-4.2s hold, 4.2-5s dissolve, 5s+ hero
   window.addEventListener("load", () => {
-    setTimeout(dissolveText, 2700);
-    setTimeout(formHero, 3700);
+    setTimeout(dissolveText, 4200);
+    setTimeout(formHero, 5200);
   });
 
   // Failsafe
-  setTimeout(() => { if (phase < 2) dissolveText(); }, 4200);
-  setTimeout(() => { if (phase < 3) formHero(); }, 5200);
+  setTimeout(() => { if (phase < 3) dissolveText(); }, 5700);
+  setTimeout(() => { if (phase < 4) formHero(); }, 6700);
 })();
 </script>
 
