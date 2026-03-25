@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>TravelCollection — Travel Platform Reimagined | Tavira Digital</title>
+<link rel="icon" href="/TdFavicon.ico" />
+<link rel="apple-touch-icon" href="/TdFavicon.ico" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Tavira Digital reimagined the TravelCollection platform — an elegant experience for discovering and booking dream destinations." />
+<meta name="robots" content="index, follow" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Montserrat:wght@700;800;900&family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--brand:#22D3EE;--brand-2:#06B6D4;--text:#ECFEFF;--muted:#94A3B8;--bg:#020617;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Inter',sans-serif;color:var(--text);overflow-x:hidden;-webkit-font-smoothing:antialiased;background:linear-gradient(135deg,#093440 0%,#020617 40%,#020617 100%);background-attachment:fixed;}
+img{max-width:100%;display:block;}
+a{text-decoration:none;color:inherit;}
+
+.page-transition-overlay{position:fixed;inset:0;background:#020617;z-index:9999;opacity:1;transition:opacity 0.6s cubic-bezier(0.4,0,0.2,1);pointer-events:none;}
+.page-transition-overlay.hidden{opacity:0;}
+
+.site-logo{position:fixed;top:28px;left:clamp(20px,5vw,48px);z-index:1001;}
+.site-logo img{height:110px;width:auto;display:block;transition:opacity .3s;}
+.site-logo:hover img{opacity:.8;}
+@media(max-width:1024px){body.menu-open .site-logo{opacity:0;pointer-events:none;}}
+
+.floating-menu-btn{position:fixed;top:36px;right:clamp(20px,5vw,48px);z-index:1001;display:flex;align-items:center;gap:18px;background:none;border:none;padding:0;color:white;cursor:pointer;font-family:'Inter';font-weight:700;font-size:clamp(20px,3vw,35px);letter-spacing:.12em;text-transform:uppercase;transition:transform .35s,opacity .25s;}
+.floating-menu-btn:hover{transform:translateY(-2px);opacity:.9;}
+.menu-lines{width:34px;height:3px;background:white;position:relative;display:inline-block;}
+.menu-lines::before,.menu-lines::after{content:"";position:absolute;left:0;width:34px;height:3px;background:white;}
+.menu-lines::before{top:-11px;}.menu-lines::after{top:11px;}
+.menu-overlay{position:fixed;inset:0;background:rgba(2,6,23,.55);backdrop-filter:blur(6px);opacity:0;pointer-events:none;transition:opacity .35s;z-index:999;}
+.menu-overlay.active{opacity:1;pointer-events:auto;}
+.side-menu{position:fixed;top:0;right:0;height:100vh;width:min(90%,420px);z-index:1000;background:linear-gradient(180deg,rgba(15,23,42,.95),rgba(2,6,23,.95));backdrop-filter:blur(18px);border-left:1px solid rgba(34,211,238,.35);transform:translateX(100%);transition:transform .4s cubic-bezier(.4,0,.2,1);padding:40px 30px;display:flex;flex-direction:column;}
+.side-menu.active{transform:translateX(0);}
+.close-menu{background:none;border:none;color:var(--muted);font-size:26px;cursor:pointer;margin-bottom:50px;align-self:flex-start;}
+.side-nav{display:flex;flex-direction:column;gap:22px;}
+.side-nav a{font-family:'Inter';font-weight:900;font-size:clamp(22px,3vw,32px);text-transform:uppercase;letter-spacing:-.035em;color:white;opacity:.95;transition:transform .35s,color .35s;cursor:pointer;}
+.side-nav a:hover{transform:translateX(10px);color:var(--brand);}
+.lang-switcher{display:flex;gap:20px;margin-top:auto;padding-top:40px;border-top:1px solid rgba(255,255,255,.1);}
+.lang-btn{background:none;border:none;color:var(--muted);font-size:1.2rem;font-weight:700;cursor:pointer;transition:color .3s;font-family:'Inter';}
+.lang-btn.active{color:var(--brand);}.lang-btn:hover{color:#fff;}
+
+.hero{padding:160px 6% 80px;max-width:1200px;margin:0 auto;text-align:center;}
+.hero-client{font-size:13px;letter-spacing:3px;text-transform:uppercase;color:var(--brand);font-weight:700;margin-bottom:20px;}
+.hero h1{font-family:'Montserrat',sans-serif;font-size:clamp(2.5rem,6vw,5rem);font-weight:900;line-height:1;text-transform:uppercase;margin-bottom:20px;}
+.hero-tagline{font-size:clamp(1rem,2vw,1.2rem);color:var(--muted);max-width:600px;margin:0 auto 50px;line-height:1.6;font-family:'Poppins',sans-serif;}
+.hero-img{width:100%;border-radius:16px;border:1px solid rgba(34,211,238,.12);box-shadow:0 30px 80px rgba(0,0,0,.5);}
+
+.description{max-width:700px;margin:0 auto;padding:100px 6%;text-align:center;}
+.description h2{font-family:'Montserrat',sans-serif;font-size:clamp(1.6rem,3vw,2.4rem);font-weight:800;margin-bottom:24px;}
+.description p{font-size:1.05rem;color:var(--muted);line-height:1.8;font-family:'Poppins',sans-serif;}
+
+.carousel-section{padding:60px 6%;max-width:1200px;margin:0 auto;}
+.carousel-wrapper{position:relative;overflow:hidden;border-radius:16px;border:1px solid rgba(34,211,238,.1);}
+.carousel-track{display:flex;transition:transform .5s cubic-bezier(.4,0,.2,1);}
+.carousel-slide{min-width:100%;position:relative;}
+.carousel-slide img{width:100%;display:block;}
+.carousel-dots{display:flex;justify-content:center;gap:12px;margin-top:24px;}
+.carousel-dot{width:12px;height:12px;border-radius:50%;background:rgba(255,255,255,.2);border:none;cursor:pointer;transition:background .3s,transform .3s;}
+.carousel-dot.active{background:var(--brand);transform:scale(1.2);}
+
+.insight{display:flex;align-items:center;gap:clamp(40px,6vw,80px);padding:100px 6%;max-width:1200px;margin:0 auto;}
+.insight-img{flex:1;min-width:0;}
+.insight-img img{border-radius:16px;border:1px solid rgba(34,211,238,.1);box-shadow:0 20px 60px rgba(0,0,0,.4);width:100%;}
+.insight-text{flex:1;min-width:0;}
+.insight-text h2{font-family:'Montserrat',sans-serif;font-size:clamp(1.5rem,3vw,2.2rem);font-weight:800;margin-bottom:20px;}
+.insight-text p{font-size:1.05rem;color:var(--muted);line-height:1.8;font-family:'Poppins',sans-serif;}
+
+.img-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;padding:80px 6%;max-width:1200px;margin:0 auto;}
+.img-grid img{border-radius:16px;border:1px solid rgba(34,211,238,.1);box-shadow:0 20px 60px rgba(0,0,0,.3);width:100%;transition:transform .4s,box-shadow .4s;}
+.img-grid img:hover{transform:translateY(-6px);box-shadow:0 30px 80px rgba(0,0,0,.5);}
+
+.back-link{display:block;text-align:center;padding:60px 6% 100px;font-family:'Inter';font-weight:700;font-size:1rem;color:var(--brand);letter-spacing:1px;text-transform:uppercase;transition:opacity .3s;}
+.back-link:hover{opacity:.7;}
+
+.fade-up{opacity:0;transform:translateY(40px);transition:opacity .7s ease,transform .7s ease;}
+.fade-up.visible{opacity:1;transform:translateY(0);}
+
+@media(max-width:768px){
+  .insight{flex-direction:column;gap:40px;padding:70px 6%;}
+  .img-grid{grid-template-columns:1fr;gap:16px;}
+  .hero{padding:140px 5% 60px;}
+}
+@media(max-width:480px){
+  .floating-menu-btn{font-size:20px;right:20px;top:20px;}
+}
+</style>
+</head>
+<body>
+<div class="page-transition-overlay"></div>
+
+<a href="index.html" class="site-logo"><img src="assets/Logo/WhiteLogo.png" alt="Tavira Digital" style="height:110px;width:auto;" /></a>
+
+<button class="floating-menu-btn" id="menuBtn"><span class="menu-lines"></span></button>
+<div class="menu-overlay" id="menuOverlay"></div>
+<aside class="side-menu" id="sideMenu">
+  <button class="close-menu" id="closeMenu">&#10005;</button>
+  <nav class="side-nav">
+    <a href="index.html">Home</a>
+    <a href="services.html">Services</a>
+    <a href="blog.html">Blog</a>
+    <a href="kontakt.html">Contact</a>
+  </nav>
+  <div class="lang-switcher">
+    <button class="lang-btn" onclick="location.href='?lang=hr'">HR</button>
+    <button class="lang-btn active" onclick="location.href='?lang=en'">EN</button>
+    <button class="lang-btn" onclick="location.href='?lang=de'">DE</button>
+    <button class="lang-btn" onclick="location.href='?lang=es'">ES</button>
+  </div>
+</aside>
+
+<section class="hero fade-up">
+  <div class="hero-client">TravelCollection</div>
+  <h1>Travel Platform Reimagined</h1>
+  <p class="hero-tagline">An elegant platform for discovering and booking dream destinations.</p>
+  <img src="assets/Portfolio/TravelCollection/Screenshot 2026-03-14 at 00.41.11.png" alt="TravelCollection hero" class="hero-img" />
+</section>
+
+<section class="description fade-up">
+  <h2>Where wanderlust begins.</h2>
+  <p>TravelCollection needed a digital platform as inspiring as the destinations it features. We created an elegant, content-rich experience with intuitive destination search, immersive imagery, and a modern booking flow — designed to transform casual browsers into confirmed travelers.</p>
+</section>
+
+<section class="carousel-section fade-up">
+  <div class="carousel-wrapper">
+    <div class="carousel-track" id="carouselTrack">
+      <div class="carousel-slide"><img src="assets/Portfolio/TravelCollection/Screenshot 2026-03-14 at 00.41.20.png" alt="TravelCollection screenshot 1" /></div>
+      <div class="carousel-slide"><img src="assets/Portfolio/TravelCollection/Screenshot 2026-03-14 at 00.41.27.png" alt="TravelCollection screenshot 2" /></div>
+      <div class="carousel-slide"><img src="assets/Portfolio/TravelCollection/Screenshot 2026-03-14 at 00.41.35.png" alt="TravelCollection screenshot 3" /></div>
+    </div>
+  </div>
+  <div class="carousel-dots" id="carouselDots">
+    <button class="carousel-dot active" data-index="0"></button>
+    <button class="carousel-dot" data-index="1"></button>
+    <button class="carousel-dot" data-index="2"></button>
+  </div>
+</section>
+
+<section class="insight fade-up">
+  <div class="insight-img">
+    <img src="assets/Portfolio/TravelCollection/Screenshot 2026-03-14 at 00.47.50.png" alt="TravelCollection insight" />
+  </div>
+  <div class="insight-text">
+    <h2>Inspire first, sell second.</h2>
+    <p>The best travel platforms don't push bookings — they inspire journeys. Every page was designed to spark curiosity through stunning photography, compelling destination stories, and a search experience that feels like exploration rather than shopping.</p>
+  </div>
+</section>
+
+<section class="img-grid fade-up">
+  <img src="assets/Portfolio/TravelCollection/Screenshot 2026-03-14 at 00.48.16.png" alt="TravelCollection detail 1" />
+  <img src="assets/Portfolio/TravelCollection/Screenshot 2026-03-14 at 00.48.21.png" alt="TravelCollection detail 2" />
+</section>
+
+<a href="index.html#work" class="back-link">&larr; Back to all projects</a>
+
+<script>
+window.addEventListener('DOMContentLoaded',()=>{const o=document.querySelector('.page-transition-overlay');if(!o)return;if(sessionStorage.getItem('pageTransition')){sessionStorage.removeItem('pageTransition');o.style.opacity='1';o.classList.remove('hidden');requestAnimationFrame(()=>{requestAnimationFrame(()=>{o.classList.add('hidden');});});}else{o.classList.add('hidden');}});
+document.addEventListener('click',function(e){const link=e.target.closest('a[href]');if(!link)return;const href=link.getAttribute('href');if(!href||href.startsWith('#')||href.startsWith('mailto:')||href.startsWith('tel:')||href.startsWith('javascript:'))return;e.preventDefault();sessionStorage.setItem('pageTransition','1');const o=document.querySelector('.page-transition-overlay');o.style.opacity='';o.classList.remove('hidden');setTimeout(()=>window.location.href=href,500);});
+window.addEventListener('pageshow',(e)=>{if(e.persisted){const o=document.querySelector('.page-transition-overlay');if(o)o.classList.add('hidden');}});
+
+const menuBtn=document.getElementById('menuBtn'),sideMenu=document.getElementById('sideMenu'),menuOverlay=document.getElementById('menuOverlay'),closeMenu=document.getElementById('closeMenu');
+function openMenu(){sideMenu.classList.add('active');menuOverlay.classList.add('active');document.body.classList.add('menu-open');}
+function closeMenuFn(){sideMenu.classList.remove('active');menuOverlay.classList.remove('active');document.body.classList.remove('menu-open');}
+menuBtn.addEventListener('click',openMenu);closeMenu.addEventListener('click',closeMenuFn);menuOverlay.addEventListener('click',closeMenuFn);
+
+(function(){
+  const track=document.getElementById('carouselTrack'),dots=document.querySelectorAll('.carousel-dot');
+  let current=0;const total=3;
+  function goTo(i){current=i;track.style.transform='translateX(-'+current*100+'%)';dots.forEach((d,idx)=>d.classList.toggle('active',idx===current));}
+  dots.forEach(d=>d.addEventListener('click',()=>goTo(parseInt(d.dataset.index))));
+  setInterval(()=>goTo((current+1)%total),5000);
+})();
+
+const obs=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:0.15});
+document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>

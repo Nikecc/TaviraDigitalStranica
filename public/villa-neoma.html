@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+<meta charset="UTF-8">
+<title>Villa Neoma × Tavira Digital — Luxury Villa Web Experience | Case Study</title>
+<link rel="icon" href="/TdFavicon.ico" />
+<link rel="apple-touch-icon" href="/TdFavicon.ico" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Tavira Digital je za Villa Neoma kreirala premium digitalno iskustvo — elegantan web dizajn, booking integracija i online plaćanja za ekskluzivnu jadransku vilu." />
+<meta name="robots" content="index, follow" />
+<link rel="canonical" href="https://taviradigital.com/villa-neoma.html" />
+<link rel="alternate" hreflang="hr" href="https://taviradigital.com/villa-neoma.html" />
+<link rel="alternate" hreflang="en" href="https://taviradigital.com/villa-neoma.html" />
+<link rel="alternate" hreflang="de" href="https://taviradigital.com/villa-neoma.html" />
+<link rel="alternate" hreflang="es" href="https://taviradigital.com/villa-neoma.html" />
+<link rel="alternate" hreflang="x-default" href="https://taviradigital.com/villa-neoma.html" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Villa Neoma × Tavira Digital — Luxury Villa Web Experience" />
+<meta property="og:description" content="Premium digitalno iskustvo za ekskluzivnu jadransku vilu — elegantan dizajn, booking i online plaćanja." />
+<meta property="og:url" content="https://taviradigital.com/villa-neoma.html" />
+<meta property="og:site_name" content="Tavira Digital" />
+<meta property="og:image" content="https://taviradigital.com/assets/Portfolio/VillaNeoma/Screenshot 2026-03-12 at 19.41.23.png" />
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "Pocetna", "item": "https://taviradigital.com/"},
+    {"@type": "ListItem", "position": 2, "name": "Projekti", "item": "https://taviradigital.com/"},
+    {"@type": "ListItem", "position": 3, "name": "Villa Neoma", "item": "https://taviradigital.com/villa-neoma"}
+  ]
+}
+</script>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Montserrat:wght@700;800;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --brand: #22D3EE;
+  --brand-2: #06B6D4;
+  --text: #ECFEFF;
+  --muted: #94A3B8;
+  --bg: #020617;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Poppins', 'Inter', sans-serif;
+  color: var(--text);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  background: #020617;
+  background-image:
+    radial-gradient(ellipse at 20% 0%, rgba(20,40,160,0.18) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 20%, rgba(34,211,238,0.07) 0%, transparent 45%),
+    radial-gradient(ellipse at 50% 50%, rgba(10,15,40,0.9) 0%, transparent 80%),
+    radial-gradient(ellipse at 30% 80%, rgba(20,40,160,0.1) 0%, transparent 50%),
+    radial-gradient(ellipse at 90% 90%, rgba(34,211,238,0.05) 0%, transparent 40%);
+  background-attachment: fixed;
+}
+img { max-width: 100%; display: block; }
+a { text-decoration: none; color: inherit; }
+
+/* ===== PAGE ENTRY ANIMATION ===== */
+body.page-enter {
+  animation: pageEnter 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+@keyframes pageEnter {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ===== PAGE TRANSITION OVERLAY ===== */
+.page-transition-overlay {
+  position: fixed;
+  inset: 0;
+  background: #020617;
+  z-index: 9999;
+  opacity: 1;
+  transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+}
+.page-transition-overlay.hidden {
+  opacity: 0;
+}
+
+/* ===== LOGO ===== */
+.site-logo { position: fixed; top: 28px; left: clamp(20px,5vw,48px); z-index: 1001; }
+.site-logo img { height: 110px; width: auto; display: block; transition: opacity 0.3s; }
+.site-logo:hover img { opacity: 0.8; }
+@media(max-width:1024px){body.menu-open .site-logo{opacity:0;pointer-events:none;}}
+
+/* ===== MENU ===== */
+.floating-menu-btn{position:fixed;top:36px;right:clamp(20px,5vw,48px);z-index:1001;display:flex;align-items:center;gap:18px;background:none;border:none;padding:0;color:white;cursor:pointer;font-family:'Inter';font-weight:700;font-size:clamp(20px,3vw,35px);letter-spacing:.12em;text-transform:uppercase;transition:transform .35s,opacity .25s;}
+.floating-menu-btn:hover{transform:translateY(-2px);opacity:.9;}
+.menu-lines{width:34px;height:3px;background:white;position:relative;}
+.menu-lines::before,.menu-lines::after{content:"";position:absolute;left:0;width:34px;height:3px;background:white;}
+.menu-lines::before{top:-11px;}.menu-lines::after{top:11px;}
+.menu-overlay{position:fixed;inset:0;background:rgba(2,6,23,.55);backdrop-filter:blur(6px);opacity:0;pointer-events:none;transition:opacity .35s;z-index:999;}
+.menu-overlay.active{opacity:1;pointer-events:auto;}
+.side-menu{position:fixed;top:0;right:0;height:100vh;width:min(90%,420px);z-index:1000;background:linear-gradient(180deg,rgba(15,23,42,.95),rgba(2,6,23,.95));backdrop-filter:blur(18px);border-left:1px solid rgba(34,211,238,.35);transform:translateX(100%);transition:transform .4s cubic-bezier(.4,0,.2,1);padding:40px 30px;display:flex;flex-direction:column;}
+.side-menu.active{transform:translateX(0);}
+.close-menu{background:none;border:none;color:var(--muted);font-size:26px;cursor:pointer;margin-bottom:50px;align-self:flex-start;}
+.side-nav{display:flex;flex-direction:column;gap:22px;}
+.side-nav a,.side-nav .nav-dropdown-toggle{font-family:'Inter';font-weight:900;font-size:clamp(22px,3vw,32px);text-transform:uppercase;letter-spacing:-.035em;color:white;opacity:.95;transition:transform .35s,color .35s;cursor:pointer;background:none;border:none;padding:0;display:flex;align-items:center;gap:10px;}
+.side-nav a:hover,.side-nav .nav-dropdown-toggle:hover{transform:translateX(10px);color:var(--brand);}
+.nav-dropdown-toggle svg{width:14px;height:14px;fill:currentColor;transition:transform .3s;}
+.nav-dropdown-toggle.open svg{transform:rotate(180deg);}
+.nav-dropdown{max-height:0;overflow:hidden;transition:max-height .4s ease;padding-left:20px;}
+.nav-dropdown.open{max-height:300px;}
+.nav-dropdown a{font-size:clamp(15px,2vw,20px)!important;font-weight:700!important;opacity:.7;padding:4px 0;display:flex;align-items:center;gap:8px;}
+.nav-dropdown a::before{content:'\203A';color:var(--brand);font-size:1.2em;}
+.nav-dropdown a:hover{opacity:1;}
+.lang-switcher{display:flex;gap:20px;margin-top:auto;padding-top:40px;border-top:1px solid rgba(255,255,255,.1);}
+.lang-btn{background:none;border:none;color:var(--muted);font-size:1.2rem;font-weight:700;cursor:pointer;transition:color .3s;font-family:'Inter';}
+.lang-btn.active{color:var(--brand);}.lang-btn:hover{color:#fff;}
+
+/* ===== HERO ===== */
+.vn-hero {
+  padding: 180px 6% 0;
+  text-align: center;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+.vn-hero-client {
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--brand);
+  margin-bottom: 20px;
+}
+.vn-hero h1 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: clamp(2.8rem, 6vw, 5.5rem);
+  font-weight: 900;
+  line-height: 1.05;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+  color: #fff;
+}
+.vn-hero-tagline {
+  font-family: 'Poppins', sans-serif;
+  font-size: clamp(1rem, 2vw, 1.25rem);
+  color: var(--muted);
+  line-height: 1.7;
+  max-width: 600px;
+  margin: 0 auto 60px;
+}
+.vn-hero-img {
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  overflow: hidden;
+}
+.vn-hero-img img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* ===== DESCRIPTION ===== */
+.vn-description {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 120px 6%;
+  text-align: center;
+}
+.vn-description h2 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: clamp(1.8rem, 3.5vw, 3rem);
+  font-weight: 900;
+  margin-bottom: 28px;
+  color: #fff;
+}
+.vn-description p {
+  font-family: 'Poppins', sans-serif;
+  font-size: clamp(1rem, 1.5vw, 1.1rem);
+  color: var(--muted);
+  line-height: 1.85;
+}
+
+/* ===== CAROUSEL ===== */
+.vn-carousel {
+  position: relative;
+  width: 100%;
+  padding: 0 3%;
+  margin-bottom: 120px;
+}
+.vn-carousel-track {
+  overflow: hidden;
+  border-radius: 12px;
+}
+.vn-carousel-inner {
+  display: flex;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.vn-carousel-slide {
+  min-width: 100%;
+  flex-shrink: 0;
+}
+.vn-carousel-slide img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.vn-carousel-dots {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 28px;
+}
+.vn-carousel-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.2);
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.3s;
+  padding: 0;
+}
+.vn-carousel-dot.active {
+  background: var(--brand);
+  transform: scale(1.25);
+}
+.vn-carousel-dot:hover {
+  background: rgba(255,255,255,0.5);
+}
+
+/* ===== INSIGHT SPLIT ===== */
+.vn-insight {
+  display: flex;
+  align-items: center;
+  gap: clamp(40px, 6vw, 100px);
+  padding: 80px 6%;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+.vn-insight-img {
+  flex: 1;
+  min-width: 0;
+}
+.vn-insight-img img {
+  width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+  transition: transform 0.5s ease, box-shadow 0.5s ease;
+}
+.vn-insight-img img:hover {
+  transform: translateY(-6px) scale(1.01);
+  box-shadow: 0 30px 80px rgba(0,0,0,0.5);
+}
+.vn-insight-text {
+  flex: 1;
+  min-width: 0;
+}
+.vn-insight-label {
+  font-family: 'Poppins', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--brand);
+  margin-bottom: 16px;
+}
+.vn-insight-text h2 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: clamp(1.6rem, 3vw, 2.6rem);
+  font-weight: 900;
+  line-height: 1.15;
+  margin-bottom: 24px;
+  color: #fff;
+}
+.vn-insight-text p {
+  font-family: 'Poppins', sans-serif;
+  font-size: clamp(0.95rem, 1.5vw, 1.05rem);
+  color: var(--muted);
+  line-height: 1.8;
+}
+
+/* ===== TWO COLUMN GRID ===== */
+.vn-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  padding: 80px 6%;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+.vn-grid img {
+  width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 16px 48px rgba(0,0,0,0.35);
+  transition: transform 0.5s ease, box-shadow 0.5s ease;
+}
+.vn-grid img:hover {
+  transform: translateY(-6px) scale(1.01);
+  box-shadow: 0 24px 64px rgba(0,0,0,0.45);
+}
+
+/* ===== BACK LINK ===== */
+.vn-back {
+  padding: 80px 6% 120px;
+  text-align: center;
+}
+.vn-back a {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--brand);
+  transition: color 0.3s, transform 0.3s;
+  display: inline-block;
+}
+.vn-back a:hover {
+  color: #fff;
+  transform: translateX(-6px);
+}
+
+/* ===== FADE ===== */
+.fade-up { opacity: 0; transform: translateY(40px); transition: opacity .7s ease, transform .7s ease; }
+.fade-up.visible { opacity: 1; transform: translateY(0); }
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:1024px){
+  .vn-insight { flex-direction: column; gap: 40px; padding: 60px 6%; }
+  .vn-grid { gap: 16px; }
+}
+@media(max-width:768px){
+  .vn-hero { padding: 140px 5% 0; }
+  .vn-description { padding: 80px 6%; }
+  .vn-grid { grid-template-columns: 1fr; gap: 20px; }
+  .vn-carousel { padding: 0 4%; }
+}
+@media(max-width:480px){
+  .vn-hero h1 { font-size: 2.2rem; }
+  .floating-menu-btn { font-size: 20px; right: 20px; top: 20px; }
+  .vn-insight-text h2 { font-size: 1.5rem; }
+}
+</style>
+</head>
+<body class="page-enter">
+
+<div class="page-transition-overlay"></div>
+
+<!-- LOGO -->
+<a href="index.html" class="site-logo"><img src="assets/Logo/WhiteLogo.png" alt="Tavira Digital"></a>
+
+<!-- MENU -->
+<button class="floating-menu-btn" id="menuBtn"><span class="menu-lines"></span><span data-i18n="menu_btn">IZBORNIK</span></button>
+<div class="menu-overlay" id="menuOverlay"></div>
+<aside class="side-menu" id="sideMenu">
+  <button class="close-menu" id="closeMenu">&#10005;</button>
+  <nav class="side-nav">
+    <a href="index.html" data-i18n="menu_home">Pocetna</a>
+    <button class="nav-dropdown-toggle" id="servDropToggle"><span data-i18n="menu_services">Usluge</span><svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg></button>
+    <div class="nav-dropdown" id="servDropdown">
+      <a href="services.html#web" data-i18n="menu_serv_web">Izrada web stranica</a>
+      <a href="services.html#app" data-i18n="menu_serv_app">Izrada aplikacija</a>
+      <a href="services.html#marketing" data-i18n="menu_serv_marketing">Marketing</a>
+      <a href="services.html#branding" data-i18n="menu_serv_branding">Branding</a>
+      <a href="services.html#tools" data-i18n="menu_serv_tools">Digitalni alati</a>
+      <a href="services.html#maintenance" data-i18n="menu_serv_maintenance">Odrzavanje</a>
+    </div>
+    <a href="blog.html" data-i18n="menu_blog">Blog</a>
+    <a href="kontakt.html" data-i18n="menu_contact">Kontakt</a>
+  </nav>
+  <div class="lang-switcher">
+    <button onclick="setLang('hr')" class="lang-btn active" id="btn-hr">HR</button>
+    <button onclick="setLang('en')" class="lang-btn" id="btn-en">EN</button>
+    <button onclick="setLang('de')" class="lang-btn" id="btn-de">DE</button>
+    <button onclick="setLang('es')" class="lang-btn" id="btn-es">ES</button>
+  </div>
+</aside>
+
+<!-- ===== HERO ===== -->
+<section class="vn-hero fade-up">
+  <p class="vn-hero-client" data-i18n="villaneoma_hero_client">Villa Neoma</p>
+  <h1 data-i18n="villaneoma_hero_title">Luxury Villa Web Experience</h1>
+  <p class="vn-hero-tagline" data-i18n="villaneoma_hero_tagline">A premium digital presence for an exclusive Adriatic villa retreat.</p>
+</section>
+<div class="vn-hero-img fade-up">
+  <img src="assets/Portfolio/VillaNeoma/Screenshot 2026-03-12 at 19.41.23.png" alt="Villa Neoma Hero" />
+</div>
+
+<!-- ===== DESCRIPTION ===== -->
+<section class="vn-description fade-up">
+  <h2 data-i18n="villaneoma_desc_heading">Where luxury meets digital.</h2>
+  <p data-i18n="villaneoma_desc_text">Villa Neoma needed a web presence that matched the exclusivity of its Adriatic seaside retreat. We crafted an immersive digital experience with elegant visual storytelling, seamless booking integration, and online payments — designed to convert high-end travelers from the first scroll.</p>
+</section>
+
+<!-- ===== CAROUSEL ===== -->
+<section class="vn-carousel fade-up">
+  <div class="vn-carousel-track">
+    <div class="vn-carousel-inner" id="carouselInner">
+      <div class="vn-carousel-slide">
+        <img src="assets/Portfolio/VillaNeoma/Screenshot 2026-03-12 at 19.41.50.png" alt="Villa Neoma Gallery 1" loading="lazy" />
+      </div>
+      <div class="vn-carousel-slide">
+        <img src="assets/Portfolio/VillaNeoma/Screenshot 2026-03-12 at 19.41.59.png" alt="Villa Neoma Gallery 2" loading="lazy" />
+      </div>
+      <div class="vn-carousel-slide">
+        <img src="assets/Portfolio/VillaNeoma/Screenshot 2026-03-12 at 19.42.09.png" alt="Villa Neoma Gallery 3" loading="lazy" />
+      </div>
+    </div>
+  </div>
+  <div class="vn-carousel-dots" id="carouselDots">
+    <button class="vn-carousel-dot active" data-index="0" aria-label="Slide 1"></button>
+    <button class="vn-carousel-dot" data-index="1" aria-label="Slide 2"></button>
+    <button class="vn-carousel-dot" data-index="2" aria-label="Slide 3"></button>
+  </div>
+</section>
+
+<!-- ===== INSIGHT ===== -->
+<section class="vn-insight fade-up">
+  <div class="vn-insight-img">
+    <img src="assets/Portfolio/VillaNeoma/Screenshot 2026-03-12 at 19.42.16.png" alt="Villa Neoma Insight" loading="lazy" />
+  </div>
+  <div class="vn-insight-text">
+    <p class="vn-insight-label" data-i18n="villaneoma_insight_label">Insight</p>
+    <h2 data-i18n="villaneoma_insight_heading">Selling the experience, not just the room.</h2>
+    <p data-i18n="villaneoma_insight_text">Luxury travelers don't book rooms — they invest in experiences. Every design decision was made to evoke the feeling of already being there: the Mediterranean breeze, the private pool at sunset, the untouched coastline. The result was a 60% increase in direct bookings within the first month.</p>
+  </div>
+</section>
+
+<!-- ===== TWO COLUMN GRID ===== -->
+<section class="vn-grid fade-up">
+  <img src="assets/Portfolio/VillaNeoma/Screenshot 2026-03-12 at 19.43.32.png" alt="Villa Neoma Detail 1" loading="lazy" />
+  <img src="assets/Portfolio/VillaNeoma/Screenshot 2026-03-12 at 19.49.15.png" alt="Villa Neoma Detail 2" loading="lazy" />
+</section>
+
+<!-- ===== BACK LINK ===== -->
+<div class="vn-back fade-up">
+  <a href="index.html#work" data-i18n="villaneoma_back">&larr; Back to all projects</a>
+</div>
+
+<script>
+// ===== PAGE TRANSITION =====
+// Page entry: check if we arrived from a transition
+window.addEventListener('DOMContentLoaded', () => {
+  const overlay = document.querySelector('.page-transition-overlay');
+  if (!overlay) return;
+
+  if (sessionStorage.getItem('pageTransition')) {
+    sessionStorage.removeItem('pageTransition');
+    // Start visible, then fade out
+    overlay.style.opacity = '1';
+    overlay.classList.remove('hidden');
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        overlay.classList.add('hidden');
+      });
+    });
+  } else {
+    // No transition, just hide immediately
+    overlay.classList.add('hidden');
+  }
+});
+
+// Smooth exit transition for links
+document.addEventListener('click', function(e) {
+  const link = e.target.closest('a[href]');
+  if (!link) return;
+  const href = link.getAttribute('href');
+  if (!href || href.startsWith('#') || href.startsWith('mailto:') || href.startsWith('tel:') || href.startsWith('javascript:')) return;
+  e.preventDefault();
+  sessionStorage.setItem('pageTransition', '1');
+  const overlay = document.querySelector('.page-transition-overlay');
+  overlay.style.opacity = '';
+  overlay.classList.remove('hidden');
+  setTimeout(() => window.location.href = href, 500);
+});
+
+// Handle bfcache
+window.addEventListener('pageshow', (e) => {
+  if (e.persisted) {
+    const overlay = document.querySelector('.page-transition-overlay');
+    if (overlay) overlay.classList.add('hidden');
+  }
+});
+
+// ===== MENU =====
+const menuBtn = document.getElementById('menuBtn');
+const sideMenu = document.getElementById('sideMenu');
+const closeMenu = document.getElementById('closeMenu');
+const menuOverlay = document.getElementById('menuOverlay');
+
+function openMenu() {
+  sideMenu.classList.add('active');
+  menuOverlay.classList.add('active');
+  document.body.classList.add('menu-open');
+}
+function closeMenuFn() {
+  sideMenu.classList.remove('active');
+  menuOverlay.classList.remove('active');
+  document.body.classList.remove('menu-open');
+}
+menuBtn.addEventListener('click', openMenu);
+closeMenu.addEventListener('click', closeMenuFn);
+menuOverlay.addEventListener('click', closeMenuFn);
+
+// Services dropdown
+const servToggle = document.getElementById('servDropToggle');
+const servDrop = document.getElementById('servDropdown');
+servToggle.addEventListener('click', () => {
+  servToggle.classList.toggle('open');
+  servDrop.classList.toggle('open');
+});
+
+// ===== CAROUSEL =====
+const carouselInner = document.getElementById('carouselInner');
+const dots = document.querySelectorAll('.vn-carousel-dot');
+let currentSlide = 0;
+const totalSlides = dots.length;
+
+function goToSlide(index) {
+  currentSlide = index;
+  carouselInner.style.transform = `translateX(-${index * 100}%)`;
+  dots.forEach((d, i) => d.classList.toggle('active', i === index));
+}
+
+dots.forEach(dot => {
+  dot.addEventListener('click', () => goToSlide(parseInt(dot.dataset.index)));
+});
+
+// Auto-advance carousel
+setInterval(() => {
+  goToSlide((currentSlide + 1) % totalSlides);
+}, 5000);
+
+// ===== FADE UP ON SCROLL =====
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+// ===== LANGUAGE SWITCHER & i18n =====
+const translations = {};
+
+function setLang(lang) {
+  sessionStorage.setItem('lang', lang);
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+  const btn = document.getElementById('btn-' + lang);
+  if (btn) btn.classList.add('active');
+  applyTranslations(lang);
+}
+
+function applyTranslations(lang) {
+  if (!translations[lang]) return;
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (translations[lang][key]) {
+      el.innerHTML = translations[lang][key];
+    }
+  });
+}
+
+// Restore language on load
+(function() {
+  const savedLang = sessionStorage.getItem('lang');
+  if (savedLang && savedLang !== 'hr') {
+    setLang(savedLang);
+  }
+})();
+</script>
+
+</body>
+</html>

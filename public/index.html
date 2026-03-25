@@ -613,7 +613,7 @@
       
       <div class="cta-row">
         <a href="kontakt.html" class="btn btn--primary"><span data-i18n="hero_btn1">Start a project ›</span></a>
-        <a href="#projects" class="btn btn--ghost"><span data-i18n="hero_btn2">Our projects</span></a>
+        <a href="#work" class="btn btn--ghost"><span data-i18n="hero_btn2">Our projects</span></a>
       </div>
 
     </div>
@@ -1259,563 +1259,241 @@
 <div class="soft-divider"></div>
 
 <style>
-section#projects { width: 100%; padding: 80px 0; position: relative; }
-.projects-intro { text-align: center; max-width: 1100px; margin: 0 auto 50px; padding: 0; }
-.projects-eyebrow { font-size: 14px; letter-spacing: 2px; text-transform: uppercase; color: #67E8F9; margin-bottom: 18px; font-weight: 600; }
-.projects-title { font-size: clamp(32px, 5vw, 64px); font-weight: 800; line-height: 1.1; text-transform: uppercase; }
-.projects-title span { background: linear-gradient(90deg, var(--brand), var(--brand-2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-
-.fade-projects { opacity: 0; transform: translateY(60px); filter: blur(10px); transition: opacity 1s cubic-bezier(.4,0,.2,1), transform 1s cubic-bezier(.4,0,.2,1), filter 1s ease; }
-.projects-animate .fade-projects { opacity: 1; transform: translateY(0); filter: blur(0); }
-.projects-animate .slider-container { transition-delay: 0.25s; }
-
-.slider-container { position: relative; width: 90%; max-width: 1600px; height: 850px; display: flex; justify-content: center; align-items: center; transform: translateX(120px); margin: 0 auto;}
-.projects-frame { position: absolute; width: 100%; max-width: 1400px; background: linear-gradient(145deg, rgba(10,30,35,0.95), rgba(15,55,65,0.9), rgba(20,75,90,0.85)); border: 1px solid var(--border); border-radius: 40px; padding: 100px 80px; overflow: hidden; transform-origin: center center; transition: all 1s ease; backdrop-filter: blur(10px); will-change: transform, opacity; opacity: 0; filter: blur(12px); transform: translateY(60px) scale(0.97); }
-.projects-frame::before { content: ""; position: absolute; inset: 0; border-radius: 40px; padding: 2px; background: linear-gradient(135deg, var(--brand), var(--brand-2)); -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite: xor; mask-composite: exclude; pointer-events: none; opacity: 0.4; }
-.projects-frame::after { content: ""; position: absolute; inset: -50%; background: linear-gradient(75deg, rgba(255,255,255,0) 0%, rgba(154,243,255,0.45) 50%, rgba(255,255,255,0) 100%); transform: skewX(-25deg) translateX(-120%); transition: transform 0.8s ease; pointer-events: none; }
-.projects-animate .projects-frame { opacity: 1; filter: blur(0); transform: translateY(0) scale(1); }
-.projects-frame.active::after { transform: skewX(-25deg) translateX(120%); }
-
-.projects-frame.active { transform: translateX(0) scale(1); z-index: 3; opacity: 1; }
-.projects-frame.next { transform: translateX(-120px); z-index: 2; opacity: 1; }
-.projects-frame.behind { transform: translateX(-240px); z-index: 1; opacity: 1; }
-
-.projects-wrapper { display: flex; justify-content: space-between; align-items: center; gap: 100px; height: 100%; }
-.projects-container { width: 100%; max-width: 1600px; margin: 0 auto; padding: 0 60px; }
-.left-info { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 20px; padding-left: 40px; max-width: 500px; }
-.subtitle { font-size: 1.2rem; color: var(--brand); text-transform: uppercase; letter-spacing: 1px; font-weight: 600; }
-.left-info h2 { font-size: 3rem; margin: 0; font-weight: 700; background: linear-gradient(90deg, #fff, #ffb199); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-.left-info p { font-size: 1.1rem; color: #ccc; }
-.view-btn { margin-top: 10px; border: 2px solid var(--brand); background: transparent; color: var(--brand); border-radius: 50px; padding: 12px 32px; font-size: 1rem; cursor: pointer; transition: all 0.3s ease; align-self: flex-start; }
-.view-btn:hover { background: var(--brand); color: #001418; }
-.right-preview { flex: 1; display: flex; justify-content: center; align-items: center; }
-.preview-box { position: relative; width: 95%; max-width: 800px; height: 520px; border-radius: 30px; background: #000; border: 1px solid #2b2b2b; overflow: hidden; }
-.preview-box img { width: 100%; height: 100%; object-fit: cover; border-radius: 28px; transform: scale(1.02); }
-
-/* GUMB SADA U SREDINI DESNO */
-.next-btn { 
-  position: absolute; top: 50%; right: 40px; transform: translateY(-50%);
-  background: linear-gradient(135deg, var(--brand), var(--brand-2)); 
-  color: #fff; border: none; border-radius: 50%; width: 65px; height: 65px; font-size: 1.6rem; 
-  cursor: pointer; transition: all 0.3s ease; z-index: 10; box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+/* ===== PAGE TRANSITION OVERLAY ===== */
+.page-transition-overlay {
+  position: fixed; inset: 0; background: #020617; z-index: 99999;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
-.next-btn:hover { transform: translateY(-50%) scale(1.1); box-shadow: 0 0 20px rgba(34,211,238,0.5); }
+.page-transition-overlay.active { opacity: 1; pointer-events: all; }
 
-@keyframes flyOutRight { 0% { transform: translateX(0) rotateY(0deg); opacity: 1; } 100% { transform: translateX(1200px) rotateY(40deg); opacity: 0; } }
-.swipe-out { animation: flyOutRight 0.7s ease forwards; z-index: 10; pointer-events: none; position: absolute !important; }
-.projects-frame.freeze { transition: none !important; }
+/* ===== PORTFOLIO GRID (AKQA STYLE) ===== */
+.work-section { padding: 100px 0 60px; }
+.work-header { text-align: center; max-width: 1100px; margin: 0 auto 60px; padding: 0 6%; }
+.work-eyebrow { font-size: 14px; letter-spacing: 2px; text-transform: uppercase; color: #67E8F9; margin-bottom: 18px; font-weight: 600; }
+.work-title { font-size: clamp(32px, 5vw, 64px); font-weight: 800; line-height: 1.1; text-transform: uppercase; }
+.work-title span { background: linear-gradient(90deg, var(--brand), var(--brand-2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
-.portfolio-dots { display: none; }
-.next-btn-text { display: none; }
-.mobile-next-arrow { display: none; }
+.work-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 30px;
+  max-width: 1400px; margin: 0 auto; padding: 0 6%;
+}
+.work-card {
+  position: relative; overflow: hidden; cursor: pointer;
+  text-decoration: none; color: inherit; display: block;
+  opacity: 0; transform: translateY(40px);
+  transition: opacity 0.8s cubic-bezier(.4,0,.2,1), transform 0.8s cubic-bezier(.4,0,.2,1);
+}
+.work-card.visible { opacity: 1; transform: translateY(0); }
+.work-card-img {
+  width: 100%; aspect-ratio: 16/10; overflow: hidden;
+  background: rgba(255,255,255,0.03); border-radius: 4px;
+}
+.work-card-img img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.work-card:hover .work-card-img img { transform: scale(1.04); }
+.work-card-info { padding: 20px 0 10px; }
+.work-card-client {
+  font-size: 0.85rem; color: var(--muted); margin-bottom: 6px;
+  font-weight: 500; letter-spacing: 0.5px;
+}
+.work-card-name {
+  font-size: clamp(1.2rem, 2vw, 1.7rem); font-weight: 700; color: #fff;
+  font-family: 'Montserrat', sans-serif;
+}
+.work-load-more-wrap {
+  text-align: center; margin-top: 60px; padding: 0 6%;
+}
+.work-load-btn {
+  display: inline-flex; align-items: center; gap: 10px;
+  color: #fff; font-weight: 600; font-size: 15px;
+  letter-spacing: 0.5px;
+  padding: 16px 40px; border: 1px solid rgba(34,211,238,0.35);
+  border-radius: 999px; background: rgba(34,211,238,0.06);
+  cursor: pointer; transition: all 0.35s ease;
+  font-family: 'Poppins', sans-serif;
+}
+.work-load-btn:hover {
+  background: rgba(34,211,238,0.15); border-color: var(--brand);
+  box-shadow: 0 0 30px rgba(34,211,238,0.12);
+}
+.work-load-btn svg { width: 18px; height: 18px; transition: transform 0.3s; }
+.work-load-btn:hover svg { transform: translateY(3px); }
 
-@media (max-width: 1024px) {
-  .next-btn-arrow { display: none; }
-  .next-btn-text { display: inline; }
-  .projects-container { padding: 0 15px; }
-  .projects-intro { margin-bottom: 20px; }
-  section#projects { padding: 60px 0 40px; }
-
-  .slider-container {
-    transform: none;
-    width: 100%;
-    height: auto;
-    min-height: 620px;
-    margin: 0 auto;
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-  }
-
-  .projects-frame {
-    padding: 24px 20px;
-    border-radius: 24px;
-    position: absolute;
-    width: calc(100% - 20px);
-    top: 0;
-    height: 520px;
-    overflow: hidden;
-    transition: all 0.8s cubic-bezier(.4,0,.2,1);
-    opacity: 0;
-    pointer-events: none;
-    clip-path: inset(100% 0 0 0);
-  }
-  /* Behind = top peek (only ~40px visible) */
-  .projects-frame.behind { transform: translateY(0) scale(0.94); z-index: 1; opacity: 1; pointer-events: none; clip-path: inset(0 0 calc(100% - 40px) 0 round 24px); }
-  /* Next = second peek */
-  .projects-frame.next { transform: translateY(40px) scale(0.97); z-index: 2; opacity: 1; pointer-events: none; clip-path: inset(0 0 calc(100% - 40px) 0 round 24px); }
-  /* Active = fully visible at bottom */
-  .projects-frame.active { transform: translateY(80px) scale(1); z-index: 3; opacity: 1; pointer-events: auto; clip-path: none; }
-
-  .projects-wrapper { flex-direction: column; gap: 20px; text-align: left; }
-  .right-preview { width: 100%; height: 220px; order: -1; }
-  .preview-box { height: 100%; width: 100%; border-radius: 18px; }
-  .preview-box img { border-radius: 16px; }
-
-  .left-info { padding-left: 0; max-width: 100%; align-items: flex-start; text-align: left; gap: 10px; }
-  .left-info h2 { font-size: 1.6rem; line-height: 1.1; }
-  .left-info p { font-size: 0.9rem; line-height: 1.5; }
-  .view-btn { align-self: flex-start; margin-bottom: 0; }
-
-  /* Hide default next button and dots on mobile */
-  .next-btn { display: none; }
-  .portfolio-dots { display: none; }
-
-  /* Next arrow inside active card - bottom right */
-  .projects-frame .mobile-next-arrow { display: flex; }
-  .mobile-next-arrow {
-    position: absolute;
-    top: 50%;
-    right: 12px;
-    transform: translateY(-50%);
-    width: 52px; height: 52px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, rgba(34, 211, 238, 0.15), rgba(6, 182, 212, 0.1));
-    border: 1.5px solid rgba(34, 211, 238, 0.4);
-    color: var(--brand);
-    font-size: 1.3rem;
-    cursor: pointer;
-    z-index: 10;
-    align-items: center;
-    justify-content: center;
-    backdrop-filter: blur(10px);
-    transition: all 0.3s ease;
-    box-shadow: 0 0 15px rgba(34, 211, 238, 0.15);
-  }
-  .mobile-next-arrow:hover, .mobile-next-arrow:active {
-    background: linear-gradient(135deg, rgba(34, 211, 238, 0.25), rgba(6, 182, 212, 0.2));
-    border-color: rgba(34, 211, 238, 0.6);
-    transform: translateY(-50%) scale(1.1);
-    box-shadow: 0 0 25px rgba(34, 211, 238, 0.3);
-  }
-
-  /* Hide Tavira Digital text on mobile */
-  .logo-header { display: none; }
-
-  section#projects .process-cta { margin-top: 40px !important; padding-bottom: 10px !important; }
-
-  /* Swipe out downward */
-  @keyframes flyOutDownMobile { 0% { transform: translateY(80px) scale(1); opacity: 1; } 100% { transform: translateY(900px) scale(0.8); opacity: 0; } }
-  .swipe-out { animation: flyOutDownMobile 0.7s ease forwards; z-index: 10; }
+@media (max-width: 768px) {
+  .work-grid { grid-template-columns: 1fr; gap: 40px; }
+  .work-card-img { aspect-ratio: 16/10; }
+  .work-section { padding: 70px 0 40px; }
 }
 @media (max-width: 480px) {
-  .projects-title { font-size: clamp(24px, 7vw, 36px); }
-  .slider-container { min-height: 560px; }
-  .projects-frame { padding: 18px 14px; border-radius: 20px; height: 460px; }
-  .projects-frame.behind { clip-path: inset(0 0 calc(100% - 35px) 0 round 20px); }
-  .projects-frame.next { transform: translateY(35px) scale(0.97); clip-path: inset(0 0 calc(100% - 35px) 0 round 20px); }
-  .projects-frame.active { transform: translateY(70px) scale(1); }
-  .right-preview { height: 180px; }
-  .left-info h2 { font-size: 1.4rem; }
-  .left-info p { font-size: 0.85rem; }
-  .subtitle { font-size: 0.9rem; }
-  .view-btn { padding: 10px 24px; font-size: 0.9rem; }
-  .mobile-next-arrow { right: 10px; width: 46px; height: 46px; font-size: 1.2rem; }
+  .work-grid { gap: 30px; padding: 0 4%; }
+  .work-card-name { font-size: 1.1rem; }
 }
 
-.preview-overlay { position: fixed; inset: 0; background: rgba(2, 20, 24, 0.55); backdrop-filter: blur(14px); display: flex; justify-content: center; align-items: center; z-index: 9999; opacity: 0; pointer-events: none; transition: opacity 0.4s ease; }
-.preview-overlay.active { opacity: 1; pointer-events: all; }
-.preview-window { position: relative; background: linear-gradient(145deg, rgba(6, 40, 48, 0.95), rgba(8, 55, 65, 0.92), rgba(10, 75, 90, 0.88)); border: 1px solid var(--border); box-shadow: 0 0 60px rgba(34, 211, 238, 0.25), inset 0 0 40px rgba(34, 211, 238, 0.05); color: #fff; border-radius: 24px; padding: 50px; width: 90%; max-width: 1300px; max-height: 90vh; overflow-y: auto; animation: fadeInWindow 0.4s ease forwards; }
-@keyframes fadeInWindow { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-.preview-window h1, .preview-window h2, .preview-window h3 { color: var(--brand); }
-.preview-window p { color: #ddd; line-height: 1.7; }
-.close-preview { position: fixed; top: 25px; right: 40px; background: rgba(255, 255, 255, 0.15); border: none; font-size: 2rem; color: var(--brand); cursor: pointer; transition: transform 0.2s ease, background 0.3s ease; z-index: 10000; backdrop-filter: blur(4px); border-radius: 50%; width: 45px; height: 45px; display: flex; justify-content: center; align-items: center; }
-.close-preview:hover { transform: scale(1.15); background: rgba(34, 211, 238, 0.25); }
-.apartment-container { max-width: 1200px; margin: 0 auto; }
-.apartment-title { font-size: 3rem; font-weight: 700; margin-bottom: 20px; }
-.apartment-desc { font-size: 1.2rem; color: #444; line-height: 1.6; margin-bottom: 50px; color: #ccc;}
-.apartment-hero { width: 100%; border-radius: 20px; margin-bottom: 60px; box-shadow: 0 10px 40px rgba(0,0,0,0.1); }
-.gallery-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 25px; margin-top: 40px; }
-@media (max-width: 768px) { .gallery-grid { grid-template-columns: 1fr; } }
-.gallery-item { opacity: 0; transform: translateY(30px); animation: fadeIn 0.6s ease forwards; }
-@keyframes fadeIn { to { opacity: 1; transform: translateY(0); } }
-.gallery-item img { width: 100%; height: 100%; object-fit: cover; border-radius: 16px; box-shadow: 0 8px 30px rgba(0,0,0,0.15); transition: transform 0.3s ease; }
-.gallery-item img:hover { transform: scale(1.03); }
-.load-more-btn, .hide-btn { display: block; margin: 40px auto 0; background: linear-gradient(135deg, var(--brand), var(--brand-2)); color: #fff; border: none; border-radius: 50px; padding: 12px 36px; font-size: 1rem; cursor: pointer; transition: transform 0.2s ease; }
-.load-more-btn:hover, .hide-btn:hover { transform: scale(1.05); }
-.hide-btn { display: none; background: rgba(148, 163, 184, 0.15); color: var(--muted); }
 </style>
 
-<section id="projects" class="snap-section">
-  <div class="projects-container">
-    <div class="projects-intro fade-projects">
-      <p class="projects-eyebrow" data-i18n="proj_eyebrow">PORTFOLIO</p>
-      <h2 class="projects-title" data-i18n="proj_title">Our latest <span>projects</span></h2>
-    </div>
-
-    <div class="slider-container">
-      <div class="projects-frame active">
-        <div class="projects-wrapper">
-          <div class="left-info">
-            <h4 class="subtitle" data-i18n="proj5_sub">Villa Neoma</h4>
-            <h2 data-i18n="proj5_title">Luxury Villa Web Experience</h2>
-            <p data-i18n="proj5_desc">Premium web presentation with integrated reservation system and online payments, immersive visuals, and elegant design for an exclusive villa experience.</p>
-            <button class="view-btn" data-project="villaneoma" data-i18n="proj_view">View project →</button>
-          </div>
-          <div class="right-preview"><div class="preview-box"><img src="assets/Portfolio/VillaNeoma/Screenshot 2026-03-12 at 19.41.23.png" loading="lazy" alt="Villa Neoma Preview"></div></div>
-        </div>
-        <button class="mobile-next-arrow">↓</button>
-      </div>
-      <div class="projects-frame next">
-        <div class="projects-wrapper">
-          <div class="left-info">
-            <h4 class="subtitle" data-i18n="proj1_sub">Cvjećarna Eukaliptus</h4>
-            <h2 data-i18n="proj1_title">Digital Brand Transformation</h2>
-            <p data-i18n="proj1_desc">Modern and elegant web design that combines aesthetics, warmth, and nature — just like their arrangements.</p>
-            <button class="view-btn" data-project="eukaliptus" data-i18n="proj_view">View project →</button>
-          </div>
-          <div class="right-preview"><div class="preview-box"><img src="assets/Portfolio/EukaliptusCollage2.png" loading="lazy" alt="Preview"></div></div>
-        </div>
-        <button class="mobile-next-arrow">↓</button>
-      </div>
-      <div class="projects-frame behind">
-        <div class="projects-wrapper">
-          <div class="left-info">
-            <h4 class="subtitle" data-i18n="proj2_sub">Formè Pilates Studio</h4>
-            <h2 data-i18n="proj2_title">Elegant Studio Web Presentation</h2>
-            <p data-i18n="proj2_desc">Minimalist and calm web design that reflects the balance, aesthetics, and professionalism of the reformer pilates studio.</p>
-            <button class="view-btn" data-project="forme" data-i18n="proj_view">View project →</button>
-          </div>
-          <div class="right-preview"><div class="preview-box"><img src="assets/Portfolio/Forme1.png" loading="lazy" alt="Preview"></div></div>
-        </div>
-        <button class="mobile-next-arrow">↓</button>
-      </div>
-      <div class="projects-frame">
-        <div class="projects-wrapper">
-          <div class="left-info">
-            <h4 class="subtitle" data-i18n="proj3_sub">Automehaničarska Radnja</h4>
-            <h2 data-i18n="proj3_title">Malešević Auto Servis</h2>
-            <p data-i18n="proj3_desc">Profesionalna web stranica za automehaničarsku radnju s jasnim prikazom usluga, cjenikom i fokusom na povjerenje klijenata.</p>
-            <button class="view-btn" data-project="malesevic" data-i18n="proj_view">View project →</button>
-          </div>
-          <div class="right-preview"><div class="preview-box"><img src="assets/Portfolio/AutomehanicarMalesevic/Screenshot 2026-03-14 at 11.41.05.png" loading="lazy" alt="Malešević Auto Servis Preview"></div></div>
-        </div>
-        <button class="mobile-next-arrow">↓</button>
-      </div>
-      <div class="projects-frame">
-        <div class="projects-wrapper">
-          <div class="left-info">
-            <h4 class="subtitle" data-i18n="proj4_sub">Frizerski Salon</h4>
-            <h2 data-i18n="proj4_title">Male's Barbershop</h2>
-            <p data-i18n="proj4_desc">Moderan i elegantan web dizajn za frizerski salon s online rezervacijama, galerijom radova i programom lojalnosti.</p>
-            <button class="view-btn" data-project="barbershop" data-i18n="proj_view">View project →</button>
-          </div>
-          <div class="right-preview"><div class="preview-box"><img src="assets/Portfolio/MalesBarbershop/Screenshot 2026-03-14 at 00.08.21.png" loading="lazy" alt="Male's Barbershop Preview"></div></div>
-        </div>
-        <button class="mobile-next-arrow">↓</button>
-      </div>
-      <div class="projects-frame">
-        <div class="projects-wrapper">
-          <div class="left-info">
-            <h4 class="subtitle" data-i18n="proj6_sub">Turistička Kolekcija</h4>
-            <h2 data-i18n="proj6_title">TravelCollection</h2>
-            <p data-i18n="proj6_desc">Elegantna web platforma za putovanja s inspirativnim sadržajem, pretraživanjem destinacija i modernim korisničkim iskustvom.</p>
-            <button class="view-btn" data-project="travel" data-i18n="proj_view">View project →</button>
-          </div>
-          <div class="right-preview"><div class="preview-box"><img src="assets/Portfolio/TravelCollection/Screenshot 2026-03-14 at 00.41.11.png" loading="lazy" alt="TravelCollection Preview"></div></div>
-        </div>
-        <button class="mobile-next-arrow">↓</button>
-      </div>
-      <button class="next-btn"><span class="next-btn-arrow">➜</span><span class="next-btn-text">Next ↓</span></button>
-      <div class="portfolio-dots" id="portfolioDots"></div>
-    </div>
-    
-    <div class="process-cta" style="margin-top: 60px; padding-bottom: 20px;">
-      <a href="kontakt.html" class="process-btn"><span data-i18n="srv_btn">START A PROJECT NOW ›</span></a>
-    </div>
-
+<section class="work-section snap-section" id="work">
+  <div class="work-header fade-up">
+    <p class="work-eyebrow" data-i18n="proj_eyebrow">PORTFOLIO</p>
+    <h2 class="work-title" data-i18n="proj_title">Our latest <span>projects</span></h2>
   </div>
-  
-  <div class="preview-overlay" id="previewOverlay">
-    <div class="preview-window">
-      <button class="close-preview" id="closePreview">✕</button>
 
-      <section id="apartment-preview">
-        <div class="apartment-container">
-          <h1 class="apartment-title" data-i18n="proj1_overlay_title">Cvjećarna Eukaliptus</h1>
-          <p class="apartment-desc" data-i18n="proj1_overlay_desc">The redesign and digital brand transformation project for <strong>Cvjećarna Eukaliptus</strong> included the creation of a new visual strategy, modern web design, and digital identity.</p>
-          <img src="assets/Portfolio/Slika2.png" loading="lazy" alt="Eukaliptus web dizajn" class="apartment-hero">
-          <div class="gallery-grid" id="galleryGrid">
-            <div class="gallery-item"><img src="assets/Portfolio/Slika3.png" loading="lazy" alt="Cvjećarna Eukaliptus web dizajn — stranica proizvoda"></div><div class="gallery-item"><img src="assets/Portfolio/Slika4.png" loading="lazy" alt="Eukaliptus online narudžba cvijeća"></div><div class="gallery-item"><img src="assets/Portfolio/Slika6.png" loading="lazy" alt="Eukaliptus branding — vizualni identitet cvjećarne"></div><div class="gallery-item"><img src="assets/Portfolio/Slika7.png" loading="lazy" alt="Responzivni web dizajn za cvjećarnu"></div>
-            <div class="gallery-item extra" style="display:none;"><img src="assets/Portfolio/Slika9.png" loading="lazy" alt="Eukaliptus kontakt stranica dizajn"></div><div class="gallery-item extra" style="display:none;"><img src="assets/Portfolio/Slika10.png" loading="lazy" alt="Eukaliptus galerija — digitalna transformacija brenda"></div>
-          </div>
-          <button class="load-more-btn" data-i18n="btn_load_more">View more images ↓</button><button class="hide-btn" data-i18n="btn_hide">Hide ↑</button>
-        </div>
-      </section>
+  <div class="work-grid" id="workGrid">
+    <a href="villa-neoma.html" class="work-card" data-work-card>
+      <div class="work-card-img">
+        <img src="assets/Portfolio/VillaNeoma/Screenshot 2026-03-12 at 19.41.23.png" alt="Villa Neoma" loading="lazy">
+      </div>
+      <div class="work-card-info">
+        <p class="work-card-client">Villa Neoma</p>
+        <h3 class="work-card-name" data-i18n="proj5_title">Luxury Villa Web Experience</h3>
+      </div>
+    </a>
+    <a href="eukaliptus.html" class="work-card" data-work-card>
+      <div class="work-card-img">
+        <img src="assets/Portfolio/EukaliptusCollage2.png" alt="Cvjećarna Eukaliptus" loading="lazy">
+      </div>
+      <div class="work-card-info">
+        <p class="work-card-client" data-i18n="proj1_sub">Cvjećarna Eukaliptus</p>
+        <h3 class="work-card-name" data-i18n="proj1_title">Digital Brand Transformation</h3>
+      </div>
+    </a>
+    <a href="forme.html" class="work-card" data-work-card>
+      <div class="work-card-img">
+        <img src="assets/Portfolio/Forme1.png" alt="Formè Pilates Studio" loading="lazy">
+      </div>
+      <div class="work-card-info">
+        <p class="work-card-client" data-i18n="proj2_sub">Formè Pilates Studio</p>
+        <h3 class="work-card-name" data-i18n="proj2_title">Elegant Studio Web Presentation</h3>
+      </div>
+    </a>
+    <a href="malesevic.html" class="work-card" data-work-card>
+      <div class="work-card-img">
+        <img src="assets/Portfolio/AutomehanicarMalesevic/Screenshot 2026-03-14 at 11.41.05.png" alt="Malešević Auto Servis" loading="lazy">
+      </div>
+      <div class="work-card-info">
+        <p class="work-card-client" data-i18n="proj3_sub">Malešević Auto Servis</p>
+        <h3 class="work-card-name" data-i18n="proj3_title">Malešević Auto Servis</h3>
+      </div>
+    </a>
+    <a href="barbershop.html" class="work-card work-card-hidden" data-work-card>
+      <div class="work-card-img">
+        <img src="assets/Portfolio/MalesBarbershop/Screenshot 2026-03-14 at 00.08.21.png" alt="Male's Barbershop" loading="lazy">
+      </div>
+      <div class="work-card-info">
+        <p class="work-card-client" data-i18n="proj4_sub">Male's Barbershop</p>
+        <h3 class="work-card-name" data-i18n="proj4_title">Modern Barbershop Experience</h3>
+      </div>
+    </a>
+    <a href="travelcollection.html" class="work-card work-card-hidden" data-work-card>
+      <div class="work-card-img">
+        <img src="assets/Portfolio/TravelCollection/Screenshot 2026-03-14 at 00.41.11.png" alt="TravelCollection" loading="lazy">
+      </div>
+      <div class="work-card-info">
+        <p class="work-card-client" data-i18n="proj6_sub">TravelCollection</p>
+        <h3 class="work-card-name" data-i18n="proj6_title">Travel Platform Reimagined</h3>
+      </div>
+    </a>
+  </div>
 
-      <section id="forme-preview" style="display:none;">
-        <div class="apartment-container">
-          <h1 class="apartment-title" data-i18n="proj2_overlay_title">Formè Pilates Studio</h1>
-          <p class="apartment-desc" data-i18n="proj2_overlay_desc">Elegant and calm web presentation of a reformer pilates studio, focusing on balance, wellness, and a premium experience.</p>
-          <img src="assets/Portfolio/Forme1.png" alt="Formè web dizajn" class="apartment-hero" loading="lazy">
-          <div class="gallery-grid">
-            <div class="gallery-item"><img src="assets/Portfolio/Forme2.png" loading="lazy" alt="Formè Pilates web dizajn — raspored treninga"></div><div class="gallery-item"><img src="assets/Portfolio/Forme3.png" loading="lazy" alt="Formè mobilni dizajn — responzivna stranica"></div><div class="gallery-item"><img src="assets/Portfolio/Forme4.png" loading="lazy" alt="Formè Pilates Studio — kontakt stranica"></div><div class="gallery-item"><img src="assets/Portfolio/Forme5.png" loading="lazy" alt="Minimalistički web dizajn za fitness studio"></div>
-            <div class="gallery-item extra" style="display:none;"><img src="assets/Portfolio/Forme6.png" loading="lazy" alt="Formè galerija — premium web prezentacija"></div><div class="gallery-item extra" style="display:none;"><img src="assets/Portfolio/Forme7.png" loading="lazy" alt="Formè footer dizajn — moderan web"></div>
-          </div>
-          <button class="load-more-btn" data-i18n="btn_load_more">View more images ↓</button><button class="hide-btn" data-i18n="btn_hide">Hide ↑</button>
-        </div>
-      </section>
+  <div class="work-load-more-wrap" id="workLoadMore">
+    <button class="work-load-btn" id="workLoadBtn">
+      <span data-i18n="work_load_more">Pogledaj još radova</span>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+    </button>
+  </div>
 
-      <section id="malesevic-preview" style="display:none;">
-        <div class="apartment-container">
-          <h1 class="apartment-title" data-i18n="proj3_overlay_title">Malešević Auto Servis</h1>
-          <p class="apartment-desc" data-i18n="proj3_overlay_desc">Profesionalna web prezentacija automehaničarske radnje s jasno istaknutim uslugama, cijenama i jednostavnom navigacijom za krajnje korisnike.</p>
-          <img src="assets/Portfolio/AutomehanicarMalesevic/Screenshot 2026-03-14 at 11.41.05.png" alt="Malešević Auto Servis hero" class="apartment-hero" loading="lazy">
-          <div class="gallery-grid">
-            <div class="gallery-item"><img src="assets/Portfolio/AutomehanicarMalesevic/Screenshot 2026-03-14 at 11.41.14.png" loading="lazy" alt="Malešević Auto Servis — usluge i cjenik"></div><div class="gallery-item"><img src="assets/Portfolio/AutomehanicarMalesevic/Screenshot 2026-03-14 at 11.41.19.png" loading="lazy" alt="Auto servis web stranica — kontakt sekcija"></div><div class="gallery-item"><img src="assets/Portfolio/AutomehanicarMalesevic/Screenshot 2026-03-14 at 11.41.26.png" loading="lazy" alt="Profesionalna web prezentacija automehaničara"></div><div class="gallery-item"><img src="assets/Portfolio/AutomehanicarMalesevic/Screenshot 2026-03-14 at 11.41.31.png" loading="lazy" alt="Malešević footer — web dizajn za obrtnike"></div>
-            <div class="gallery-item extra" style="display:none;"><img src="assets/Portfolio/AutomehanicarMalesevic/Screenshot 2026-03-14 at 11.41.35.png" loading="lazy" alt="Auto servis galerija — mobilni prikaz"></div>
-          </div>
-          <button class="load-more-btn" data-i18n="btn_load_more">View more images ↓</button><button class="hide-btn" data-i18n="btn_hide">Hide ↑</button>
-        </div>
-      </section>
-
-      <section id="barbershop-preview" style="display:none;">
-        <div class="apartment-container">
-          <h1 class="apartment-title" data-i18n="proj4_overlay_title">Male's Barbershop</h1>
-          <p class="apartment-desc" data-i18n="proj4_overlay_desc">Moderan i elegantan web dizajn za frizerski salon s online rezervacijama, galerijom radova i programom lojalnosti klijenata.</p>
-          <img src="assets/Portfolio/MalesBarbershop/Screenshot 2026-03-14 at 00.08.21.png" alt="Male's Barbershop hero" class="apartment-hero" loading="lazy">
-          <div class="gallery-grid">
-            <div class="gallery-item"><img src="assets/Portfolio/MalesBarbershop/Screenshot 2026-03-14 at 00.08.33.png" loading="lazy" alt="Male's Barbershop — online rezervacije"></div><div class="gallery-item"><img src="assets/Portfolio/MalesBarbershop/Screenshot 2026-03-14 at 00.08.43.png" loading="lazy" alt="Barbershop web dizajn — galerija frizura"></div><div class="gallery-item"><img src="assets/Portfolio/MalesBarbershop/Screenshot 2026-03-14 at 00.08.53.png" loading="lazy" alt="Moderan web dizajn za frizerski salon"></div><div class="gallery-item"><img src="assets/Portfolio/MalesBarbershop/Screenshot 2026-03-14 at 00.08.57.png" loading="lazy" alt="Male's Barbershop — kontakt i lokacija"></div>
-            <div class="gallery-item extra" style="display:none;"><img src="assets/Portfolio/MalesBarbershop/Screenshot 2026-03-14 at 00.09.04.png" loading="lazy" alt="Barbershop mobilni dizajn — responzivni web"></div>
-          </div>
-          <button class="load-more-btn" data-i18n="btn_load_more">View more images ↓</button><button class="hide-btn" data-i18n="btn_hide">Hide ↑</button>
-        </div>
-      </section>
-
-      <section id="travel-preview" style="display:none;">
-        <div class="apartment-container">
-          <h1 class="apartment-title" data-i18n="proj6_overlay_title">TravelCollection</h1>
-          <p class="apartment-desc" data-i18n="proj6_overlay_desc">Elegantna web platforma za putovanja s inspirativnim sadržajem, pretraživanjem destinacija i modernim korisničkim iskustvom.</p>
-          <img src="assets/Portfolio/TravelCollection/Screenshot 2026-03-14 at 00.41.11.png" alt="TravelCollection hero" class="apartment-hero" loading="lazy">
-          <div class="gallery-grid">
-            <div class="gallery-item"><img src="assets/Portfolio/TravelCollection/Screenshot 2026-03-14 at 00.41.20.png" loading="lazy" alt="TravelCollection — pretraživanje destinacija"></div><div class="gallery-item"><img src="assets/Portfolio/TravelCollection/Screenshot 2026-03-14 at 00.41.27.png" loading="lazy" alt="Turistička web platforma — prikaz destinacija"></div><div class="gallery-item"><img src="assets/Portfolio/TravelCollection/Screenshot 2026-03-14 at 00.41.35.png" loading="lazy" alt="Travel web dizajn — booking stranica"></div><div class="gallery-item"><img src="assets/Portfolio/TravelCollection/Screenshot 2026-03-14 at 00.47.50.png" loading="lazy" alt="TravelCollection mobilni prikaz — responzivni dizajn"></div>
-            <div class="gallery-item extra" style="display:none;"><img src="assets/Portfolio/TravelCollection/Screenshot 2026-03-14 at 00.48.16.png" loading="lazy" alt="TravelCollection galerija — moderni web za turizam"></div><div class="gallery-item extra" style="display:none;"><img src="assets/Portfolio/TravelCollection/Screenshot 2026-03-14 at 00.48.21.png" loading="lazy" alt="Turistička platforma footer — web development"></div>
-          </div>
-          <button class="load-more-btn" data-i18n="btn_load_more">View more images ↓</button><button class="hide-btn" data-i18n="btn_hide">Hide ↑</button>
-        </div>
-      </section>
-      <section id="villaneoma-preview" style="display:none;">
-        <div class="apartment-container">
-          <h1 class="apartment-title" data-i18n="proj5_overlay_title">Villa Neoma</h1>
-          <p class="apartment-desc" data-i18n="proj5_overlay_desc">Premium web presentation for an exclusive luxury villa, combining immersive visuals, elegant storytelling, and a seamless booking experience for discerning guests.</p>
-          <img src="assets/Portfolio/VillaNeoma/Screenshot 2026-03-12 at 19.41.23.png" alt="Villa Neoma hero" class="apartment-hero" loading="lazy">
-          <div class="gallery-grid">
-            <div class="gallery-item"><img src="assets/Portfolio/VillaNeoma/Screenshot 2026-03-12 at 19.41.50.png" loading="lazy" alt="Villa Neoma — luksuzni smještaj web dizajn"></div><div class="gallery-item"><img src="assets/Portfolio/VillaNeoma/Screenshot 2026-03-12 at 19.41.59.png" loading="lazy" alt="Villa Neoma galerija — premium web za turizam"></div><div class="gallery-item"><img src="assets/Portfolio/VillaNeoma/Screenshot 2026-03-12 at 19.42.09.png" loading="lazy" alt="Luksuzna vila web stranica — booking sustav"></div><div class="gallery-item"><img src="assets/Portfolio/VillaNeoma/Screenshot 2026-03-12 at 19.42.16.png" loading="lazy" alt="Villa Neoma kontakt — web development za vile"></div>
-            <div class="gallery-item extra" style="display:none;"><img src="assets/Portfolio/VillaNeoma/Screenshot 2026-03-12 at 19.43.32.png" loading="lazy" alt="Villa Neoma — mobilni prikaz luksuzne web stranice"></div><div class="gallery-item extra" style="display:none;"><img src="assets/Portfolio/VillaNeoma/Screenshot 2026-03-12 at 19.49.15.png" loading="lazy" alt="Villa Neoma footer — premium digitalno rješenje"></div>
-          </div>
-          <button class="load-more-btn" data-i18n="btn_load_more">View more images ↓</button><button class="hide-btn" data-i18n="btn_hide">Hide ↑</button>
-        </div>
-      </section>
-
-    </div>
+  <div class="process-cta" style="margin-top: 60px; padding-bottom: 20px; text-align:center;">
+    <a href="kontakt.html" class="process-btn"><span data-i18n="srv_btn">START A PROJECT NOW ›</span></a>
   </div>
 </section>
+
+<div class="page-transition-overlay" id="pageTransitionOverlay"></div>
 
 <script>
 document.addEventListener("DOMContentLoaded", () => {
-  const frames = document.querySelectorAll(".projects-frame");
-  const nextBtn = document.querySelector(".next-btn");
-  let current = 0;
+  // Work grid - show/hide cards
+  const hiddenCards = document.querySelectorAll('.work-card-hidden');
+  const loadMoreWrap = document.getElementById('workLoadMore');
+  const loadBtn = document.getElementById('workLoadBtn');
+  let batchIndex = 0;
+  const batchSize = 2;
 
-  function updateFrames() {
-    frames.forEach(f => f.classList.remove("active", "next", "behind"));
-    frames[current].classList.add("active");
-    frames[(current + 1) % frames.length].classList.add("next");
-    frames[(current + 2) % frames.length].classList.add("behind");
+  // Initially hide extra cards
+  hiddenCards.forEach(card => { card.style.display = 'none'; });
+
+  if (hiddenCards.length === 0 && loadMoreWrap) {
+    loadMoreWrap.style.display = 'none';
   }
 
-  // Generate dots
-  const dotsContainer = document.getElementById("portfolioDots");
-  frames.forEach((_, i) => {
-    const dot = document.createElement("div");
-    dot.className = "portfolio-dot" + (i === 0 ? " active" : "");
-    dot.addEventListener("click", () => goToSlide(i));
-    dotsContainer.appendChild(dot);
-  });
-
-  function updateDots() {
-    dotsContainer.querySelectorAll(".portfolio-dot").forEach((d, i) => {
-      d.classList.toggle("active", i === current);
-    });
-  }
-
-  function goNext() {
-    const active = frames[current];
-    const nextFrame = frames[(current + 1) % frames.length];
-    frames.forEach(f => f.classList.add("freeze"));
-    nextFrame.style.clipPath = 'none';
-    nextFrame.style.pointerEvents = 'auto';
-    active.classList.add("swipe-out");
-    active.addEventListener("animationend", () => {
-      active.classList.remove("swipe-out");
-      nextFrame.style.clipPath = '';
-      nextFrame.style.pointerEvents = '';
-      current = (current + 1) % frames.length;
-      updateFrames();
-      updateDots();
-      frames.forEach(f => f.classList.remove("freeze"));
-    }, { once: true });
-  }
-
-  function goToSlide(idx) {
-    if (idx === current) return;
-    current = idx;
-    updateFrames();
-    updateDots();
-  }
-
-  nextBtn.addEventListener("click", goNext);
-
-  // Mobile next arrows inside cards
-  document.querySelectorAll(".mobile-next-arrow").forEach(btn => {
-    btn.addEventListener("click", (e) => { e.stopPropagation(); goNext(); });
-  });
-
-  // Swipe support for mobile
-  let touchStartY = 0;
-  const sliderEl = document.querySelector(".slider-container");
-  sliderEl.addEventListener("touchstart", (e) => {
-    touchStartY = e.touches[0].clientY;
-  }, { passive: true });
-  sliderEl.addEventListener("touchend", (e) => {
-    const diff = touchStartY - e.changedTouches[0].clientY;
-    if (diff > 50) goNext(); // swipe up = next
-  }, { passive: true });
-
-  updateFrames();
-
-  const previewOverlay = document.getElementById("previewOverlay");
-  const closePreview = document.getElementById("closePreview");
-  const previews = { eukaliptus: document.getElementById("apartment-preview"), forme: document.getElementById("forme-preview"), malesevic: document.getElementById("malesevic-preview"), barbershop: document.getElementById("barbershop-preview"), travel: document.getElementById("travel-preview"), villaneoma: document.getElementById("villaneoma-preview") };
-
-  document.querySelectorAll(".view-btn").forEach(btn => {
-    btn.addEventListener("click", () => {
-      const project = btn.dataset.project;
-      if (!previews[project]) return;
-      Object.values(previews).forEach(p => p.style.display = "none");
-      previews[project].style.display = "block";
-      previewOverlay.classList.add("active");
-      document.body.style.overflow = "hidden";
-    });
-  });
-
-  closePreview.addEventListener("click", () => { previewOverlay.classList.remove("active"); document.body.style.overflow = ""; });
-
-  document.querySelectorAll(".load-more-btn").forEach(btn => {
-    btn.addEventListener("click", () => {
-      const container = btn.closest(".apartment-container"); const extras = container.querySelectorAll(".gallery-item.extra"); const hideBtn = container.querySelector(".hide-btn");
-      extras.forEach((img, i) => { img.style.display = "block"; img.style.animationDelay = `${i * 0.1}s`; });
-      btn.style.display = "none"; hideBtn.style.display = "block";
-    });
-  });
-
-  document.querySelectorAll(".hide-btn").forEach(btn => {
-    btn.addEventListener("click", () => {
-      const container = btn.closest(".apartment-container"); const extras = container.querySelectorAll(".gallery-item.extra"); const loadMoreBtn = container.querySelector(".load-more-btn");
-      extras.forEach(img => img.style.display = "none"); btn.style.display = "none"; loadMoreBtn.style.display = "block";
-    });
-  });
-});
-
-document.addEventListener("DOMContentLoaded", () => {
-  const projectsSection = document.getElementById("projects");
-  if (!projectsSection) return;
-  const observer = new IntersectionObserver(
-    ([entry]) => {
-      if (entry.isIntersecting) {
-        projectsSection.classList.add("projects-animate");
-        observer.unobserve(entry.target);
+  if (loadBtn) {
+    loadBtn.addEventListener('click', () => {
+      const start = batchIndex * batchSize;
+      const end = Math.min(start + batchSize, hiddenCards.length);
+      for (let i = start; i < end; i++) {
+        hiddenCards[i].style.display = 'block';
+        hiddenCards[i].classList.remove('work-card-hidden');
+        // Trigger visibility animation
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            hiddenCards[i].classList.add('visible');
+          });
+        });
       }
-    },
-    { threshold: 0.35 }
-  );
-  observer.observe(projectsSection);
+      batchIndex++;
+      if (end >= hiddenCards.length) {
+        loadMoreWrap.style.display = 'none';
+      }
+    });
+  }
+
+  // Intersection observer for card reveal
+  const workCards = document.querySelectorAll('.work-card:not(.work-card-hidden)');
+  const cardObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        cardObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  workCards.forEach(card => cardObserver.observe(card));
+
+  // Page transition on link click
+  const overlay = document.getElementById('pageTransitionOverlay');
+
+  // Check if arriving from a page transition
+  if (sessionStorage.getItem('pageTransition')) {
+    sessionStorage.removeItem('pageTransition');
+    overlay.style.transition = 'none';
+    overlay.classList.add('active');
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        overlay.style.transition = '';
+        overlay.classList.remove('active');
+      });
+    });
+  }
+
+  document.querySelectorAll('a[href]').forEach(link => {
+    link.addEventListener('click', function(e) {
+      const href = this.getAttribute('href');
+      if (!href || href.startsWith('#') || href.startsWith('mailto:') || href.startsWith('tel:') || href.startsWith('javascript:')) return;
+      if (href.startsWith('http') && !href.includes(window.location.hostname)) return;
+      e.preventDefault();
+      sessionStorage.setItem('pageTransition', '1');
+      overlay.classList.add('active');
+      setTimeout(() => { window.location.href = href; }, 450);
+    });
+  });
+
+  // Handle bfcache
+  window.addEventListener('pageshow', (e) => {
+    if (e.persisted && overlay) overlay.classList.remove('active');
+  });
 });
 </script>
-
-<div class="soft-divider"></div>
-
-<style>
-.upcoming-section { padding: 120px 6%; max-width: 1600px; margin: 0 auto; position: relative; }
-.upcoming-header { margin-bottom: 60px; text-align: left; }
-.upcoming-header h2 { font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 800; text-transform: uppercase; line-height: 1.1; }
-.upcoming-header h2 span { color: var(--brand); }
-.upcoming-header p { color: var(--muted); font-size: 1.2rem; max-width: 600px; margin-top: 15px; }
-
-.upcoming-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
-
-.uc-card { position: relative; border-radius: 30px; overflow: hidden; border: 1px solid rgba(34,211,238,0.15); background: linear-gradient(145deg, rgba(10,30,35,0.8), rgba(2,6,23,0.9)); padding: 50px; display: flex; flex-direction: column; justify-content: flex-end; backdrop-filter: blur(10px); min-height: 400px; transition: transform 0.4s; }
-.uc-card:hover { transform: translateY(-10px); border-color: rgba(34,211,238,0.5); box-shadow: 0 20px 40px rgba(0,0,0,0.6), inset 0 0 40px rgba(34,211,238,0.1); }
-
-/* Istaknuti projekt - Terme */
-.uc-featured { grid-row: span 2; min-height: 840px; background: linear-gradient(145deg, rgba(6, 182, 212, 0.1), rgba(2,6,23,0.95)); border: 1px solid var(--brand); }
-.uc-featured::before { content: ''; position: absolute; top: -20%; left: -20%; width: 140%; height: 140%; background: radial-gradient(circle at top right, rgba(34,211,238,0.2) 0%, transparent 60%); z-index: 0; pointer-events: none; }
-
-.uc-status { position: absolute; top: 40px; right: 40px; background: rgba(34,211,238,0.15); color: var(--brand); font-weight: 700; padding: 8px 20px; border-radius: 30px; font-size: 0.85rem; letter-spacing: 1px; text-transform: uppercase; z-index: 2; border: 1px solid rgba(34,211,238,0.3); display: flex; align-items: center; gap: 8px;}
-.uc-status::before { content:''; display:block; width:8px; height:8px; background:var(--brand); border-radius:50%; animation: blink 1.5s infinite; }
-
-.uc-content { position: relative; z-index: 2; }
-.uc-content h3 { font-size: clamp(2rem, 3vw, 3rem); font-weight: 800; color: #fff; margin-bottom: 15px; }
-.uc-content p { font-size: 1.1rem; color: var(--muted); line-height: 1.6; }
-
-.uc-img-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.2; z-index: 0; transition: 0.5s; filter: grayscale(50%); }
-.uc-card:hover .uc-img-bg { opacity: 0.4; transform: scale(1.05); filter: grayscale(0%); }
-
-@media (max-width: 1024px) {
-  .upcoming-section { padding: 80px 6%; }
-  .upcoming-header { margin-bottom: 40px; }
-  .upcoming-grid { grid-template-columns: 1fr; }
-  .uc-featured { min-height: 500px; grid-row: span 1; }
-  .uc-featured::before { top: -10%; left: -10%; width: 120%; height: 120%; }
-  .uc-card { min-height: 350px; padding: 30px; }
-  .uc-status { display: none; }
-}
-</style>
-
-<section class="upcoming-section snap-section fade-up" id="upcoming">
-  <div class="upcoming-header">
-    <h2 data-i18n="up_title">In pipeline: <span>The Future</span></h2>
-    <p data-i18n="up_desc">Peek behind the scenes. We are currently developing some of the most complex and luxurious digital projects on the market.</p>
-  </div>
-  <div class="upcoming-grid">
-    
-    <div class="uc-card uc-featured">
-      <div class="uc-status"><span data-i18n="up_stat_dev">In development</span></div>
-      <img src="assets/Portfolio/TermeTopusko.png" alt="Terme Topusko" loading="lazy" class="uc-img-bg"> 
-      <div class="uc-content">
-        <h4 style="color:var(--brand); text-transform:uppercase; letter-spacing:2px; font-size:0.9rem; margin-bottom:10px;" data-i18n="up1_sub">Enterprise Project</h4>
-        <h3 data-i18n="up1_title">Terme Topusko</h3>
-        <p data-i18n="up1_desc">Complete digital transformation and revitalization of the largest thermal spa. We are developing an advanced reservation system, interactive 3D maps of the complex, and a luxury web presentation that will set a new standard in health tourism.</p>
-      </div>
-    </div>
-
-    <div class="uc-card">
-      <div class="uc-status" style="color: #fff; border-color: rgba(255,255,255,0.3); background: rgba(255,255,255,0.1);"><span data-i18n="up_stat_design">Design Phase</span></div>
-      <img src="assets/Portfolio/VillaNeoma.jpg" alt="Villa Callisto" loading="lazy" class="uc-img-bg">
-      <div class="uc-content">
-        <h4 style="color:var(--brand); text-transform:uppercase; letter-spacing:2px; font-size:0.9rem; margin-bottom:10px;" data-i18n="up2_sub">Luxury Real Estate</h4>
-        <h3 data-i18n="up2_title">Villa Callisto & Villa Neoma</h3>
-        <p data-i18n="up2_desc">Exclusive web platforms for premium villas. Focus on immersive video experience, premium storytelling, and a flawless booking process for high-paying clients.</p>
-      </div>
-    </div>
-
-    <div class="uc-card">
-      <div class="uc-status" style="color: #fff; border-color: rgba(255,255,255,0.3); background: rgba(255,255,255,0.1);"><span data-i18n="up_stat_qa">QA Testing</span></div>
-      <img src="assets/Portfolio/SalonSara.png" alt="Beauty Salon Sara" loading="lazy" class="uc-img-bg">
-      <div class="uc-content">
-        <h4 style="color:var(--brand); text-transform:uppercase; letter-spacing:2px; font-size:0.9rem; margin-bottom:10px;" data-i18n="up3_sub">Premium Beauty</h4>
-        <h3 data-i18n="up3_title">Beauty Salon Sara</h3>
-        <p data-i18n="up3_desc">Modern, elegant, and fast booking web platform. We integrate custom UX design with an advanced appointment management and client loyalty system.</p>
-      </div>
-    </div>
-    
-  </div>
-  
-  <div style="margin-top: 50px; display: flex; justify-content: flex-end;">
-    <a href="#projects" class="btn btn--ghost"><span data-i18n="up_btn">Explore everything we do →</span></a>
-  </div>
-</section>
 
 <div class="soft-divider"></div>
 
@@ -2128,107 +1806,6 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 })();
 </script>
-
-<div class="soft-divider"></div>
-
-<style>
-.bento-section { padding: 20px 6% 20px; max-width: 1400px; margin: -40px auto 0; position: relative; }
-.bento-header { text-align: center; margin-bottom: 50px; }
-.bento-header h2 { font-size: clamp(2.5rem, 4vw, 3.5rem); font-weight: 800; text-transform: uppercase; margin-bottom: 15px; overflow-wrap: normal; word-break: normal; hyphens: none; }
-.bento-header h2 span { color: var(--brand); }
-.bento-header p { color: var(--muted); font-size: 1.2rem; max-width: 600px; margin: 0 auto; }
-
-.bento-grid { display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(2, 280px); gap: 24px; }
-.bento-item { position: relative; background: linear-gradient(145deg, rgba(34,211,238,0.05), rgba(2,6,23,0.8)); border: 1px solid rgba(34,211,238,0.15); border-radius: 30px; overflow: hidden; backdrop-filter: blur(10px); padding: 40px; display: flex; flex-direction: column; justify-content: flex-end; transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease; }
-.bento-item:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.5), inset 0 0 30px rgba(34,211,238,0.1); border-color: rgba(34,211,238,0.4); }
-.bento-large { grid-column: span 2; grid-row: span 2; }
-.bento-content { position: relative; z-index: 2; pointer-events: none; background: linear-gradient(to top, rgba(2,6,23,0.95) 0%, rgba(2,6,23,0.7) 60%, transparent 100%); margin: -40px -40px 0; padding: 60px 40px 40px; border-radius: 0 0 30px 30px;}
-.bento-content h3 { font-size: clamp(1.5rem, 2vw, 2.2rem); color: #fff; margin-bottom: 10px; font-weight: 700; overflow-wrap: normal; word-break: normal; hyphens: none; }
-.bento-content p { color: var(--muted); font-size: 1rem; line-height: 1.5; overflow-wrap: break-word; word-break: break-word; }
-
-/* -- BENTO GRAFIKE CSS ONLY -- */
-.bento-graphic-1 { position: absolute; inset: 0; z-index: 0; overflow: hidden; }
-.bento-grid-lines {
-  position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
-  background-image: linear-gradient(rgba(34, 211, 238, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(34, 211, 238, 0.1) 1px, transparent 1px);
-  background-size: 40px 40px; transform: perspective(600px) rotateX(60deg) translateY(-100px);
-  animation: moveGrid 20s linear infinite; opacity: 0.5; transition: 0.5s;
-}
-.bento-orb {
-  position: absolute; top: 40%; left: 50%; transform: translate(-50%, -50%);
-  width: 180px; height: 180px; border-radius: 50%; background: radial-gradient(circle, var(--brand) 0%, transparent 70%);
-  filter: blur(25px); opacity: 0.5; animation: pulseOrb 4s alternate infinite ease-in-out;
-}
-.bento-item:hover .bento-grid-lines { opacity: 0.8; transform: perspective(600px) rotateX(55deg) translateY(-80px); }
-
-@keyframes moveGrid { 0% { background-position: 0 0; } 100% { background-position: 0 40px; } }
-@keyframes pulseOrb { 0% { transform: translate(-50%, -50%) scale(0.8); opacity: 0.4;} 100% { transform: translate(-50%, -50%) scale(1.1); opacity: 0.7; } }
-
-.bento-score { position: absolute; top: 40px; right: 40px; width: 80px; height: 80px; border-radius: 50%; border: 4px solid var(--brand); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: 800; color: var(--brand); box-shadow: 0 0 20px rgba(34,211,238,0.3); z-index: 1; }
-.bento-tech-tags { position: absolute; top: 40px; left: 40px; display: flex; flex-direction: column; gap: 10px; z-index: 1;}
-.bento-tech-tags span { background: rgba(34,211,238,0.1); border: 1px solid rgba(34,211,238,0.3); padding: 6px 14px; border-radius: 20px; font-size: 0.8rem; color: var(--brand); font-weight: 600; width: max-content; }
-
-/* Blokovi za skalabilnost */
-.bento-blocks { position: absolute; top: 20px; right: -20px; display: flex; flex-direction: column; gap: 15px; transform: rotate(-15deg); z-index: 0; opacity: 0.6; }
-.b-block { width: 180px; height: 40px; border-radius: 8px; background: linear-gradient(90deg, rgba(34,211,238,0.05), rgba(34,211,238,0.2)); border: 1px solid rgba(34,211,238,0.4); box-shadow: 0 10px 20px rgba(0,0,0,0.5); animation: floatBlock 3s infinite alternate ease-in-out; }
-.b-block:nth-child(2) { width: 140px; transform: translateX(20px); animation-delay: 0.4s; }
-.b-block:nth-child(3) { width: 100px; transform: translateX(40px); animation-delay: 0.8s; }
-@keyframes floatBlock { 0% { transform: translateY(0); } 100% { transform: translateY(-10px); } }
-
-@media (max-width: 1024px) {
-  .bento-section { padding-top: 80px; margin-top: 20px; }
-  .bento-grid { grid-template-columns: 1fr; grid-template-rows: auto; }
-  .bento-large { grid-column: span 1; grid-row: span 1; height: auto; min-height: 350px; }
-  .bento-item { height: auto; min-height: 280px; padding: 30px; }
-  .bento-score { top: 20px; right: 20px; width: 60px; height: 60px; font-size: 1.2rem; }
-  .bento-tech-tags { top: 20px; left: 20px; }
-  .bento-tech-tags span { font-size: 0.7rem; padding: 4px 10px; }
-  .bento-orb { width: 80px; height: 80px; }
-  .bento-content { margin: -30px -30px 0; padding: 50px 30px 30px; }
-  .bento-blocks { right: -40px; top: 10px; }
-}
-</style>
-
-<section class="bento-section snap-section fade-up" id="bento">
-  <div class="bento-header">
-    <h2 data-i18n="bento_title">Digital <span>Ecosystem</span></h2>
-    <p data-i18n="bento_desc">We don't just build websites. We build complete digital experiences that dominate the modern market.</p>
-  </div>
-  
-  <div class="bento-grid">
-    <div class="bento-item bento-large">
-      <div class="bento-graphic-1">
-        <div class="bento-grid-lines"></div>
-        <div class="bento-orb"></div>
-      </div>
-      <div class="bento-tech-tags"><span>Awwwards Vibe</span><span>Custom 3D</span></div>
-      <div class="bento-content">
-        <h3 data-i18n="bento1_title">Pixel-Perfect Execution</h3>
-        <p data-i18n="bento1_desc">Every detail is strategically designed. Our design not only looks flawless, but is psychologically optimized for maximum conversion and user retention.</p>
-      </div>
-    </div>
-    <div class="bento-item" style="justify-content: center; align-items: flex-start;">
-      <div class="bento-score">99+</div>
-      <div class="bento-content" style="margin: 0; padding: 0; background: none; border-radius: 0; position: relative; z-index: 2;">
-        <h3 data-i18n="bento2_title" style="text-align: left;">Lightning Fast Performance</h3>
-        <p data-i18n="bento2_desc" style="text-align: left;">We write code from scratch. No slow themes, no bloated code. Your site flies.</p>
-      </div>
-    </div>
-    <div class="bento-item">
-      <div class="bento-blocks">
-        <div class="b-block"></div><div class="b-block"></div><div class="b-block"></div>
-      </div>
-      <div class="bento-content">
-        <h3 data-i18n="bento3_title">Scalable Architecture</h3>
-        <p data-i18n="bento3_desc">Systems built to support massive traffic growth without breaking.</p>
-      </div>
-    </div>
-  </div>
-  
-  <div class="process-cta" style="margin-top: 60px; display:flex; justify-content:center;">
-    <a href="kontakt.html" class="process-btn"><span data-i18n="srv_btn">START A PROJECT NOW ›</span></a>
-  </div>
-</section>
 
 <div class="soft-divider"></div>
 
@@ -3021,7 +2598,7 @@ const translations = {
     proj4_sub: "Barbershop", proj4_title: "Male's Barbershop", proj4_desc: "Modern and elegant web design for a barbershop with online bookings, work gallery, and loyalty program.",
     proj5_sub: "Villa Neoma", proj5_title: "Luxury Villa Web Experience", proj5_desc: "Premium web presentation with integrated reservation system and online payments, immersive visuals, and elegant design for an exclusive villa experience.",
     proj6_sub: "Travel Collection", proj6_title: "TravelCollection", proj6_desc: "Elegant travel web platform with inspiring content, destination search, and modern user experience.",
-    proj_view: "View project →",
+    proj_view: "View project →", work_load_more: "View more projects",
     proj1_overlay_title: "Cvjećarna Eukaliptus", proj1_overlay_desc: "The redesign and digital brand transformation project for <strong>Cvjećarna Eukaliptus</strong> included the creation of a new visual strategy, modern web design, and digital identity.",
     proj2_overlay_title: "Formè Pilates Studio", proj2_overlay_desc: "Elegant and calm web presentation of a reformer pilates studio, focusing on balance, wellness, and a premium experience.",
     proj3_overlay_title: "Malešević Auto Service", proj3_overlay_desc: "Professional web presentation of an auto mechanic shop with clearly highlighted services, prices, and easy navigation for end users.",
@@ -3086,7 +2663,7 @@ const translations = {
     proj3_sub: "Automehaničarska Radnja", proj3_title: "Malešević Auto Servis", proj3_desc: "Profesionalna web stranica za automehaničarsku radnju s jasnim prikazom usluga, cjenikom i fokusom na povjerenje klijenata.",
     proj4_sub: "Frizerski Salon", proj4_title: "Male's Barbershop", proj4_desc: "Moderan i elegantan web dizajn za frizerski salon s online rezervacijama, galerijom radova i programom lojalnosti.",
     proj5_sub: "Villa Neoma", proj5_title: "Luksuzna Villa Web Prezentacija", proj5_desc: "Premium web prezentacija s integriranim rezervacijskim sustavom i online plaćanjem, imerzivnim vizualima i elegantnim dizajnom za ekskluzivno iskustvo vile.",
-    proj_view: "Pogledaj projekt →",
+    proj_view: "Pogledaj projekt →", work_load_more: "Pogledaj još radova",
     proj1_overlay_title: "Cvjećarna Eukaliptus", proj1_overlay_desc: "Projekt redizajna i digitalne transformacije brenda <strong>Cvjećarna Eukaliptus</strong> obuhvatio je izradu nove vizualne strategije, modernog web dizajna i digitalnog identiteta.",
     proj2_overlay_title: "Formè Pilates Studio", proj2_overlay_desc: "Elegantna i smirena web prezentacija reformer pilates studija, s fokusom na ravnotežu, wellness i premium iskustvo.",
     proj3_overlay_title: "Malešević Auto Servis", proj3_overlay_desc: "Profesionalna web prezentacija automehaničarske radnje s jasno istaknutim uslugama, cijenama i jednostavnom navigacijom za krajnje korisnike.",
@@ -3152,7 +2729,7 @@ const translations = {
     proj3_sub: "Taller Mecánico", proj3_title: "Malešević Auto Servicio", proj3_desc: "Sitio web profesional para un taller mecánico con servicios claros, precios y enfoque en la confianza del cliente.",
     proj4_sub: "Barbería", proj4_title: "Male's Barbershop", proj4_desc: "Diseño web moderno y elegante para una barbería con reservas online, galería de trabajos y programa de fidelización.",
     proj5_sub: "Villa Neoma", proj5_title: "Experiencia Web de Villa de Lujo", proj5_desc: "Presentación web premium con sistema de reservas integrado y pagos en línea, visuales inmersivos y diseño elegante para una experiencia de villa exclusiva.",
-    proj_view: "Ver proyecto →",
+    proj_view: "Ver proyecto →", work_load_more: "Ver más proyectos",
     proj1_overlay_title: "Cvjećarna Eukaliptus", proj1_overlay_desc: "El proyecto de rediseño y transformación de marca digital para <strong>Cvjećarna Eukaliptus</strong> incluyó la creación de una nueva estrategia visual, diseño web moderno e identidad digital.",
     proj2_overlay_title: "Formè Pilates Studio", proj2_overlay_desc: "Elegante y tranquila presentación web de un estudio de pilates reformer, enfocada en el equilibrio, el bienestar y una experiencia premium.",
     proj3_overlay_title: "Malešević Auto Servicio", proj3_overlay_desc: "Presentación web profesional de un taller mecánico con servicios claramente destacados, precios y fácil navegación para los usuarios.",
@@ -3218,7 +2795,7 @@ const translations = {
     proj3_sub: "Autowerkstatt", proj3_title: "Malešević Auto Service", proj3_desc: "Professionelle Website für eine Autowerkstatt mit klarem Serviceangebot, Preisliste und Fokus auf Kundenvertrauen.",
     proj4_sub: "Friseursalon", proj4_title: "Male's Barbershop", proj4_desc: "Modernes und elegantes Webdesign für einen Friseursalon mit Online-Buchungen, Arbeitsgalerie und Treueprogramm.",
     proj5_sub: "Villa Neoma", proj5_title: "Luxus-Villa Web-Erlebnis", proj5_desc: "Premium-Webpräsentation mit integriertem Reservierungssystem und Online-Zahlung, immersiven Visuals und elegantem Design für ein exklusives Villa-Erlebnis.",
-    proj_view: "Projekt ansehen →",
+    proj_view: "Projekt ansehen →", work_load_more: "Mehr Projekte anzeigen",
     proj1_overlay_title: "Cvjećarna Eukaliptus", proj1_overlay_desc: "Das Redesign- und digitale Markentransformationsprojekt für <strong>Cvjećarna Eukaliptus</strong> umfasste die Erstellung einer neuen visuellen Strategie, modernem Webdesign und digitaler Identität.",
     proj2_overlay_title: "Formè Pilates Studio", proj2_overlay_desc: "Elegante und ruhige Webpräsentation eines Reformer-Pilates-Studios mit Fokus auf Balance, Wellness und Premium-Erlebnis.",
     proj3_overlay_title: "Malešević Auto Service", proj3_overlay_desc: "Professionelle Webpräsentation einer Autowerkstatt mit klar hervorgehobenen Dienstleistungen, Preisen und einfacher Navigation.",
