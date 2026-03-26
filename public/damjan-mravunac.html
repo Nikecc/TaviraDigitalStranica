@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Male's Barbershop — Modern Barbershop Experience | Tavira Digital</title>
+<title>Damjan Mravunac — Musician Portfolio Website | Tavira Digital</title>
 <link rel="icon" href="/TdFavicon.ico" />
 <link rel="apple-touch-icon" href="/TdFavicon.ico" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Tavira Digital created a modern digital experience for Male's Barbershop — bold design with seamless online booking and client loyalty." />
+<meta name="description" content="Tavira Digital crafted an immersive portfolio for musician Damjan Mravunac — a creative digital stage for music and identity." />
 <meta name="robots" content="index, follow" />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Montserrat:wght@700;800;900&family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
@@ -67,9 +67,14 @@ a{text-decoration:none;color:inherit;}
 .insight-text h2{font-family:'Poppins',sans-serif;font-size:clamp(1.5rem,3vw,2.2rem);font-weight:500;margin-bottom:20px;}
 .insight-text p{font-size:1.05rem;color:var(--muted);line-height:1.8;font-weight:400;font-family:'Poppins',sans-serif;}
 
-.img-grid{padding:80px 6%;max-width:1200px;margin:0 auto;}
+.img-grid{padding:80px 6%;max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:24px;}
 .img-grid img{border-radius:16px;border:1px solid rgba(34,211,238,.1);box-shadow:0 20px 60px rgba(0,0,0,.3);width:100%;transition:transform .4s,box-shadow .4s;}
 .img-grid img:hover{transform:translateY(-6px);box-shadow:0 30px 80px rgba(0,0,0,.5);}
+
+.gallery{padding:40px 6% 80px;max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+.gallery img{border-radius:12px;border:1px solid rgba(34,211,238,.08);width:100%;transition:transform .4s,box-shadow .4s;}
+.gallery img:hover{transform:translateY(-4px);box-shadow:0 20px 50px rgba(0,0,0,.4);}
+@media(max-width:768px){.gallery{grid-template-columns:1fr;}}
 
 .back-link{display:block;text-align:center;padding:60px 6% 100px;font-family:'Poppins',sans-serif;font-weight:400;font-size:0.95rem;color:var(--muted);letter-spacing:0.5px;transition:color .3s;}
 .back-link:hover{color:var(--brand);}
@@ -80,6 +85,7 @@ a{text-decoration:none;color:inherit;}
 @media(max-width:768px){
   .insight{flex-direction:column;gap:40px;padding:70px 6%;}
   .hero{padding:140px 5% 60px;}
+  .img-grid{grid-template-columns:1fr;}
 }
 @media(max-width:480px){
   .floating-menu-btn{font-size:20px;right:20px;top:20px;}
@@ -110,23 +116,23 @@ a{text-decoration:none;color:inherit;}
 </aside>
 
 <section class="hero fade-up">
-  <div class="hero-client">Male's Barbershop</div>
-  <h1>Modern Barbershop Experience</h1>
-  <p class="hero-tagline">Bold design with seamless online booking and client loyalty.</p>
-  <img src="assets/Portfolio/MalesBarbershop/Screenshot 2026-03-14 at 00.08.21.png" alt="Male's Barbershop hero" class="hero-img" />
+  <div class="hero-client">Damjan Mravunac</div>
+  <h1>Musician Portfolio Experience</h1>
+  <p class="hero-tagline">A creative digital stage for an artist's music and identity.</p>
+  <img src="assets/Portfolio/DamjanMravunacMusician/Screenshot 2026-03-26 at 15.25.49.png" alt="Damjan Mravunac hero" class="hero-img" />
 </section>
 
 <section class="description fade-up">
-  <h2>Where style meets convenience.</h2>
-  <p>Male's Barbershop needed more than a website — they needed a complete digital experience. We built a modern platform with integrated online booking, a portfolio gallery showcasing their best work, and a loyalty program that keeps clients coming back.</p>
+  <h2>Where sound meets screen.</h2>
+  <p>Damjan Mravunac needed more than a website — he needed a digital stage. We crafted an immersive portfolio that showcases his music, performances, and artistic identity through bold visuals, embedded audio, and a design that resonates with his creative vision.</p>
 </section>
 
 <section class="carousel-section fade-up">
   <div class="carousel-wrapper">
     <div class="carousel-track" id="carouselTrack">
-      <div class="carousel-slide"><img src="assets/Portfolio/MalesBarbershop/Screenshot 2026-03-14 at 00.08.33.png" alt="Barbershop screenshot 1" /></div>
-      <div class="carousel-slide"><img src="assets/Portfolio/MalesBarbershop/Screenshot 2026-03-14 at 00.08.43.png" alt="Barbershop screenshot 2" /></div>
-      <div class="carousel-slide"><img src="assets/Portfolio/MalesBarbershop/Screenshot 2026-03-14 at 00.08.53.png" alt="Barbershop screenshot 3" /></div>
+      <div class="carousel-slide"><img src="assets/Portfolio/DamjanMravunacMusician/Screenshot 2026-03-26 at 15.25.58.png" alt="Damjan Mravunac screenshot 1" /></div>
+      <div class="carousel-slide"><img src="assets/Portfolio/DamjanMravunacMusician/Screenshot 2026-03-26 at 15.26.07.png" alt="Damjan Mravunac screenshot 2" /></div>
+      <div class="carousel-slide"><img src="assets/Portfolio/DamjanMravunacMusician/Screenshot 2026-03-26 at 15.26.14.png" alt="Damjan Mravunac screenshot 3" /></div>
     </div>
   </div>
   <div class="carousel-dots" id="carouselDots">
@@ -138,16 +144,21 @@ a{text-decoration:none;color:inherit;}
 
 <section class="insight fade-up">
   <div class="insight-img">
-    <img src="assets/Portfolio/MalesBarbershop/Screenshot 2026-03-14 at 00.08.57.png" alt="Barbershop insight" />
+    <img src="assets/Portfolio/DamjanMravunacMusician/Screenshot 2026-03-26 at 15.26.26.png" alt="Damjan Mravunac insight" />
   </div>
   <div class="insight-text">
-    <h2>Beyond the chair.</h2>
-    <p>A great barbershop experience doesn't start at the chair — it starts online. We designed a booking flow so smooth that clients can schedule their next cut in under 30 seconds, plus a loyalty system that rewards regulars and drives repeat visits.</p>
+    <h2>Designing for rhythm and emotion.</h2>
+    <p>A musician's website should feel like their music. Every visual element was carefully orchestrated to create an atmospheric experience — dark tones, dynamic layouts, and seamless audio integration that lets visitors feel the artistry before they hear a single note.</p>
   </div>
 </section>
 
 <section class="img-grid fade-up">
-  <img src="assets/Portfolio/MalesBarbershop/Screenshot 2026-03-14 at 00.09.04.png" alt="Barbershop detail" style="width:100%;" />
+  <img src="assets/Portfolio/DamjanMravunacMusician/Screenshot 2026-03-26 at 15.26.34.png" alt="Damjan Mravunac detail 1" />
+  <img src="assets/Portfolio/DamjanMravunacMusician/Screenshot 2026-03-26 at 15.26.43.png" alt="Damjan Mravunac detail 2" />
+</section>
+
+<section class="gallery fade-up">
+  <img src="assets/Portfolio/DamjanMravunacMusician/Screenshot 2026-03-26 at 15.26.50.png" alt="Damjan Mravunac gallery 1" />
 </section>
 
 <a href="index.html#work" class="back-link">&larr; Back to all projects</a>
