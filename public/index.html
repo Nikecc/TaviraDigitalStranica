@@ -292,7 +292,7 @@
       --brand-2: #06B6D4;      /* cyan darker */
       --muted: #94A3B8;        /* muted tekst */
       --border: rgba(34, 211, 238, 0.35);
-      --bg-dark: #020617;
+      --bg-dark: #0a1628;
     }
 
     * {
@@ -322,7 +322,7 @@
       margin: 0;
       padding: 0;
       overflow-x: hidden;
-      background: linear-gradient(135deg, #093440 0%, #020617 40%, #020617 100%);
+      background: linear-gradient(135deg, #0c2d3d 0%, #0a1628 35%, #091225 100%);
       background-attachment: fixed;
     }
 
@@ -545,7 +545,7 @@
     /* INTRO */
     #intro {
       position: fixed; inset: 0;
-      background: linear-gradient(135deg, #093440 0%, #020617 40%, #020617 100%);
+      background: linear-gradient(135deg, #0c2d3d 0%, #0a1628 35%, #091225 100%);
       z-index: 9999;
       display: flex; align-items: center; justify-content: center;
       overflow: hidden;
@@ -1261,7 +1261,7 @@
 <style>
 /* ===== PAGE TRANSITION OVERLAY ===== */
 .page-transition-overlay {
-  position: fixed; inset: 0; background: #020617; z-index: 99999;
+  position: fixed; inset: 0; background: #0a1628; z-index: 99999;
   opacity: 0; pointer-events: none;
   transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -1275,8 +1275,8 @@
 .work-title span { background: linear-gradient(90deg, var(--brand), var(--brand-2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
 .work-grid {
-  display: grid; grid-template-columns: 1fr 1fr; gap: 30px;
-  max-width: 1400px; margin: 0 auto; padding: 0 6%;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
+  max-width: 1600px; margin: 0 auto; padding: 0 4%;
 }
 .work-card {
   position: relative; overflow: hidden; cursor: pointer;
@@ -1286,22 +1286,23 @@
 }
 .work-card.visible { opacity: 1; transform: translateY(0); }
 .work-card-img {
-  width: 100%; aspect-ratio: 16/10; overflow: hidden;
-  background: rgba(255,255,255,0.03); border-radius: 4px;
+  width: 100%; aspect-ratio: 4/3; overflow: hidden;
+  background: rgba(255,255,255,0.03);
 }
 .work-card-img img {
   width: 100%; height: 100%; object-fit: cover;
   transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
 }
-.work-card:hover .work-card-img img { transform: scale(1.04); }
-.work-card-info { padding: 20px 0 10px; }
+.work-card:hover .work-card-img img { transform: scale(1.03); }
+.work-card-info { padding: 18px 4px 10px; }
 .work-card-client {
-  font-size: 0.85rem; color: var(--muted); margin-bottom: 6px;
-  font-weight: 500; letter-spacing: 0.5px;
+  font-size: 0.82rem; color: var(--muted); margin-bottom: 5px;
+  font-weight: 400; letter-spacing: 0.3px;
+  font-family: 'Poppins', sans-serif;
 }
 .work-card-name {
-  font-size: clamp(1.2rem, 2vw, 1.7rem); font-weight: 700; color: #fff;
-  font-family: 'Montserrat', sans-serif;
+  font-size: clamp(1.3rem, 2.2vw, 2rem); font-weight: 400; color: #fff;
+  font-family: 'Poppins', sans-serif; letter-spacing: -0.01em;
 }
 .work-load-more-wrap {
   text-align: center; margin-top: 60px; padding: 0 6%;
