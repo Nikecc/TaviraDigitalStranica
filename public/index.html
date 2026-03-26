@@ -1295,27 +1295,30 @@
   width: 100%; height: 100%; object-fit: cover;
   transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
 }
-/* Blue gradient overlay */
+/* Subtle dark vignette overlay - only on hover */
 .work-card-img::after {
   content: ''; position: absolute; inset: 0;
-  background: linear-gradient(135deg, rgba(10,50,120,0.65) 0%, rgba(30,80,180,0.5) 40%, rgba(80,60,160,0.55) 100%);
-  transition: opacity 0.5s ease;
-  border-radius: 16px;
+  background: radial-gradient(ellipse at center, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.15) 60%, rgba(0,0,0,0.4) 100%);
+  opacity: 0; transition: opacity 0.5s ease;
+  border-radius: 16px; z-index: 1;
 }
+.work-card:hover .work-card-img::after { opacity: 1; }
 /* Hover circle */
 .work-card-circle {
-  position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.8);
-  width: 140px; height: 140px; border-radius: 50%;
-  background: rgba(40,40,50,0.85);
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.85);
+  width: 130px; height: 130px; border-radius: 50%;
+  background: rgba(255,255,255,0.12);
+  backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,0.25);
   display: flex; align-items: center; justify-content: center; text-align: center;
-  color: #fff; font-family: 'Poppins', sans-serif; font-size: 14px; font-weight: 600;
-  letter-spacing: 1.5px; text-transform: uppercase; line-height: 1.4;
+  color: #fff; font-family: 'Poppins', sans-serif; font-size: 12px; font-weight: 500;
+  letter-spacing: 2px; text-transform: uppercase; line-height: 1.5;
   opacity: 0; z-index: 3;
   transition: opacity 0.4s ease, transform 0.4s ease;
   pointer-events: none;
 }
 .work-card:hover .work-card-circle { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-.work-card:hover .work-card-img img { transform: scale(1.05); }
+.work-card:hover .work-card-img img { transform: scale(1.04); }
 /* Card info overlay - bottom left */
 .work-card-info {
   position: absolute; bottom: 0; left: 0; right: 0; z-index: 2;
