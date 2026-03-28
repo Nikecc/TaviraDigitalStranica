@@ -44,7 +44,7 @@ a{text-decoration:none;color:inherit;}
 .nav-dropdown{max-height:0;overflow:hidden;transition:max-height .4s ease;padding-left:20px;}
 .nav-dropdown.open{max-height:600px;}
 .nav-dropdown a{font-size:clamp(15px,2vw,20px)!important;font-weight:700!important;opacity:.7;padding:4px 0;display:flex;align-items:center;gap:8px;}
-.nav-dropdown a::before{content:'A';color:var(--brand);font-size:1.2em;}
+.nav-dropdown a::before{content:'›';color:var(--brand);font-size:1.2em;}
 .nav-dropdown a:hover{opacity:1;}
 .lang-switcher{display:flex;gap:20px;margin-top:auto;padding-top:40px;border-top:1px solid rgba(255,255,255,.1);}
 .lang-btn{background:none;border:none;color:var(--muted);font-size:1.2rem;font-weight:700;cursor:pointer;transition:color .3s;font-family:'Inter';}
@@ -187,9 +187,9 @@ document.addEventListener('click',function(e){const link=e.target.closest('a[hre
 window.addEventListener('pageshow',(e)=>{if(e.persisted){const o=document.querySelector('.page-transition-overlay');if(o)o.classList.add('hidden');}});
 
 const menuBtn=document.getElementById('menuBtn'),sideMenu=document.getElementById('sideMenu'),menuOverlay=document.getElementById('menuOverlay'),closeMenu=document.getElementById('closeMenu');
-function openMenu(){sideMenu.classList.add('active');menuOverlay.classList.add('active');document.body.classList.add('menu-open');}
+function toggleMenu(){const isOpen=sideMenu.classList.contains('active');sideMenu.classList.toggle('active',!isOpen);menuOverlay.classList.toggle('active',!isOpen);document.body.classList.toggle('menu-open',!isOpen);}
 function closeMenuFn(){sideMenu.classList.remove('active');menuOverlay.classList.remove('active');document.body.classList.remove('menu-open');}
-menuBtn.addEventListener('click',openMenu);closeMenu.addEventListener('click',closeMenuFn);menuOverlay.addEventListener('click',closeMenuFn);
+menuBtn.addEventListener('click',toggleMenu);closeMenu.addEventListener('click',closeMenuFn);menuOverlay.addEventListener('click',closeMenuFn);
 document.getElementById('projDropToggle').addEventListener('click',function(){this.classList.toggle('open');document.getElementById('projDropdown').classList.toggle('open');});
 
 (function(){
