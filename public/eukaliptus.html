@@ -103,7 +103,7 @@ a{text-decoration:none;color:inherit;}
 
 <button class="floating-menu-btn" id="menuBtn">
   <span class="menu-lines"></span>
-  <span>MENU</span>
+  <span data-i18n="menu_btn">MENU</span>
 </button>
 
 <div class="menu-overlay" id="menuOverlay"></div>
@@ -111,9 +111,9 @@ a{text-decoration:none;color:inherit;}
 <aside class="side-menu" id="sideMenu">
   <button class="close-menu" id="closeMenu">&#10005;</button>
   <nav class="side-nav">
-    <a href="index.html">Home</a>
-    <a href="services.html">Services</a>
-    <button class="nav-dropdown-toggle" id="projDropToggle"><span>Work</span><svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg></button>
+    <a href="index.html" data-i18n="menu_home">Home</a>
+    <a href="services.html" data-i18n="menu_services">Services</a>
+    <button class="nav-dropdown-toggle" id="projDropToggle"><span data-i18n="menu_work">Work</span><svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg></button>
     <div class="nav-dropdown" id="projDropdown">
       <a href="samsung.html">Samsung Galaxy Heroes</a>
       <a href="villa-neoma.html">Villa Neoma</a>
@@ -128,27 +128,27 @@ a{text-decoration:none;color:inherit;}
       <a href="festivo.html">Festivo</a>
       <a href="picek-na-vrata.html">Pićek na Vrata</a>
     </div>
-    <a href="blog.html">Blog</a>
-    <a href="kontakt.html">Contact</a>
+    <a href="blog.html" data-i18n="menu_blog">Blog</a>
+    <a href="kontakt.html" data-i18n="menu_contact">Contact</a>
   </nav>
   <div class="lang-switcher">
-    <button class="lang-btn active" id="btn-en">EN</button>
-    <button class="lang-btn" id="btn-hr">HR</button>
-    <button class="lang-btn" id="btn-de">DE</button>
-    <button class="lang-btn" id="btn-es">ES</button>
+    <button onclick="setLang('en')" class="lang-btn active" id="btn-en">EN</button>
+    <button onclick="setLang('hr')" class="lang-btn" id="btn-hr">HR</button>
+    <button onclick="setLang('de')" class="lang-btn" id="btn-de">DE</button>
+    <button onclick="setLang('es')" class="lang-btn" id="btn-es">ES</button>
   </div>
 </aside>
 
 <section class="hero fade-up">
-  <div class="hero-client">Cvjećarna Eukaliptus</div>
-  <h1>Digital Brand Transformation</h1>
-  <p class="hero-tagline">Modern and elegant web design combining aesthetics, warmth, and nature.</p>
+  <div class="hero-client" data-i18n="euk_client">Cvjećarna Eukaliptus</div>
+  <h1 data-i18n="euk_title">Digital Brand Transformation</h1>
+  <p class="hero-tagline" data-i18n="euk_tagline">Modern and elegant web design combining aesthetics, warmth, and nature.</p>
   <img src="assets/Portfolio/Slika2.png" alt="Cvjećarna Eukaliptus hero" class="hero-img" />
 </section>
 
 <section class="description fade-up">
-  <h2>Where nature meets digital.</h2>
-  <p>The redesign and digital brand transformation project for Cvjećarna Eukaliptus included the creation of a new visual strategy, modern web design, and digital identity. We brought the beauty of flowers into the digital world with warm tones, organic layouts, and a seamless e-commerce experience.</p>
+  <h2 data-i18n="euk_desc_h">Where nature meets digital.</h2>
+  <p data-i18n="euk_desc_p">The redesign and digital brand transformation project for Cvjećarna Eukaliptus included the creation of a new visual strategy, modern web design, and digital identity. We brought the beauty of flowers into the digital world with warm tones, organic layouts, and a seamless e-commerce experience.</p>
 </section>
 
 <section class="carousel-section fade-up">
@@ -171,8 +171,8 @@ a{text-decoration:none;color:inherit;}
     <img src="assets/Portfolio/Slika7.png" alt="Eukaliptus insight" />
   </div>
   <div class="insight-text">
-    <h2>Translating beauty into pixels.</h2>
-    <p>A flower shop sells emotion, not just products. We designed every element to evoke the warmth and natural beauty of handcrafted arrangements — from the color palette inspired by eucalyptus leaves to the smooth, intuitive shopping experience that turns visitors into loyal customers.</p>
+    <h2 data-i18n="euk_ins_h">Translating beauty into pixels.</h2>
+    <p data-i18n="euk_ins_p">A flower shop sells emotion, not just products. We designed every element to evoke the warmth and natural beauty of handcrafted arrangements — from the color palette inspired by eucalyptus leaves to the smooth, intuitive shopping experience that turns visitors into loyal customers.</p>
   </div>
 </section>
 
@@ -181,7 +181,7 @@ a{text-decoration:none;color:inherit;}
   <img src="assets/Portfolio/Slika10.png" alt="Eukaliptus detail 2" />
 </section>
 
-<a href="index.html#work" class="back-link">&larr; Back to all projects</a>
+<a href="index.html#work" class="back-link" data-i18n="back_link">&larr; Back to all projects</a>
 
 <script>
 window.addEventListener('DOMContentLoaded',()=>{const o=document.querySelector('.page-transition-overlay');if(!o)return;if(sessionStorage.getItem('pageTransition')){sessionStorage.removeItem('pageTransition');requestAnimationFrame(()=>{requestAnimationFrame(()=>{o.classList.add('hidden');});});}else{o.style.transition='none';o.classList.add('hidden');requestAnimationFrame(()=>{o.style.transition='';});}});
@@ -204,6 +204,15 @@ document.getElementById('projDropToggle').addEventListener('click',function(){th
 
 const obs=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:0.15});
 document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));
+
+const translations={
+  en:{menu_home:"Home",menu_services:"Services",menu_work:"Work",menu_blog:"Blog",menu_contact:"Contact",menu_btn:"MENU",euk_client:"Cvjećarna Eukaliptus",euk_title:"Digital Brand Transformation",euk_tagline:"Modern and elegant web design combining aesthetics, warmth, and nature.",euk_desc_h:"Where nature meets digital.",euk_desc_p:"The redesign and digital brand transformation project for Cvjećarna Eukaliptus included the creation of a new visual strategy, modern web design, and digital identity. We brought the beauty of flowers into the digital world with warm tones, organic layouts, and a seamless e-commerce experience.",euk_ins_h:"Translating beauty into pixels.",euk_ins_p:"A flower shop sells emotion, not just products. We designed every element to evoke the warmth and natural beauty of handcrafted arrangements — from the color palette inspired by eucalyptus leaves to the smooth, intuitive shopping experience that turns visitors into loyal customers.",back_link:"&larr; Back to all projects"},
+  hr:{menu_home:"Početna",menu_services:"Usluge",menu_work:"Projekti",menu_blog:"Blog",menu_contact:"Kontakt",menu_btn:"IZBORNIK",euk_client:"Cvjećarna Eukaliptus",euk_title:"Digitalna transformacija brenda",euk_tagline:"Moderan i elegantan web dizajn koji kombinira estetiku, toplinu i prirodu.",euk_desc_h:"Gdje priroda susreće digitalno.",euk_desc_p:"Projekt redizajna i digitalne transformacije brenda za Cvjećarnu Eukaliptus uključivao je stvaranje nove vizualne strategije, modernog web dizajna i digitalnog identiteta. Ljepotu cvijeća prenijeli smo u digitalni svijet s toplim tonovima, organskim rasporedom i besprijekornim e-commerce iskustvom.",euk_ins_h:"Pretvaranje ljepote u piksele.",euk_ins_p:"Cvjećarna prodaje emocije, ne samo proizvode. Svaki element dizajniran je da evocira toplinu i prirodnu ljepotu ručno izrađenih aranžmana — od palete boja inspirirane lišćem eukaliptusa do glatkog, intuitivnog iskustva kupovine koje posjetitelje pretvara u vjerne kupce.",back_link:"&larr; Povratak na sve projekte"},
+  de:{menu_home:"Startseite",menu_services:"Leistungen",menu_work:"Projekte",menu_blog:"Blog",menu_contact:"Kontakt",menu_btn:"MENÜ",euk_client:"Cvjećarna Eukaliptus",euk_title:"Digitale Markentransformation",euk_tagline:"Modernes und elegantes Webdesign, das Ästhetik, Wärme und Natur vereint.",euk_desc_h:"Wo Natur auf Digital trifft.",euk_desc_p:"Das Redesign und die digitale Markentransformation für Cvjećarna Eukaliptus umfasste die Entwicklung einer neuen visuellen Strategie, modernem Webdesign und digitaler Identität. Wir haben die Schönheit der Blumen mit warmen Tönen, organischen Layouts und einem nahtlosen E-Commerce-Erlebnis in die digitale Welt gebracht.",euk_ins_h:"Schönheit in Pixel übersetzen.",euk_ins_p:"Ein Blumenladen verkauft Emotionen, nicht nur Produkte. Jedes Element wurde gestaltet, um die Wärme und natürliche Schönheit handgefertigter Arrangements zu wecken — von der Farbpalette inspiriert von Eukalyptusblättern bis hin zum reibungslosen, intuitiven Einkaufserlebnis, das Besucher zu treuen Kunden macht.",back_link:"&larr; Zurück zu allen Projekten"},
+  es:{menu_home:"Inicio",menu_services:"Servicios",menu_work:"Trabajo",menu_blog:"Blog",menu_contact:"Contacto",menu_btn:"MENÚ",euk_client:"Cvjećarna Eukaliptus",euk_title:"Transformación digital de marca",euk_tagline:"Diseño web moderno y elegante que combina estética, calidez y naturaleza.",euk_desc_h:"Donde la naturaleza se encuentra con lo digital.",euk_desc_p:"El proyecto de rediseño y transformación digital de marca para Cvjećarna Eukaliptus incluyó la creación de una nueva estrategia visual, diseño web moderno e identidad digital. Llevamos la belleza de las flores al mundo digital con tonos cálidos, diseños orgánicos y una experiencia de comercio electrónico impecable.",euk_ins_h:"Traducir la belleza en píxeles.",euk_ins_p:"Una floristería vende emociones, no solo productos. Diseñamos cada elemento para evocar la calidez y belleza natural de los arreglos artesanales — desde la paleta de colores inspirada en hojas de eucalipto hasta la experiencia de compra fluida e intuitiva que convierte visitantes en clientes fieles.",back_link:"&larr; Volver a todos los proyectos"}
+};
+function setLang(lang){sessionStorage.setItem('lang_set',lang);document.querySelectorAll('.lang-btn').forEach(b=>b.classList.remove('active'));const lb=document.getElementById('btn-'+lang);if(lb)lb.classList.add('active');document.documentElement.lang=lang;document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.getAttribute('data-i18n');if(translations[lang]&&translations[lang][k])el.innerHTML=translations[lang][k];});}
+(function(){const s=sessionStorage.getItem('lang_set');if(s){setLang(s);return;}fetch('https://ipapi.co/json/').then(r=>r.json()).then(d=>{const cc=(d.country_code||'').toUpperCase();let l='en';if(['DE','AT','CH'].includes(cc))l='de';else if(['HR','BA','RS','ME','MK','SI','BG','XK'].includes(cc))l='hr';else if(cc==='ES')l='es';setLang(l);}).catch(()=>setLang('en'));})();
 </script>
 </body>
 </html>

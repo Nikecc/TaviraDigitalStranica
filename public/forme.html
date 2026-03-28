@@ -115,7 +115,7 @@ a{text-decoration:none;color:inherit;}
 
 <button class="floating-menu-btn" id="menuBtn">
   <span class="menu-lines"></span>
-  <span>MENU</span>
+  <span data-i18n="menu_btn">MENU</span>
 </button>
 
 <div class="menu-overlay" id="menuOverlay"></div>
@@ -123,9 +123,9 @@ a{text-decoration:none;color:inherit;}
 <aside class="side-menu" id="sideMenu">
   <button class="close-menu" id="closeMenu">&#10005;</button>
   <nav class="side-nav">
-    <a href="index.html">Home</a>
-    <a href="services.html">Services</a>
-    <button class="nav-dropdown-toggle" id="projDropToggle"><span>Work</span><svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg></button>
+    <a href="index.html" data-i18n="menu_home">Home</a>
+    <a href="services.html" data-i18n="menu_services">Services</a>
+    <button class="nav-dropdown-toggle" id="projDropToggle"><span data-i18n="menu_work">Work</span><svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg></button>
     <div class="nav-dropdown" id="projDropdown">
       <a href="samsung.html">Samsung Galaxy Heroes</a>
       <a href="villa-neoma.html">Villa Neoma</a>
@@ -140,29 +140,29 @@ a{text-decoration:none;color:inherit;}
       <a href="festivo.html">Festivo</a>
       <a href="picek-na-vrata.html">Pićek na Vrata</a>
     </div>
-    <a href="blog.html">Blog</a>
-    <a href="kontakt.html">Contact</a>
+    <a href="blog.html" data-i18n="menu_blog">Blog</a>
+    <a href="kontakt.html" data-i18n="menu_contact">Contact</a>
   </nav>
   <div class="lang-switcher">
-    <button class="lang-btn active" id="btn-en">EN</button>
-    <button class="lang-btn" id="btn-hr">HR</button>
-    <button class="lang-btn" id="btn-de">DE</button>
-    <button class="lang-btn" id="btn-es">ES</button>
+    <button onclick="setLang('en')" class="lang-btn active" id="btn-en">EN</button>
+    <button onclick="setLang('hr')" class="lang-btn" id="btn-hr">HR</button>
+    <button onclick="setLang('de')" class="lang-btn" id="btn-de">DE</button>
+    <button onclick="setLang('es')" class="lang-btn" id="btn-es">ES</button>
   </div>
 </aside>
 
 <!-- HERO -->
 <section class="hero fade-up">
-  <div class="hero-client">Formè Pilates Studio</div>
-  <h1>Elegant Studio Web Presentation</h1>
-  <p class="hero-tagline">Minimalist design reflecting balance, wellness, and premium movement.</p>
+  <div class="hero-client" data-i18n="for_client">Formè Pilates Studio</div>
+  <h1 data-i18n="for_title">Elegant Studio Web Presentation</h1>
+  <p class="hero-tagline" data-i18n="for_tagline">Minimalist design reflecting balance, wellness, and premium movement.</p>
   <img src="assets/Portfolio/Forme1.png" alt="Formè Pilates Studio hero" class="hero-img" />
 </section>
 
 <!-- DESCRIPTION -->
 <section class="description fade-up">
-  <h2>Where movement meets elegance.</h2>
-  <p>Formè Pilates Studio required a web presence that embodied the calm precision of reformer pilates. We designed a minimalist, elegant platform that communicates professionalism and wellness — with smooth animations, muted tones, and a seamless class booking experience.</p>
+  <h2 data-i18n="for_desc_h">Where movement meets elegance.</h2>
+  <p data-i18n="for_desc_p">Formè Pilates Studio required a web presence that embodied the calm precision of reformer pilates. We designed a minimalist, elegant platform that communicates professionalism and wellness — with smooth animations, muted tones, and a seamless class booking experience.</p>
 </section>
 
 <!-- CAROUSEL -->
@@ -187,8 +187,8 @@ a{text-decoration:none;color:inherit;}
     <img src="assets/Portfolio/Forme5.png" alt="Formè insight" />
   </div>
   <div class="insight-text">
-    <h2>Designing for stillness and precision.</h2>
-    <p>Pilates is about controlled movement and inner focus. The website mirrors this philosophy through clean lines, intentional whitespace, and flowing micro-interactions that guide users naturally toward booking their first session.</p>
+    <h2 data-i18n="for_ins_h">Designing for stillness and precision.</h2>
+    <p data-i18n="for_ins_p">Pilates is about controlled movement and inner focus. The website mirrors this philosophy through clean lines, intentional whitespace, and flowing micro-interactions that guide users naturally toward booking their first session.</p>
   </div>
 </section>
 
@@ -199,7 +199,7 @@ a{text-decoration:none;color:inherit;}
 </section>
 
 <!-- BACK -->
-<a href="index.html#work" class="back-link">&larr; Back to all projects</a>
+<a href="index.html#work" class="back-link" data-i18n="back_link">&larr; Back to all projects</a>
 
 <script>
 /* Page transition */
@@ -226,6 +226,15 @@ document.getElementById('projDropToggle').addEventListener('click',function(){th
 /* Fade */
 const obs=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:0.15});
 document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));
+
+const translations={
+  en:{menu_home:"Home",menu_services:"Services",menu_work:"Work",menu_blog:"Blog",menu_contact:"Contact",menu_btn:"MENU",for_client:"Formè Pilates Studio",for_title:"Elegant Studio Web Presentation",for_tagline:"Minimalist design reflecting balance, wellness, and premium movement.",for_desc_h:"Where movement meets elegance.",for_desc_p:"Formè Pilates Studio required a web presence that embodied the calm precision of reformer pilates. We designed a minimalist, elegant platform that communicates professionalism and wellness — with smooth animations, muted tones, and a seamless class booking experience.",for_ins_h:"Designing for stillness and precision.",for_ins_p:"Pilates is about controlled movement and inner focus. The website mirrors this philosophy through clean lines, intentional whitespace, and flowing micro-interactions that guide users naturally toward booking their first session.",back_link:"&larr; Back to all projects"},
+  hr:{menu_home:"Početna",menu_services:"Usluge",menu_work:"Projekti",menu_blog:"Blog",menu_contact:"Kontakt",menu_btn:"IZBORNIK",for_client:"Formè Pilates Studio",for_title:"Elegantna web prezentacija studija",for_tagline:"Minimalistički dizajn koji odražava ravnotežu, wellness i premium pokret.",for_desc_h:"Gdje pokret susreće eleganciju.",for_desc_p:"Formè Pilates Studio trebao je web prisutnost koja utjelovljuje mirnu preciznost reformer pilatesa. Dizajnirali smo minimalističku, elegantnu platformu koja komunicira profesionalnost i wellness — s glatkim animacijama, prigušenim tonovima i besprijekornim iskustvom rezervacije termina.",for_ins_h:"Dizajn za mirnoću i preciznost.",for_ins_p:"Pilates je kontrolirani pokret i unutarnji fokus. Web stranica odražava tu filozofiju kroz čiste linije, namjerni bijeli prostor i tečne mikrointerakcije koje prirodno vode korisnike prema rezervaciji prvog termina.",back_link:"&larr; Povratak na sve projekte"},
+  de:{menu_home:"Startseite",menu_services:"Leistungen",menu_work:"Projekte",menu_blog:"Blog",menu_contact:"Kontakt",menu_btn:"MENÜ",for_client:"Formè Pilates Studio",for_title:"Elegante Studio-Webpräsentation",for_tagline:"Minimalistisches Design, das Balance, Wellness und Premium-Bewegung widerspiegelt.",for_desc_h:"Wo Bewegung auf Eleganz trifft.",for_desc_p:"Formè Pilates Studio brauchte eine Webpräsenz, die die ruhige Präzision von Reformer-Pilates verkörpert. Wir gestalteten eine minimalistische, elegante Plattform, die Professionalität und Wellness kommuniziert — mit sanften Animationen, gedämpften Tönen und einem nahtlosen Buchungserlebnis.",for_ins_h:"Design für Stille und Präzision.",for_ins_p:"Pilates bedeutet kontrollierte Bewegung und innerer Fokus. Die Website spiegelt diese Philosophie wider durch klare Linien, bewussten Weißraum und fließende Mikrointeraktionen, die Nutzer natürlich zur Buchung ihrer ersten Stunde führen.",back_link:"&larr; Zurück zu allen Projekten"},
+  es:{menu_home:"Inicio",menu_services:"Servicios",menu_work:"Trabajo",menu_blog:"Blog",menu_contact:"Contacto",menu_btn:"MENÚ",for_client:"Formè Pilates Studio",for_title:"Presentación web elegante del estudio",for_tagline:"Diseño minimalista que refleja equilibrio, bienestar y movimiento premium.",for_desc_h:"Donde el movimiento se encuentra con la elegancia.",for_desc_p:"Formè Pilates Studio necesitaba una presencia web que encarnara la calma y precisión del pilates reformer. Diseñamos una plataforma minimalista y elegante que comunica profesionalismo y bienestar — con animaciones suaves, tonos sobrios y una experiencia de reserva impecable.",for_ins_h:"Diseñar para la quietud y la precisión.",for_ins_p:"Pilates es movimiento controlado y enfoque interior. El sitio web refleja esta filosofía a través de líneas limpias, espacio en blanco intencional y microinteracciones fluidas que guían naturalmente a los usuarios hacia la reserva de su primera sesión.",back_link:"&larr; Volver a todos los proyectos"}
+};
+function setLang(lang){sessionStorage.setItem('lang_set',lang);document.querySelectorAll('.lang-btn').forEach(b=>b.classList.remove('active'));const lb=document.getElementById('btn-'+lang);if(lb)lb.classList.add('active');document.documentElement.lang=lang;document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.getAttribute('data-i18n');if(translations[lang]&&translations[lang][k])el.innerHTML=translations[lang][k];});}
+(function(){const s=sessionStorage.getItem('lang_set');if(s){setLang(s);return;}fetch('https://ipapi.co/json/').then(r=>r.json()).then(d=>{const cc=(d.country_code||'').toUpperCase();let l='en';if(['DE','AT','CH'].includes(cc))l='de';else if(['HR','BA','RS','ME','MK','SI','BG','XK'].includes(cc))l='hr';else if(cc==='ES')l='es';setLang(l);}).catch(()=>setLang('en'));})();
 </script>
 </body>
 </html>

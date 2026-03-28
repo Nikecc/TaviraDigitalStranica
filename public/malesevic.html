@@ -102,7 +102,7 @@ a{text-decoration:none;color:inherit;}
 
 <button class="floating-menu-btn" id="menuBtn">
   <span class="menu-lines"></span>
-  <span>MENU</span>
+  <span data-i18n="menu_btn">MENU</span>
 </button>
 
 <div class="menu-overlay" id="menuOverlay"></div>
@@ -110,9 +110,9 @@ a{text-decoration:none;color:inherit;}
 <aside class="side-menu" id="sideMenu">
   <button class="close-menu" id="closeMenu">&#10005;</button>
   <nav class="side-nav">
-    <a href="index.html">Home</a>
-    <a href="services.html">Services</a>
-    <button class="nav-dropdown-toggle" id="projDropToggle"><span>Work</span><svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg></button>
+    <a href="index.html" data-i18n="menu_home">Home</a>
+    <a href="services.html" data-i18n="menu_services">Services</a>
+    <button class="nav-dropdown-toggle" id="projDropToggle"><span data-i18n="menu_work">Work</span><svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg></button>
     <div class="nav-dropdown" id="projDropdown">
       <a href="samsung.html">Samsung Galaxy Heroes</a>
       <a href="villa-neoma.html">Villa Neoma</a>
@@ -127,27 +127,27 @@ a{text-decoration:none;color:inherit;}
       <a href="festivo.html">Festivo</a>
       <a href="picek-na-vrata.html">Pićek na Vrata</a>
     </div>
-    <a href="blog.html">Blog</a>
-    <a href="kontakt.html">Contact</a>
+    <a href="blog.html" data-i18n="menu_blog">Blog</a>
+    <a href="kontakt.html" data-i18n="menu_contact">Contact</a>
   </nav>
   <div class="lang-switcher">
-    <button class="lang-btn active" id="btn-en">EN</button>
-    <button class="lang-btn" id="btn-hr">HR</button>
-    <button class="lang-btn" id="btn-de">DE</button>
-    <button class="lang-btn" id="btn-es">ES</button>
+    <button onclick="setLang('en')" class="lang-btn active" id="btn-en">EN</button>
+    <button onclick="setLang('hr')" class="lang-btn" id="btn-hr">HR</button>
+    <button onclick="setLang('de')" class="lang-btn" id="btn-de">DE</button>
+    <button onclick="setLang('es')" class="lang-btn" id="btn-es">ES</button>
   </div>
 </aside>
 
 <section class="hero fade-up">
-  <div class="hero-client">Malešević Auto Servis</div>
-  <h1>Professional Auto Service Website</h1>
-  <p class="hero-tagline">A digital presence that builds trust and drives appointments.</p>
+  <div class="hero-client" data-i18n="mal_client">Malešević Auto Servis</div>
+  <h1 data-i18n="mal_title">Professional Auto Service Website</h1>
+  <p class="hero-tagline" data-i18n="mal_tagline">A digital presence that builds trust and drives appointments.</p>
   <img src="assets/Portfolio/AutomehanicarMalesevic/Screenshot 2026-03-14 at 11.41.05.png" alt="Malešević Auto Servis hero" class="hero-img" />
 </section>
 
 <section class="description fade-up">
-  <h2>Trust starts online.</h2>
-  <p>For Malešević Auto Servis, we created a professional web presence that clearly communicates reliability and expertise. The site features transparent service listings, straightforward pricing, and easy contact options — everything a car owner needs to feel confident choosing their mechanic.</p>
+  <h2 data-i18n="mal_desc_h">Trust starts online.</h2>
+  <p data-i18n="mal_desc_p">For Malešević Auto Servis, we created a professional web presence that clearly communicates reliability and expertise. The site features transparent service listings, straightforward pricing, and easy contact options — everything a car owner needs to feel confident choosing their mechanic.</p>
 </section>
 
 <section class="carousel-section fade-up">
@@ -170,8 +170,8 @@ a{text-decoration:none;color:inherit;}
     <img src="assets/Portfolio/AutomehanicarMalesevic/Screenshot 2026-03-14 at 11.41.31.png" alt="Malešević insight" />
   </div>
   <div class="insight-text">
-    <h2>Clarity over complexity.</h2>
-    <p>Car owners want quick answers: what services are available, how much do they cost, and how to book. We stripped away unnecessary complexity and built a straightforward, mobile-optimized experience that puts essential information front and center.</p>
+    <h2 data-i18n="mal_ins_h">Clarity over complexity.</h2>
+    <p data-i18n="mal_ins_p">Car owners want quick answers: what services are available, how much do they cost, and how to book. We stripped away unnecessary complexity and built a straightforward, mobile-optimized experience that puts essential information front and center.</p>
   </div>
 </section>
 
@@ -179,7 +179,7 @@ a{text-decoration:none;color:inherit;}
   <img src="assets/Portfolio/AutomehanicarMalesevic/Screenshot 2026-03-14 at 11.41.35.png" alt="Malešević detail" style="width:100%;" />
 </section>
 
-<a href="index.html#work" class="back-link">&larr; Back to all projects</a>
+<a href="index.html#work" class="back-link" data-i18n="back_link">&larr; Back to all projects</a>
 
 <script>
 window.addEventListener('DOMContentLoaded',()=>{const o=document.querySelector('.page-transition-overlay');if(!o)return;if(sessionStorage.getItem('pageTransition')){sessionStorage.removeItem('pageTransition');requestAnimationFrame(()=>{requestAnimationFrame(()=>{o.classList.add('hidden');});});}else{o.style.transition='none';o.classList.add('hidden');requestAnimationFrame(()=>{o.style.transition='';});}});
@@ -202,6 +202,21 @@ document.getElementById('projDropToggle').addEventListener('click',function(){th
 
 const obs=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:0.15});
 document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));
+
+const translations={
+  en:{menu_home:"Home",menu_services:"Services",menu_work:"Work",menu_blog:"Blog",menu_contact:"Contact",menu_btn:"MENU",mal_client:"Malešević Auto Servis",mal_title:"Professional Auto Service Website",mal_tagline:"A digital presence that builds trust and drives appointments.",mal_desc_h:"Trust starts online.",mal_desc_p:"For Malešević Auto Servis, we created a professional web presence that clearly communicates reliability and expertise. The site features transparent service listings, straightforward pricing, and easy contact options — everything a car owner needs to feel confident choosing their mechanic.",mal_ins_h:"Clarity over complexity.",mal_ins_p:"Car owners want quick answers: what services are available, how much do they cost, and how to book. We stripped away unnecessary complexity and built a straightforward, mobile-optimized experience that puts essential information front and center.",back_link:"&larr; Back to all projects"},
+  hr:{menu_home:"Početna",menu_services:"Usluge",menu_work:"Projekti",menu_blog:"Blog",menu_contact:"Kontakt",menu_btn:"IZBORNIK",mal_client:"Malešević Auto Servis",mal_title:"Profesionalna web stranica za auto servis",mal_tagline:"Digitalna prisutnost koja gradi povjerenje i privlači klijente.",mal_desc_h:"Povjerenje počinje online.",mal_desc_p:"Za Malešević Auto Servis kreirali smo profesionalnu web prisutnost koja jasno komunicira pouzdanost i stručnost. Stranica sadrži transparentan prikaz usluga, jasan cjenik i jednostavne opcije kontakta — sve što vlasnik automobila treba da se s povjerenjem odluči za svog mehaničara.",mal_ins_h:"Jasnoća ispred kompleksnosti.",mal_ins_p:"Vlasnici automobila žele brze odgovore: koje su usluge dostupne, koliko koštaju i kako rezervirati termin. Uklonili smo nepotrebnu složenost i izgradili jednostavno, mobilno optimizirano iskustvo koje stavlja bitne informacije u prvi plan.",back_link:"&larr; Povratak na sve projekte"},
+  de:{menu_home:"Startseite",menu_services:"Leistungen",menu_work:"Projekte",menu_blog:"Blog",menu_contact:"Kontakt",menu_btn:"MENÜ",mal_client:"Malešević Auto Servis",mal_title:"Professionelle Autowerkstatt-Website",mal_tagline:"Eine digitale Präsenz, die Vertrauen aufbaut und Termine generiert.",mal_desc_h:"Vertrauen beginnt online.",mal_desc_p:"Für Malešević Auto Servis haben wir eine professionelle Web-Präsenz geschaffen, die Zuverlässigkeit und Kompetenz klar kommuniziert. Die Website bietet transparente Servicelisten, klare Preise und einfache Kontaktmöglichkeiten — alles, was ein Autobesitzer braucht, um sich sicher für seinen Mechaniker zu entscheiden.",mal_ins_h:"Klarheit statt Komplexität.",mal_ins_p:"Autobesitzer wollen schnelle Antworten: Welche Services gibt es, was kosten sie und wie bucht man einen Termin. Wir haben unnötige Komplexität entfernt und ein unkompliziertes, mobiloptimiertes Erlebnis geschaffen, das wesentliche Informationen in den Vordergrund stellt.",back_link:"&larr; Zurück zu allen Projekten"},
+  es:{menu_home:"Inicio",menu_services:"Servicios",menu_work:"Trabajo",menu_blog:"Blog",menu_contact:"Contacto",menu_btn:"MENÚ",mal_client:"Malešević Auto Servis",mal_title:"Sitio web profesional de taller mecánico",mal_tagline:"Una presencia digital que genera confianza y atrae clientes.",mal_desc_h:"La confianza empieza online.",mal_desc_p:"Para Malešević Auto Servis, creamos una presencia web profesional que comunica claramente fiabilidad y experiencia. El sitio presenta listados de servicios transparentes, precios claros y opciones de contacto sencillas — todo lo que un propietario de automóvil necesita para elegir a su mecánico con confianza.",mal_ins_h:"Claridad sobre complejidad.",mal_ins_p:"Los propietarios de automóviles quieren respuestas rápidas: qué servicios hay disponibles, cuánto cuestan y cómo reservar. Eliminamos la complejidad innecesaria y construimos una experiencia directa y optimizada para móvil que pone la información esencial en primer plano.",back_link:"&larr; Volver a todos los proyectos"}
+};
+function setLang(lang){
+  sessionStorage.setItem('lang_set',lang);
+  document.querySelectorAll('.lang-btn').forEach(b=>b.classList.remove('active'));
+  const lb=document.getElementById('btn-'+lang);if(lb)lb.classList.add('active');
+  document.documentElement.lang=lang;
+  document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.getAttribute('data-i18n');if(translations[lang]&&translations[lang][k])el.innerHTML=translations[lang][k];});
+}
+(function(){const s=sessionStorage.getItem('lang_set');if(s){setLang(s);return;}fetch('https://ipapi.co/json/').then(r=>r.json()).then(d=>{const cc=(d.country_code||'').toUpperCase();let l='en';if(['DE','AT','CH'].includes(cc))l='de';else if(['HR','BA','RS','ME','MK','SI','BG','XK'].includes(cc))l='hr';else if(cc==='ES')l='es';setLang(l);}).catch(()=>setLang('en'));})();
 </script>
 </body>
 </html>

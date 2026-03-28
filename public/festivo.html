@@ -108,7 +108,7 @@ a{text-decoration:none;color:inherit;}
 
 <button class="floating-menu-btn" id="menuBtn">
   <span class="menu-lines"></span>
-  <span>MENU</span>
+  <span data-i18n="menu_btn">MENU</span>
 </button>
 
 <div class="menu-overlay" id="menuOverlay"></div>
@@ -116,9 +116,9 @@ a{text-decoration:none;color:inherit;}
 <aside class="side-menu" id="sideMenu">
   <button class="close-menu" id="closeMenu">&#10005;</button>
   <nav class="side-nav">
-    <a href="index.html">Home</a>
-    <a href="services.html">Services</a>
-    <button class="nav-dropdown-toggle" id="projDropToggle"><span>Work</span><svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg></button>
+    <a href="index.html" data-i18n="menu_home">Home</a>
+    <a href="services.html" data-i18n="menu_services">Services</a>
+    <button class="nav-dropdown-toggle" id="projDropToggle"><span data-i18n="menu_work">Work</span><svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg></button>
     <div class="nav-dropdown" id="projDropdown">
       <a href="samsung.html">Samsung Galaxy Heroes</a>
       <a href="villa-neoma.html">Villa Neoma</a>
@@ -133,27 +133,27 @@ a{text-decoration:none;color:inherit;}
       <a href="festivo.html">Festivo</a>
       <a href="picek-na-vrata.html">Pićek na Vrata</a>
     </div>
-    <a href="blog.html">Blog</a>
-    <a href="kontakt.html">Contact</a>
+    <a href="blog.html" data-i18n="menu_blog">Blog</a>
+    <a href="kontakt.html" data-i18n="menu_contact">Contact</a>
   </nav>
   <div class="lang-switcher">
-    <button class="lang-btn active" id="btn-en">EN</button>
-    <button class="lang-btn" id="btn-hr">HR</button>
-    <button class="lang-btn" id="btn-de">DE</button>
-    <button class="lang-btn" id="btn-es">ES</button>
+    <button onclick="setLang('en')" class="lang-btn active" id="btn-en">EN</button>
+    <button onclick="setLang('hr')" class="lang-btn" id="btn-hr">HR</button>
+    <button onclick="setLang('de')" class="lang-btn" id="btn-de">DE</button>
+    <button onclick="setLang('es')" class="lang-btn" id="btn-es">ES</button>
   </div>
 </aside>
 
 <section class="hero fade-up">
-  <div class="hero-client">Festivo</div>
-  <h1>Event Planning Reimagined</h1>
-  <p class="hero-tagline">A vibrant platform that makes every celebration unforgettable.</p>
+  <div class="hero-client" data-i18n="fes_client">Festivo</div>
+  <h1 data-i18n="fes_title">Event Planning Reimagined</h1>
+  <p class="hero-tagline" data-i18n="fes_tagline">A vibrant platform that makes every celebration unforgettable.</p>
   <img src="assets/Portfolio/Festivo/Screenshot 2026-03-26 at 15.30.10.png" alt="Festivo hero" class="hero-img" />
 </section>
 
 <section class="description fade-up">
-  <h2>Where moments become memories.</h2>
-  <p>Festivo needed a digital platform as exciting as the events they create. We built a vibrant, user-friendly experience with intuitive event browsing, seamless booking, and a visual design that captures the joy and energy of celebration — from intimate gatherings to grand festivities.</p>
+  <h2 data-i18n="fes_desc_h">Where moments become memories.</h2>
+  <p data-i18n="fes_desc_p">Festivo needed a digital platform as exciting as the events they create. We built a vibrant, user-friendly experience with intuitive event browsing, seamless booking, and a visual design that captures the joy and energy of celebration — from intimate gatherings to grand festivities.</p>
 </section>
 
 <section class="carousel-section fade-up">
@@ -176,8 +176,8 @@ a{text-decoration:none;color:inherit;}
     <img src="assets/Portfolio/Festivo/Screenshot 2026-03-26 at 15.30.41.png" alt="Festivo insight" />
   </div>
   <div class="insight-text">
-    <h2>Designing for delight.</h2>
-    <p>Event planning is about creating moments of joy. The website mirrors this philosophy with warm colors, playful interactions, and a booking flow so smooth it feels effortless — because planning a celebration should be as enjoyable as the event itself.</p>
+    <h2 data-i18n="fes_ins_h">Designing for delight.</h2>
+    <p data-i18n="fes_ins_p">Event planning is about creating moments of joy. The website mirrors this philosophy with warm colors, playful interactions, and a booking flow so smooth it feels effortless — because planning a celebration should be as enjoyable as the event itself.</p>
   </div>
 </section>
 
@@ -190,7 +190,7 @@ a{text-decoration:none;color:inherit;}
   <img src="assets/Portfolio/Festivo/Screenshot 2026-03-26 at 15.31.07.png" alt="Festivo gallery 1" />
 </section>
 
-<a href="index.html#work" class="back-link">&larr; Back to all projects</a>
+<a href="index.html#work" class="back-link" data-i18n="back_link">&larr; Back to all projects</a>
 
 <script>
 window.addEventListener('DOMContentLoaded',()=>{const o=document.querySelector('.page-transition-overlay');if(!o)return;if(sessionStorage.getItem('pageTransition')){sessionStorage.removeItem('pageTransition');requestAnimationFrame(()=>{requestAnimationFrame(()=>{o.classList.add('hidden');});});}else{o.style.transition='none';o.classList.add('hidden');requestAnimationFrame(()=>{o.style.transition='';});}});
@@ -213,6 +213,10 @@ document.getElementById('projDropToggle').addEventListener('click',function(){th
 
 const obs=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:0.15});
 document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));
+
+const translations={en:{menu_btn:'MENU',menu_home:'Home',menu_services:'Services',menu_work:'Work',menu_blog:'Blog',menu_contact:'Contact',fes_client:'Festivo',fes_title:'Event Planning Reimagined',fes_tagline:'A vibrant platform that makes every celebration unforgettable.',fes_desc_h:'Where moments become memories.',fes_desc_p:'Festivo needed a digital platform as exciting as the events they create. We built a vibrant, user-friendly experience with intuitive event browsing, seamless booking, and a visual design that captures the joy and energy of celebration — from intimate gatherings to grand festivities.',fes_ins_h:'Designing for delight.',fes_ins_p:'Event planning is about creating moments of joy. The website mirrors this philosophy with warm colors, playful interactions, and a booking flow so smooth it feels effortless — because planning a celebration should be as enjoyable as the event itself.',back_link:'&larr; Back to all projects'},hr:{menu_btn:'IZBORNIK',menu_home:'Početna',menu_services:'Usluge',menu_work:'Radovi',menu_blog:'Blog',menu_contact:'Kontakt',fes_client:'Festivo',fes_title:'Planiranje evenata iz snova',fes_tagline:'Živahna platforma koja svaku proslavu čini nezaboravnom.',fes_desc_h:'Gdje trenutci postaju uspomene.',fes_desc_p:'Festivo je trebao digitalnu platformu uzbudljivu poput evenata koje stvara. Izgradili smo živahno, korisničko iskustvo s intuitivnim pregledavanjem evenata, besprijekornim rezervacijama i vizualnim dizajnom koji hvata radost i energiju slavlja.',fes_ins_h:'Dizajn za oduševljenje.',fes_ins_p:'Planiranje evenata je stvaranje trenutaka radosti. Web stranica odražava tu filozofiju toplim bojama, razigranim interakcijama i tokom rezervacije tako glatkim da je bez napora — jer planiranje proslave treba biti jednako ugodno kao i sam event.',back_link:'&larr; Natrag na sve projekte'},de:{menu_btn:'MENÜ',menu_home:'Startseite',menu_services:'Leistungen',menu_work:'Arbeiten',menu_blog:'Blog',menu_contact:'Kontakt',fes_client:'Festivo',fes_title:'Eventplanung neu gedacht',fes_tagline:'Eine lebhafte Plattform, die jede Feier unvergesslich macht.',fes_desc_h:'Wo Momente zu Erinnerungen werden.',fes_desc_p:'Festivo brauchte eine digitale Plattform, die so aufregend ist wie die Events, die sie kreiert. Wir haben ein lebhaftes, benutzerfreundliches Erlebnis mit intuitiver Eventsuche, nahtloser Buchung und einem visuellen Design gebaut, das Freude und Energie einfängt.',fes_ins_h:'Design für Begeisterung.',fes_ins_p:'Eventplanung bedeutet, Momente der Freude zu schaffen. Die Website spiegelt diese Philosophie mit warmen Farben, spielerischen Interaktionen und einem reibungslosen Buchungsablauf wider.',back_link:'&larr; Zurück zu allen Projekten'},es:{menu_btn:'MENÚ',menu_home:'Inicio',menu_services:'Servicios',menu_work:'Trabajos',menu_blog:'Blog',menu_contact:'Contacto',fes_client:'Festivo',fes_title:'Planificación de eventos reimaginada',fes_tagline:'Una plataforma vibrante que hace cada celebración inolvidable.',fes_desc_h:'Donde los momentos se convierten en recuerdos.',fes_desc_p:'Festivo necesitaba una plataforma digital tan emocionante como los eventos que crea. Construimos una experiencia vibrante y fácil de usar con búsqueda intuitiva de eventos, reservas fluidas y un diseño visual que captura la alegría y energía de la celebración.',fes_ins_h:'Diseñar para el deleite.',fes_ins_p:'La planificación de eventos es crear momentos de alegría. El sitio web refleja esta filosofía con colores cálidos, interacciones lúdicas y un flujo de reserva tan suave que se siente sin esfuerzo.',back_link:'&larr; Volver a todos los proyectos'}};
+function setLang(lang){sessionStorage.setItem('lang_set',lang);document.querySelectorAll('.lang-btn').forEach(b=>b.classList.remove('active'));const lb=document.getElementById('btn-'+lang);if(lb)lb.classList.add('active');document.documentElement.lang=lang;document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.getAttribute('data-i18n');if(translations[lang]&&translations[lang][k])el.innerHTML=translations[lang][k];});}
+(function(){const s=sessionStorage.getItem('lang_set');if(s){setLang(s);return;}fetch('https://ipapi.co/json/').then(r=>r.json()).then(d=>{const cc=(d.country_code||'').toUpperCase();let l='en';if(['DE','AT','CH'].includes(cc))l='de';else if(['HR','BA','RS','ME','MK','SI','BG','XK'].includes(cc))l='hr';else if(cc==='ES')l='es';setLang(l);}).catch(()=>setLang('en'));})();
 </script>
 </body>
 </html>
